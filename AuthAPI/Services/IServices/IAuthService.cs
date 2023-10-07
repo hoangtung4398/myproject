@@ -6,5 +6,6 @@ namespace AuthAPI.Services.IServices
     {
         Task<string> Register (RegisterationRequest request);
         Task<LoginResponse> Login (LoginRequest request);
+        Task<bool> AssignRole(string email,string roleName);
     }
 }
