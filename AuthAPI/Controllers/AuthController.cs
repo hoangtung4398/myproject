@@ -49,6 +49,7 @@ namespace AuthAPI.Controllers
         public async Task<IActionResult> AssginRole([FromBody] RegisterationRequest request)
         {
             var assignRoleisSuccess = await _AuthService.AssignRole(request.Email, request.RoleName.ToUpper());
+
             if (!assignRoleisSuccess)
             {
                 _responseDto.Success = false;
