@@ -23,9 +23,15 @@ namespace Mango.Web.Service
             });
         }
 
-        public async Task<ResponseDto> DeleteCouponAsync(int couponId)
+        public async Task<ResponseDto> DeleteCouponAsync(Coupon coupon)
         {
-            throw new NotImplementedException();
+            return await _BaseService.SendAsync(new Requestmsg()
+            {
+                ApiType = Utility.SD.ApiType.DELETE,
+                Data = coupon,
+                Url = SD.CouponAPIbase + "/api/Coupon/Delete"
+
+            });
         }
 
         public async Task<ResponseDto> GetAllCouponAsync()
