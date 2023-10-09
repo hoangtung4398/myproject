@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        },
+        {
+            "name": "C#: CouponAPI [Default Configuration]",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}\\CouponAPI\\CouponAPI.csproj"
+        }
+    ]
+}

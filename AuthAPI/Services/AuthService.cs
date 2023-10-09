@@ -48,7 +48,7 @@ namespace AuthAPI.Services
                 return new LoginResponse() { User = null, Token = "" };
             }
             var token = _jwtTokenGenerator.GenerateToken(user);
-            UserInfo userInfo = new UserInfo()
+            UserDTO UserDTO = new UserDTO()
             {
                 Email = user.Email,
                 Id = user.Id,
@@ -56,7 +56,7 @@ namespace AuthAPI.Services
                 PhoneNumber = user.PhoneNumber
             };
 
-            return new LoginResponse() { User = userInfo, Token = token };
+            return new LoginResponse() { User = UserDTO, Token = token };
         }
 
         public async Task<string> Register(RegisterationRequest request)
@@ -74,7 +74,7 @@ namespace AuthAPI.Services
                 if (Register.Succeeded)
                 {
                     var result = _db.users.First(u => u.UserName == request.Email);
-                    UserInfo info = new UserInfo()
+                    UserDTO info = new UserDTO()
                     {
                         Email = result.Email,
                         Id = result.Id,
