@@ -1,11 +1,8 @@
 ﻿using CouponAPI.Models;
 using CouponAPI.Models.Data;
 using CouponAPI.Models.Dto;
-using CouponAPI.Repository;
 using CouponAPI.Repository.IRepository;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace CouponAPI.Controllers
 {
@@ -42,7 +39,7 @@ namespace CouponAPI.Controllers
         }
         [HttpPost]
         [Route("Create")]
-        public async Task<ResponseDto> Creat([FromBody]Coupon coupon)
+        public async Task<ResponseDto> Creat([FromBody] Coupon coupon)
         {
             try
             {
@@ -51,7 +48,7 @@ namespace CouponAPI.Controllers
                     CouponRepo.Add(coupon);
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 response.Success = false;
                 response.Message = ex.Message;
@@ -90,26 +87,26 @@ namespace CouponAPI.Controllers
             }
             catch (Exception ex)
             {
-                response.Success=false;
+                response.Success = false;
                 response.Message = ex.Message;
             }
             return response;
         }
         [HttpDelete]
         [Route("Delete")]
-        public async Task<ResponseDto> Delete (Coupon coupon)
+        public async Task<ResponseDto> Delete(Coupon coupon)
         {
             try
             {
-                
-                if (coupon!= null)
+
+                if (coupon != null)
                 {
                     CouponRepo.Delete(coupon);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                response.Success=false;
+                response.Success = false;
                 response.Message = ex.Message;
             }
             return response;

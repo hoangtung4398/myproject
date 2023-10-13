@@ -15,7 +15,7 @@ namespace Mango.Web.Service
         {
             return await _BaseService.SendAsync(new Requestmsg()
             {
-                ApiType = Utility.SD.ApiType.POST,
+                ApiType = SD.ApiType.POST,
                 Data = registerationRequest,
                 Url = SD.AuthAPIbase + "/AssginRole"
 
@@ -26,7 +26,7 @@ namespace Mango.Web.Service
         {
             return await _BaseService.SendAsync(new Requestmsg()
             {
-                ApiType = Utility.SD.ApiType.POST,
+                ApiType = SD.ApiType.POST,
                 Data = loginRequest,
                 Url = SD.AuthAPIbase + "/Login"
 

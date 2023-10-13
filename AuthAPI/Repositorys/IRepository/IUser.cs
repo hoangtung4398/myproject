@@ -2,8 +2,8 @@
 
 namespace AuthAPI.Repositorys.IRepository
 {
-    public interface IUser : IRepository<ApplicationUser> 
+    public interface IUser : IRepository<ApplicationUser>
     {
-        
+
     }
 }

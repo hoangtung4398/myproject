@@ -1,6 +1,5 @@
 ﻿using AuthAPI.Models;
 using AuthAPI.Services.IServices;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthAPI.Controllers
@@ -11,17 +10,17 @@ namespace AuthAPI.Controllers
     {
         public readonly IAuthService _AuthService;
         private ResponseDto _responseDto;
-        public AuthController (IAuthService authService)
+        public AuthController(IAuthService authService)
         {
             _AuthService = authService;
             _responseDto = new ResponseDto();
         }
         [HttpPost]
         [Route("/Register")]
-        public async Task<IActionResult> Register([FromBody]RegisterationRequest request)
+        public async Task<IActionResult> Register([FromBody] RegisterationRequest request)
         {
             var result = await _AuthService.Register(request);
-            if(!string.IsNullOrEmpty(result))
+            if (!string.IsNullOrEmpty(result))
             {
                 _responseDto.Success = false;
                 _responseDto.Message = result;
@@ -31,7 +30,7 @@ namespace AuthAPI.Controllers
         }
         [HttpPost]
         [Route("/Login")]
-        public async Task<IActionResult> Login([FromBody]LoginRequest request)
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             var loginResponse = await _AuthService.Login(request);
             if (loginResponse.User == null)
