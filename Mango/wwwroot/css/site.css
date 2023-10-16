@@ -20,3 +20,18 @@ html {
 body {
   margin-bottom: 60px;
 }
+a:is(:hover){
+    color:blueviolet
+}
+.form-control:focus {
+    
+    outline: none !important;
+    -webkit-box-shadow: inset 0 1px 1px white,0 0 8px white;
+    box-shadow: inset 0 1px 1px white,0 0 8px white;
+}
+.btn-login:is(:hover){
+    background-color: grey;
+}
+.dropdown-menu {
+    margin-left: 150px;
+}

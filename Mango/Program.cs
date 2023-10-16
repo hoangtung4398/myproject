@@ -12,7 +12,6 @@ SD.CouponAPIbase = builder.Configuration["ServiceUrls:CouponAPI"];
 SD.AuthAPIbase = builder.Configuration["ServiceUrls:AuthAPI"];
 builder.Services.AddHttpClient();
 builder.Services.AddHttpClient<ICouponService, CouponService>();
-builder.Services.AddHttpClient<IAuthService, AuthService>();
 
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<ICouponService, CouponService>();
