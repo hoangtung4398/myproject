@@ -20,6 +20,7 @@ namespace AuthAPI.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterationRequest request)
         {
             var result = await _AuthService.Register(request);
+            Boolean assignRoleisSuccess = await _AuthService.AssignRole(request.Email, request.RoleName.ToUpper());
             if (!string.IsNullOrEmpty(result))
             {
                 _responseDto.Success = false;
