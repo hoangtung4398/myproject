@@ -1,17 +1,15 @@
-﻿using CouponAPI.Models.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AuthAPI.Models.Data
 {
-    public class AppDbcontext :IdentityDbContext <ApplicationUser>
+    public class AppDbcontext : IdentityDbContext<ApplicationUser>
     {
-        public AppDbcontext(DbContextOptions<AppDbcontext> options): base(options) 
+        public AppDbcontext(DbContextOptions<AppDbcontext> options) : base(options)
         {
-            
+
         }
-        public DbSet<ApplicationUser> users {  get; set; }
+        public DbSet<ApplicationUser> users { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

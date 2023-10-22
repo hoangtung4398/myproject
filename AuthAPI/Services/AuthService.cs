@@ -22,32 +22,35 @@ namespace AuthAPI.Services
         public async Task<bool> AssignRole(string email, string roleName)
         {
             var user = _db.users.FirstOrDefault(u => u.Email == email);
-            if (user != null) {
-                if(!roleManager.RoleExistsAsync(roleName).Result)
+            if (user != null)
+            {
+                if (!roleManager.RoleExistsAsync(roleName).Result)
                 {
-                roleManager.CreateAsync(new IdentityRole(roleName)).GetAwaiter().GetResult();
+                    roleManager.CreateAsync(new IdentityRole(roleName.ToUpper())).GetAwaiter().GetResult();
                 }
                 await userManager.AddToRoleAsync(user, roleName);
                 return true;
             }
             return false;
 
-            
-            
+
+
 
         }
 
         public async Task<LoginResponse> Login(LoginRequest request)
         {
 
-            var user = _db.users.FirstOrDefault(u => u.UserName == request.Username);
+            var user = _db.users.FirstOrDefault(u => u.UserName.ToLower() == request.Username.ToLower());
             bool isVaild = await userManager.CheckPasswordAsync(user, request.Password);
 
             if (user == null || isVaild == false)
             {
                 return new LoginResponse() { User = null, Token = "" };
             }
-            var token = _jwtTokenGenerator.GenerateToken(user);
+
+            var roles = await userManager.GetRolesAsync(user);
+            var token = _jwtTokenGenerator.GenerateToken(user, roles);
             UserDTO UserDTO = new UserDTO()
             {
                 Email = user.Email,

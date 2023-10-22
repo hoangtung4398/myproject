@@ -1,6 +1,5 @@
 ﻿using Mango.Web.Models;
 using Mango.Web.Service.IService;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Newtonsoft.Json;
 using System.Net;
 using System.Text;
@@ -11,7 +10,7 @@ namespace Mango.Web.Service
     {
 
         private readonly IHttpClientFactory _httpClientFactory;
-        public BaseService(IHttpClientFactory httpClientFactory) 
+        public BaseService(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
@@ -61,7 +60,8 @@ namespace Mango.Web.Service
                         var Result = JsonConvert.DeserializeObject<ResponseDto>(content);
                         return Result;
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 var response = new ResponseDto
                 {
@@ -70,11 +70,11 @@ namespace Mango.Web.Service
                 };
                 return response;
             }
-            
 
-            }
-             
+
         }
 
-
     }
+
+
+}

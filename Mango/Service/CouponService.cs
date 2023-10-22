@@ -7,7 +7,7 @@ namespace Mango.Web.Service
     public class CouponService : ICouponService
     {
         public IBaseService _BaseService;
-        public CouponService (IBaseService baseService)
+        public CouponService(IBaseService baseService)
         {
             _BaseService = baseService;
         }
@@ -39,7 +39,7 @@ namespace Mango.Web.Service
             return await _BaseService.SendAsync(new Requestmsg()
             {
                 ApiType = Utility.SD.ApiType.GET,
-                Url = SD.CouponAPIbase+"/api/Coupon/Getall"
+                Url = SD.CouponAPIbase + "/api/Coupon/Getall"
 
             });
         }
