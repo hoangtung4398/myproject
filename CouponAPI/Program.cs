@@ -1,6 +1,7 @@
 using AutoMapper;
 using CouponAPI;
 using CouponAPI.Models.Data;
+using CouponAPI.Repository;
 using CouponAPI.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 

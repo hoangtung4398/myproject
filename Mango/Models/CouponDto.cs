@@ -1,6 +1,6 @@
 ﻿namespace Mango.Web.Models
 {
-    public class AddCouponRequest
+    public class CouponDto
     {
         public string CouponCode { get; set; }
         public double DiscountAmount { get; set; }

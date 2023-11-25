@@ -1,4 +1,5 @@
-﻿using CouponAPI.Models;
+﻿using AutoMapper;
+using CouponAPI.Models;
 using CouponAPI.Models.Data;
 using CouponAPI.Models.Dto;
 using CouponAPI.Repository.IRepository;
@@ -10,12 +11,14 @@ namespace CouponAPI.Controllers
     [ApiController]
     public class CouponController : ControllerBase
     {
-        private readonly ICouponRepository CouponRepo;
-        private ResponseDto response;
-        public CouponController(AppDbcontext context, ICouponRepository couponRepository)
+        private readonly ICouponRepository _couponRepo;
+        private readonly ResponseDto _response;
+        private readonly IMapper _mapper;
+        public CouponController(ICouponRepository couponRepository, IMapper mapper)
         {
-            CouponRepo = couponRepository;
-            this.response = new ResponseDto();
+            _mapper = mapper;
+            _couponRepo = couponRepository;
+            this._response = new ResponseDto();
 
         }
 
@@ -25,35 +28,37 @@ namespace CouponAPI.Controllers
         {
             try
             {
-                var result = CouponRepo.Get(coupon => coupon.CouponId == id);
+                var result = _couponRepo.Get(coupon => coupon.CouponId == id);
+                
 
-                response.Result = result;
+                _response.Result = result;
 
             }
             catch (Exception ex)
             {
-                response.Success = false;
-                response.Message = ex.Message;
+                _response.Success = false;
+                _response.Message = ex.Message;
             }
-            return response;
+            return _response;
         }
         [HttpPost]
         [Route("Create")]
-        public async Task<ResponseDto> Creat([FromBody] Coupon coupon)
+        public async Task<ResponseDto> Creat([FromBody] CouponDto coupon)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    CouponRepo.Add(coupon);
+                    var insertCoupon = _mapper.Map<Coupon>(coupon);
+                    _couponRepo.Add(insertCoupon);
                 }
             }
             catch (Exception ex)
             {
-                response.Success = false;
-                response.Message = ex.Message;
+                _response.Success = false;
+                _response.Message = ex.Message;
             }
-            return response;
+            return _response;
         }
         [HttpGet]
         [Route("Getall")]
@@ -61,17 +66,17 @@ namespace CouponAPI.Controllers
         {
             try
             {
-                var result = CouponRepo.GetAll();
+                var result = _couponRepo.GetAll();
 
-                response.Result = result;
+                _response.Result = result;
 
             }
             catch (Exception ex)
             {
-                response.Success = false;
-                response.Message = ex.Message;
+                _response.Success = false;
+                _response.Message = ex.Message;
             }
-            return response;
+            return _response;
         }
         [HttpPut]
         [Route("Update")]
@@ -79,18 +84,18 @@ namespace CouponAPI.Controllers
         {
             try
             {
-                var coupon1 = CouponRepo.Get(i => i.CouponId == coupon.CouponId);
+                var coupon1 = _couponRepo.Get(i => i.CouponId == coupon.CouponId);
                 if (coupon1 != null)
                 {
-                    CouponRepo.Update(coupon);
+                    _couponRepo.Update(coupon);
                 }
             }
             catch (Exception ex)
             {
-                response.Success = false;
-                response.Message = ex.Message;
+                _response.Success = false;
+                _response.Message = ex.Message;
             }
-            return response;
+            return _response;
         }
         [HttpDelete]
         [Route("Delete")]
@@ -101,15 +106,15 @@ namespace CouponAPI.Controllers
 
                 if (coupon != null)
                 {
-                    CouponRepo.Delete(coupon);
+                    _couponRepo.Delete(coupon);
                 }
             }
             catch (Exception ex)
             {
-                response.Success = false;
-                response.Message = ex.Message;
+                _response.Success = false;
+                _response.Message = ex.Message;
             }
-            return response;
+            return _response;
         }
 
     }

@@ -23,23 +23,17 @@ namespace Mango.Web.Controllers
             return View(list);
         }
         [HttpPost]
-        public async Task<IActionResult> CouponCreate(AddCouponRequest couponrequest)
+        public async Task<IActionResult> CouponCreate(CouponDto couponrequest)
         {
-            Coupon coupon = new Coupon()
-            {
-                CouponCode = couponrequest.CouponCode,
-                DiscountAmount = couponrequest.DiscountAmount,
-                MinAmount = couponrequest.MinAmount,
-            };
             if (ModelState.IsValid)
             {
-                ResponseDto response = await _couponService.CreateCouponAsync(coupon);
+                ResponseDto response = await _couponService.CreateCouponAsync(couponrequest);
                 if (response != null && response.Success)
                 {
                     return RedirectToAction(nameof(CouponIndex));
                 }
             }
-            return View(coupon);
+            return View(couponrequest);
         }
         public IActionResult CouponCreate()
         {
