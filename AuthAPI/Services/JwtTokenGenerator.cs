@@ -5,12 +5,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-
 namespace AuthAPI.Services
 {
     public class JwtTokenGenerator : IJwtTokenGenerator
     {
         private readonly JwtOptions _jwtOptions;
+
         public JwtTokenGenerator(IOptions<JwtOptions> jwtOptions)
         {
             _jwtOptions = jwtOptions.Value;
