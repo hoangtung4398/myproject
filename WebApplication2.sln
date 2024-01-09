@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CouponAPI", "CouponAPI\Coup
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthAPI", "AuthAPI\AuthAPI.csproj", "{485971AA-5BF6-4D97-BEF8-F57A4D6E6E0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course", "Course\Course.csproj", "{A1F5C871-D8FC-4407-B6AD-60621C8D8923}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseAPI", "Course\CourseAPI.csproj", "{A1F5C871-D8FC-4407-B6AD-60621C8D8923}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
