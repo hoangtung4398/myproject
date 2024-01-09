@@ -37,9 +37,7 @@ public partial class CourseContext : DbContext
 
     public virtual DbSet<Video> Videos { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=tcp:courselearnify.database.windows.net,1433;Initial Catalog=Course;Persist Security Info=False;User ID=tung4398;Password=Tung@4398;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+    
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -49,7 +47,7 @@ public partial class CourseContext : DbContext
 
             entity.ToTable("Course");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id);
             entity.Property(e => e.CreateUserId).HasMaxLength(450);
             entity.Property(e => e.Description).IsUnicode(false);
             entity.Property(e => e.Name).IsUnicode(false);
@@ -68,7 +66,7 @@ public partial class CourseContext : DbContext
 
             entity.ToTable("FileUpload");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id);
             entity.Property(e => e.NameAz)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -104,7 +102,7 @@ public partial class CourseContext : DbContext
 
             entity.ToTable("Section");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id);
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -159,7 +157,7 @@ public partial class CourseContext : DbContext
 
             entity.ToTable("UserCourse");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id);
             entity.Property(e => e.UserId).HasMaxLength(450);
 
             entity.HasOne(d => d.Course).WithMany(p => p.UserCourses)
@@ -195,7 +193,7 @@ public partial class CourseContext : DbContext
 
             entity.ToTable("Video");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id);
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .IsUnicode(false);
