@@ -6,8 +6,8 @@ namespace CourseAPI.Repository
 {
     public class CourseRepository : Repository<Models.Course>, ICourseRepository
     {
-        private readonly MangoAuthContext _dbcontext;
-        public CourseRepository(MangoAuthContext dbcontext) : base(dbcontext)
+        private readonly CourseContext _dbcontext;
+        public CourseRepository(CourseContext dbcontext) : base(dbcontext)
         {
             _dbcontext = dbcontext;
         }

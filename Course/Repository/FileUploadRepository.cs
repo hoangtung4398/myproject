@@ -6,9 +6,9 @@ namespace CourseAPI.Repository
 {
     public class FileUploadRepository : Repository<FileUpload>, IFileUploadRepository
     {
-        private readonly MangoAuthContext _db;
+        private readonly CourseContext _db;
 
-        public FileUploadRepository(MangoAuthContext dbcontext) : base(dbcontext)
+        public FileUploadRepository(CourseContext dbcontext) : base(dbcontext)
         {
         }
 

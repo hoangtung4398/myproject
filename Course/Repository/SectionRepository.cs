@@ -6,9 +6,9 @@ namespace CourseAPI.Repository
 {
     public class SectionRepository : Repository<Section>, ISectionRepository
     {
-        private readonly MangoAuthContext _dbcontext;
+        private readonly CourseContext _dbcontext;
 
-        public SectionRepository(MangoAuthContext dbcontext) : base(dbcontext)
+        public SectionRepository(CourseContext dbcontext) : base(dbcontext)
         {
             _dbcontext = dbcontext;
         }

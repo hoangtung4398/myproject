@@ -37,36 +37,36 @@ public partial class CourseContext : DbContext
 
     public virtual DbSet<Video> Videos { get; set; }
 
-    
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Course>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Course__3214EC076C9C886B");
+            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC0702B3E6F1");
 
             entity.ToTable("Course");
 
-            entity.Property(e => e.Id);
             entity.Property(e => e.CreateUserId).HasMaxLength(450);
             entity.Property(e => e.Description).IsUnicode(false);
+            entity.Property(e => e.Knowledge).IsUnicode(false);
             entity.Property(e => e.Name).IsUnicode(false);
-            entity.Property(e => e.Overview).IsUnicode(false);
-            entity.Property(e => e.UserId).HasMaxLength(450);
+            entity.Property(e => e.Requirments).IsUnicode(false);
+            entity.Property(e => e.Target).IsUnicode(false);
+            entity.Property(e => e.UserId).IsUnicode(false);
 
             entity.HasOne(d => d.CreateUser).WithMany(p => p.Courses)
                 .HasForeignKey(d => d.CreateUserId)
-                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("creat");
         });
 
         modelBuilder.Entity<FileUpload>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__FileUplo__3214EC07B2D49C7E");
+            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC07DD3EC6D8");
 
             entity.ToTable("FileUpload");
 
-            entity.Property(e => e.Id);
+            entity.Property(e => e.FileType)
+                .HasMaxLength(255)
+                .IsUnicode(false);
             entity.Property(e => e.NameAz)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -98,11 +98,10 @@ public partial class CourseContext : DbContext
 
         modelBuilder.Entity<Section>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Section__3214EC07683FA7B4");
+            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC0757F3C0A8");
 
             entity.ToTable("Section");
 
-            entity.Property(e => e.Id);
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -157,7 +156,6 @@ public partial class CourseContext : DbContext
 
             entity.ToTable("UserCourse");
 
-            entity.Property(e => e.Id);
             entity.Property(e => e.UserId).HasMaxLength(450);
 
             entity.HasOne(d => d.Course).WithMany(p => p.UserCourses)
@@ -189,17 +187,13 @@ public partial class CourseContext : DbContext
 
         modelBuilder.Entity<Video>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Video__3214EC07FB8D16C4");
+            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC073B4F1C9B");
 
             entity.ToTable("Video");
 
-            entity.Property(e => e.Id);
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.Time)
-                .IsRowVersion()
-                .IsConcurrencyToken();
             entity.Property(e => e.Url).IsUnicode(false);
 
             entity.HasOne(d => d.Section).WithMany(p => p.Videos)

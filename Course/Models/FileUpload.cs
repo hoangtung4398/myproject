@@ -11,4 +11,6 @@ public partial class FileUpload : BaseEntity
     public string? NameClient { get; set; }
 
     public string? Url { get; set; }
+
+    public string? FileType { get; set; }
 }
