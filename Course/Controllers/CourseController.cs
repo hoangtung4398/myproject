@@ -26,7 +26,18 @@ namespace CourseAPI.Controllers
         [HttpGet("Get")]
         public IActionResult Get()
         {
-            var courses = _courseRepository.GetAll();
+            var courses = _courseRepository.Get(x=>x.Id ==1).Select(x => new
+            {
+                x.Name,
+                x.Id,
+                x.Description,
+                Section = x.Sections.Select(y=> new
+                {
+                    y.Id,
+                     y.Name,
+                    Video = y.Videos.Select(z=>new { z.Id, z.Name,z.Url }).ToList()
+                }).ToList()
+            }).FirstOrDefault();
             _response.Result = courses;
             return Ok(_response);
         }
