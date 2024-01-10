@@ -5,32 +5,32 @@ namespace Mango.Web.Controllers
 {
     public class CourseController : Controller
     {
-        // GET: CourseController
+        // GET: Course
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: CourseController/Details/5
+        // GET: Course/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: CourseController1/Create
+        // GET: Course/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CourseController/Create
+        // POST: Course/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
             try
             {
-                var x =  collection["CategoryId"];
+                
                 return RedirectToAction(nameof(Index));
             }
             catch
