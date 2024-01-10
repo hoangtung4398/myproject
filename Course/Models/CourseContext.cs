@@ -15,6 +15,8 @@ public partial class CourseContext : DbContext
     {
     }
 
+    public virtual DbSet<CategoryCourse> CategoryCourses { get; set; }
+
     public virtual DbSet<Course> Courses { get; set; }
 
     public virtual DbSet<FileUpload> FileUploads { get; set; }
@@ -37,8 +39,21 @@ public partial class CourseContext : DbContext
 
     public virtual DbSet<Video> Videos { get; set; }
 
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<CategoryCourse>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Category__3214EC075ABDB968");
+
+            entity.ToTable("CategoryCourse");
+
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.Urlimage).IsUnicode(false);
+        });
+
         modelBuilder.Entity<Course>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC0702B3E6F1");
@@ -52,6 +67,11 @@ public partial class CourseContext : DbContext
             entity.Property(e => e.Requirments).IsUnicode(false);
             entity.Property(e => e.Target).IsUnicode(false);
             entity.Property(e => e.UserId).IsUnicode(false);
+
+            entity.HasOne(d => d.Category).WithMany(p => p.Courses)
+                .HasForeignKey(d => d.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("Category");
 
             entity.HasOne(d => d.CreateUser).WithMany(p => p.Courses)
                 .HasForeignKey(d => d.CreateUserId)

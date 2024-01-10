@@ -1,4 +1,4 @@
-namespace Course
+namespace CourseAPI
 {
     public class WeatherForecast
     {

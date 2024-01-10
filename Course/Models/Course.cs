@@ -22,6 +22,10 @@ public partial class Course : BaseEntity
 
     public string? Knowledge { get; set; }
 
+    public int? CategoryId { get; set; }
+
+    public virtual CategoryCourse? Category { get; set; }
+
     public virtual User? CreateUser { get; set; }
 
     public virtual ICollection<Section> Sections { get; set; } = new List<Section>();
