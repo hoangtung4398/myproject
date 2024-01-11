@@ -7,9 +7,9 @@ namespace CouponAPI.Repository
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly MangoAuthContext _dbcontext;
+        private readonly CourseContext _dbcontext;
         private DbSet<T> Set;
-        public Repository(MangoAuthContext dbcontext)
+        public Repository(CourseContext dbcontext)
         {
             _dbcontext = dbcontext;
             this.Set = _dbcontext.Set<T>();
@@ -28,7 +28,7 @@ namespace CouponAPI.Repository
             _dbcontext.SaveChanges();
         }
 
-        public IQueryable Get(Expression<Func<T, bool>> predicate)
+        public IQueryable<T> Get(Expression<Func<T, bool>> predicate)
         {
             IQueryable<T> query = Set.Where(predicate);
             return query;

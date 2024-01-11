@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace CourseAPI.Models;
 
 public partial class UserCourse : BaseEntity
-{
+{ 
     public string UserId { get; set; } = null!;
 
     public int CourseId { get; set; }
@@ -13,7 +13,6 @@ public partial class UserCourse : BaseEntity
 
     public int? Status { get; set; }
 
-    public int Id { get; set; }
 
     public virtual Course Course { get; set; } = null!;
 

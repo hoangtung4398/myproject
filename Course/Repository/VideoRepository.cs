@@ -6,9 +6,9 @@ namespace CourseAPI.Repository
 {
     public class VideoRepository : Repository<Video>, IVideoRepository
     {
-        private readonly MangoAuthContext _db;
+        private readonly CourseContext _db;
 
-        public VideoRepository(MangoAuthContext dbcontext) : base(dbcontext)
+        public VideoRepository(CourseContext dbcontext) : base(dbcontext)
         {
         }
     }

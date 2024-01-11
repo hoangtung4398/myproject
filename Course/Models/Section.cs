@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace CourseAPI.Models;
 
-public partial class Section :BaseEntity
+public partial class Section : BaseEntity
 {
-    public int Id { get; set; }
 
     public string? Name { get; set; }
 

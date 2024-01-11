@@ -4,13 +4,13 @@ using CourseAPI.Repository.IRepository;
 
 namespace CourseAPI.Repository
 {
-    public class UserCourseRepository : Repository<UserCourse>, IUserCourseRepository
+    public class FileUploadRepository : Repository<FileUpload>, IFileUploadRepository
     {
         private readonly CourseContext _db;
 
-        public UserCourseRepository(CourseContext dbcontext) : base(dbcontext)
+        public FileUploadRepository(CourseContext dbcontext) : base(dbcontext)
         {
-            _db = dbcontext;
         }
+
     }
 }

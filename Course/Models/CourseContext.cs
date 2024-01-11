@@ -4,16 +4,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CourseAPI.Models;
 
-public partial class MangoAuthContext : DbContext
+public partial class CourseContext : DbContext
 {
-    public MangoAuthContext()
+    public CourseContext()
     {
     }
 
-    public MangoAuthContext(DbContextOptions<MangoAuthContext> options)
+    public CourseContext(DbContextOptions<CourseContext> options)
         : base(options)
     {
     }
+
+    public virtual DbSet<CategoryCourse> CategoryCourses { get; set; }
 
     public virtual DbSet<Course> Courses { get; set; }
 
@@ -43,33 +45,61 @@ public partial class MangoAuthContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<CategoryCourse>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Category__3214EC075ABDB968");
+
+            entity.ToTable("CategoryCourse");
+
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.Urlimage).IsUnicode(false);
+        });
+
         modelBuilder.Entity<Course>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Course__3214EC078475ED54");
+            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC0702B3E6F1");
 
             entity.ToTable("Course");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.CreateUserId).HasMaxLength(450);
             entity.Property(e => e.Description).IsUnicode(false);
+            entity.Property(e => e.Knowledge).IsUnicode(false);
             entity.Property(e => e.Name).IsUnicode(false);
-            entity.Property(e => e.Overview).IsUnicode(false);
-            entity.Property(e => e.UserId).HasMaxLength(450);
+            entity.Property(e => e.Requirments).IsUnicode(false);
+            entity.Property(e => e.Target).IsUnicode(false);
+            entity.Property(e => e.UserId).IsUnicode(false);
+
+            entity.HasOne(d => d.Category).WithMany(p => p.Courses)
+                .HasForeignKey(d => d.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("Category");
 
             entity.HasOne(d => d.CreateUser).WithMany(p => p.Courses)
                 .HasForeignKey(d => d.CreateUserId)
-                .HasConstraintName("FK_Course_Users");
+                .HasConstraintName("creat");
         });
 
         modelBuilder.Entity<FileUpload>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("FileUpload");
+            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC07DD3EC6D8");
 
-            entity.Property(e => e.Type)
-                .HasMaxLength(10)
-                .IsFixedLength();
+            entity.ToTable("FileUpload");
+
+            entity.Property(e => e.FileType)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.NameAz)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("NameAZ");
+            entity.Property(e => e.NameClient)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.Url)
+                .HasMaxLength(255)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Role>(entity =>
@@ -91,13 +121,10 @@ public partial class MangoAuthContext : DbContext
 
         modelBuilder.Entity<Section>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Section__3214EC07D6AF104F");
+            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC0757F3C0A8");
 
             entity.ToTable("Section");
 
-            entity.HasIndex(e => e.CourseId, "IX_Section_CourseId");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -148,9 +175,6 @@ public partial class MangoAuthContext : DbContext
 
             entity.ToTable("UserCourse");
 
-            entity.HasIndex(e => e.CourseId, "IX_UserCourse_CourseId");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.UserId).HasMaxLength(450);
 
             entity.HasOne(d => d.Course).WithMany(p => p.UserCourses)
@@ -182,19 +206,13 @@ public partial class MangoAuthContext : DbContext
 
         modelBuilder.Entity<Video>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Video__3214EC076F046DA6");
+            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC073B4F1C9B");
 
             entity.ToTable("Video");
 
-            entity.HasIndex(e => e.SectionId, "IX_Video_SectionId");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.Time)
-                .IsRowVersion()
-                .IsConcurrencyToken();
             entity.Property(e => e.Url).IsUnicode(false);
 
             entity.HasOne(d => d.Section).WithMany(p => p.Videos)
