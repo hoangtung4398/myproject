@@ -1,6 +1,8 @@
 ﻿using CouponAPI.Models.Dto;
 using CourseAPI.Models;
 using CourseAPI.Repository.IRepository;
+using CourseAPI.Services;
+using CourseAPI.Services.IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,16 +15,25 @@ namespace CourseAPI.Controllers
         private readonly ResponseDto _response;
         private readonly ICourseRepository _courseRepository;
         private readonly ISectionRepository _sectionRepository;
-        private readonly IVideoRepository _videoRepository;
+        private readonly ILectureRepository _lectureRepository;
         private readonly IUserCourseRepository _userCourseRepository;
+        private readonly ILectureStorageService _lectureStorageService;
 
-        public CourseController( ICourseRepository courseRepository, ISectionRepository sectionRepository, IVideoRepository videoRepository, IUserCourseRepository userCourseRepository)
+        public CourseController( ICourseRepository courseRepository, ISectionRepository sectionRepository, ILectureRepository lectureRepository, IUserCourseRepository userCourseRepository, ILectureStorageService lectureStorageService)
         {
             _response = new ResponseDto();
             _courseRepository = courseRepository;
             _sectionRepository = sectionRepository;
-            _videoRepository = videoRepository;
+            _lectureRepository = lectureRepository;
             _userCourseRepository = userCourseRepository;
+            _lectureStorageService = lectureStorageService;
+        }
+
+        [HttpPost("upload")]
+        public IActionResult Upload(IFormFile file)
+        {
+            var url = _lectureStorageService.UploadLectureAsync(file);
+            return Ok(_response);
         }
         [HttpGet("Get")]
         public IActionResult Get(int id)
@@ -58,9 +69,9 @@ namespace CourseAPI.Controllers
                     new Section()
                     {
                         Name = "Test",
-                        Videos = new List<Video>()
+                        Videos = new List<Lecture>()
                         {
-                            new Video()
+                            new Lecture()
                             {
                                 Name = "test",
                                 Url = "test",

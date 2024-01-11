@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CourseAPI.Models;
 
-public partial class Video : BaseEntity
+public partial class Lecture : BaseEntity
 {
 
     public string? Name { get; set; }

@@ -12,5 +12,5 @@ public partial class Section : BaseEntity
 
     public virtual Course? Course { get; set; }
 
-    public virtual ICollection<Video> Videos { get; set; } = new List<Video>();
+    public virtual ICollection<Lecture> Videos { get; set; } = new List<Lecture>();
 }

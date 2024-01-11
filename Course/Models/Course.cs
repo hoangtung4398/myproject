@@ -14,7 +14,6 @@ public partial class Course : BaseEntity
 
     public string? CreateUserId { get; set; }
 
-    public int? Time { get; set; }
 
     public string? UserId { get; set; }
 

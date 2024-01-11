@@ -27,10 +27,10 @@
     {
         public string? Name { get; set; }
 
-        public virtual ICollection<VideoDto> Videos { get; set; } = new List<VideoDto>();
+        public virtual ICollection<LectureDto> Videos { get; set; } = new List<LectureDto>();
     }
 
-    public class VideoDto
+    public class LectureDto
     {
         public string? Name { get; set; }
 

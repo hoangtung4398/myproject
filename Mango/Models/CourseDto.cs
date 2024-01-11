@@ -2,6 +2,7 @@
 {
     public class CourseDto
     {
+        public int Id { get; set; }
         public string? Name { get; set; }
 
         public string? Description { get; set; }
@@ -21,21 +22,5 @@
         public int? CategoryId { get; set; }
 
         public virtual ICollection<SectionDto> Sections { get; set; } = new List<SectionDto>();
-    }
-
-    public class SectionDto
-    {
-        public string? Name { get; set; }
-
-        public virtual ICollection<VideoDto> Videos { get; set; } = new List<VideoDto>();
-    }
-
-    public class VideoDto
-    {
-        public string? Name { get; set; }
-
-        public string? Url { get; set; }
-
-        public TimeSpan? Time { get; set; }
     }
 }

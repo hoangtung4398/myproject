@@ -3,7 +3,7 @@ using CourseAPI.Models;
 
 namespace CourseAPI.Repository.IRepository
 {
-    public interface IVideoRepository : IRepository<Video>
+    public interface ILectureRepository : IRepository<Lecture>
     {
     }
 }

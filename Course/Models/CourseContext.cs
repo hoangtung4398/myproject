@@ -37,11 +37,7 @@ public partial class CourseContext : DbContext
 
     public virtual DbSet<UserToken> UserTokens { get; set; }
 
-    public virtual DbSet<Video> Videos { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=localhost;Database=Mango_Auth;Trusted_Connection=True;TrustServerCertificate=True");
+    public virtual DbSet<Lecture> Videos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -204,7 +200,7 @@ public partial class CourseContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.UserTokens).HasForeignKey(d => d.UserId);
         });
 
-        modelBuilder.Entity<Video>(entity =>
+        modelBuilder.Entity<Lecture>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC073B4F1C9B");
 
