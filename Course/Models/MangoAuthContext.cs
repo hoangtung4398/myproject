@@ -17,6 +17,8 @@ public partial class MangoAuthContext : DbContext
 
     public virtual DbSet<Course> Courses { get; set; }
 
+    public virtual DbSet<FileUpload> FileUploads { get; set; }
+
     public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<RoleClaim> RoleClaims { get; set; }
@@ -35,7 +37,9 @@ public partial class MangoAuthContext : DbContext
 
     public virtual DbSet<Video> Videos { get; set; }
 
-
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=localhost;Database=Mango_Auth;Trusted_Connection=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -54,8 +58,18 @@ public partial class MangoAuthContext : DbContext
 
             entity.HasOne(d => d.CreateUser).WithMany(p => p.Courses)
                 .HasForeignKey(d => d.CreateUserId)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("creat");
+                .HasConstraintName("FK_Course_Users");
+        });
+
+        modelBuilder.Entity<FileUpload>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("FileUpload");
+
+            entity.Property(e => e.Type)
+                .HasMaxLength(10)
+                .IsFixedLength();
         });
 
         modelBuilder.Entity<Role>(entity =>
@@ -81,6 +95,8 @@ public partial class MangoAuthContext : DbContext
 
             entity.ToTable("Section");
 
+            entity.HasIndex(e => e.CourseId, "IX_Section_CourseId");
+
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
@@ -100,14 +116,10 @@ public partial class MangoAuthContext : DbContext
                 .IsUnique()
                 .HasFilter("([NormalizedUserName] IS NOT NULL)");
 
-            entity.Property(e => e.AboutMe).HasDefaultValueSql("(N'')");
-            entity.Property(e => e.Education).HasDefaultValueSql("(N'')");
             entity.Property(e => e.Email).HasMaxLength(256);
-            entity.Property(e => e.Experiences).HasDefaultValueSql("(N'')");
             entity.Property(e => e.FullName).HasDefaultValueSql("(N'')");
             entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
             entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
-            entity.Property(e => e.OverView).HasDefaultValueSql("(N'')");
             entity.Property(e => e.UserName).HasMaxLength(256);
 
             entity.HasMany(d => d.Roles).WithMany(p => p.Users)
@@ -136,6 +148,8 @@ public partial class MangoAuthContext : DbContext
 
             entity.ToTable("UserCourse");
 
+            entity.HasIndex(e => e.CourseId, "IX_UserCourse_CourseId");
+
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.UserId).HasMaxLength(450);
 
@@ -147,7 +161,7 @@ public partial class MangoAuthContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.UserCourses)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("user");
+                .HasConstraintName("FK_UserCourse_Users");
         });
 
         modelBuilder.Entity<UserLogin>(entity =>
@@ -171,6 +185,8 @@ public partial class MangoAuthContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__Video__3214EC076F046DA6");
 
             entity.ToTable("Video");
+
+            entity.HasIndex(e => e.SectionId, "IX_Video_SectionId");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Name)
