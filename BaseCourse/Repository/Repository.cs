@@ -1,5 +1,5 @@
-﻿using CouponAPI.Repository.IRepository;
-using CourseAPI.Models;
+﻿using BaseCourse.Models;
+using BaseCourse.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 

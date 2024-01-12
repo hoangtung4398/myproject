@@ -26,10 +26,9 @@ namespace CourseAPI.Services
 
         public async Task<ResponseDto> UploadLectureAsync(IFormFile file)
         {
-            BlobServiceClient blobServiceClient = new BlobServiceClient("BlobEndpoint=https://coursefileupload.blob.core.windows.net/;QueueEndpoint=https://coursefileupload.queue.core.windows.net/;FileEndpoint=https://coursefileupload.file.core.windows.net/;TableEndpoint=https://coursefileupload.table.core.windows.net/;SharedAccessSignature=sv=2022-11-02&ss=bfqt&srt=c&sp=rwdlacupiytfx&se=2024-01-11T19:23:35Z&st=2024-01-11T11:23:35Z&spr=https&sig=IuKwiQqnRoxfJgYTBa0xXxURvosTsAKbtgDp5nDOcSA%3D");
-            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+            BlobServiceClient blobServiceClient = new BlobServiceClient(_lecture.ConnectionString);
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_lecture.ContainerName);
             var extension = Path.GetExtension(file.FileName).ToLower();
-            var containerClient = new BlobContainerClient(new Uri(blobUri), credential);
             var blobClient = containerClient.GetBlobClient(_lecture.ContainerName);
             if (extension == ".mp4" || extension == ".avi" || extension == ".mkv")
             {

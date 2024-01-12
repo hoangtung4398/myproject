@@ -1,4 +1,5 @@
-﻿using CouponAPI.Models.Dto;
+﻿using BaseCourse.Models;
+using CouponAPI.Models.Dto;
 using CourseAPI.Models;
 using CourseAPI.Repository.IRepository;
 using CourseAPI.Services;
@@ -47,7 +48,7 @@ namespace CourseAPI.Controllers
                 {
                     y.Id,
                      y.Name,
-                    Video = y.Videos.Select(z=>new { z.Id, z.Name,z.Url }).ToList()
+                    Video = y.Lectures.Select(z=>new { z.Id, z.Name,z.Url }).ToList()
                 }).ToList()
             }).FirstOrDefault();
             _response.Result = courses;
@@ -69,7 +70,7 @@ namespace CourseAPI.Controllers
                     new Section()
                     {
                         Name = "Test",
-                        Videos = new List<Lecture>()
+						Lectures = new List<Lecture>()
                         {
                             new Lecture()
                             {

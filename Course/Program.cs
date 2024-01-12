@@ -1,4 +1,5 @@
 
+using BaseCourse.Models;
 using CourseAPI.Models;
 using CourseAPI.Models.AzureConfig;
 using CourseAPI.Repository;

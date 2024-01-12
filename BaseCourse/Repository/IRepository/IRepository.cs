@@ -1,7 +1,7 @@
-﻿using CourseAPI.Models;
+﻿using BaseCourse.Models;
 using System.Linq.Expressions;
 
-namespace CouponAPI.Repository.IRepository
+namespace BaseCourse.Repository.IRepository
 {
     public interface IRepository<T> where T : BaseEntity
     {

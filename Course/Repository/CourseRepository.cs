@@ -1,10 +1,10 @@
-﻿using CouponAPI.Repository;
-using CourseAPI.Models;
+﻿using BaseCourse.Models;
+using CouponAPI.Repository;
 using CourseAPI.Repository.IRepository;
 
 namespace CourseAPI.Repository
 {
-    public class CourseRepository : Repository<Models.Course>, ICourseRepository
+    public class CourseRepository : Repository<Course>, ICourseRepository
     {
         private readonly CourseContext _dbcontext;
         public CourseRepository(CourseContext dbcontext) : base(dbcontext)

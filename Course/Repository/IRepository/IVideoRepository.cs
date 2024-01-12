@@ -1,5 +1,6 @@
-﻿using CouponAPI.Repository.IRepository;
-using CourseAPI.Models;
+﻿
+using BaseCourse.Models;
+using BaseCourse.Repository.IRepository;
 
 namespace CourseAPI.Repository.IRepository
 {
