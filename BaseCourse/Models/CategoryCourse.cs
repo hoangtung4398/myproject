@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BaseCourse.Models
 {
@@ -9,8 +10,6 @@ namespace BaseCourse.Models
         {
             Courses = new HashSet<Course>();
         }
-
-        public int Id { get; set; }
         public string? Name { get; set; }
         public string? Urlimage { get; set; }
 

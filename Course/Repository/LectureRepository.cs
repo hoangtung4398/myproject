@@ -1,5 +1,5 @@
 ﻿using BaseCourse.Models;
-using CouponAPI.Repository;
+using BaseCourse.Repository;
 using CourseAPI.Models;
 using CourseAPI.Repository.IRepository;
 

@@ -9,7 +9,7 @@ namespace BaseCourse.Repository.IRepository
         IQueryable<T> Get(Expression<Func<T, bool>> predicate);
         void Delete(int id);
         void Update(T entity);
-        void Add(T entity);
+        int Add(T entity);
 
     }
 }

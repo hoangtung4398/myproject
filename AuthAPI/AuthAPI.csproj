@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CouponAPI\CouponAPI.csproj" />
+    <ProjectReference Include="..\BaseCourse\BaseCourse.csproj" />
   </ItemGroup>
 
   <ItemGroup>

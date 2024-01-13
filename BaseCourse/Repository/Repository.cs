@@ -3,7 +3,7 @@ using BaseCourse.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace CouponAPI.Repository
+namespace BaseCourse.Repository
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
@@ -15,10 +15,11 @@ namespace CouponAPI.Repository
             this.Set = _dbcontext.Set<T>();
         }
 
-        public void Add(T entity)
+        public int Add(T entity)
         {
             Set.Add(entity);
             _dbcontext.SaveChanges();
+            return entity.Id;
         }
 
         public void Delete(int id)

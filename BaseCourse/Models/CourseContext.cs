@@ -96,13 +96,11 @@ namespace BaseCourse.Models
 
             modelBuilder.Entity<Role>(entity =>
             {
-                entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
-                    .IsUnique()
-                    .HasFilter("([NormalizedName] IS NOT NULL)");
+                
 
                 entity.Property(e => e.Name).HasMaxLength(256);
 
-                entity.Property(e => e.NormalizedName).HasMaxLength(256);
+               
             });
 
 
@@ -126,11 +124,7 @@ namespace BaseCourse.Models
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasIndex(e => e.NormalizedEmail, "EmailIndex");
-
-                entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
-                    .IsUnique()
-                    .HasFilter("([NormalizedUserName] IS NOT NULL)");
+                
 
                 entity.Property(e => e.AboutMe).HasDefaultValueSql("(N'')");
 
@@ -142,9 +136,7 @@ namespace BaseCourse.Models
 
                 entity.Property(e => e.FullName).HasDefaultValueSql("(N'')");
 
-                entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
 
-                entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
 
                 entity.Property(e => e.OverView).HasDefaultValueSql("(N'')");
 

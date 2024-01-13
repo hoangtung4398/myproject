@@ -31,9 +31,9 @@ namespace CourseAPI.Controllers
         }
 
         [HttpPost("upload")]
-        public IActionResult Upload(IFormFile file)
+        public async Task<IActionResult> Upload(IFormFile file)
         {
-            var url = _lectureStorageService.UploadLectureAsync(file);
+            var url = await _lectureStorageService.UploadLectureAsync(file);
             return Ok(_response);
         }
         [HttpGet("Get")]
@@ -64,7 +64,7 @@ namespace CourseAPI.Controllers
                 Description = "Test",
                 Requirments = "test",
                 Target = "test",
-                CreateUserId = "15b6bb00-f84e-4702-ad52-50d4b3742c7f",
+                CreateUserId = 1,
                 Sections = new List<Section>()
                 {
                     new Section()

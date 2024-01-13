@@ -5,8 +5,7 @@ namespace BaseCourse.Models
 {
     public partial class UserCourse : BaseEntity
     {
-        public int Id { get; set; }
-        public string UserId { get; set; } = null!;
+        public int UserId { get; set; } 
         public int CourseId { get; set; }
         public DateTime? CreateAt { get; set; }
         public int? Status { get; set; }

@@ -1,5 +1,6 @@
 ﻿using Azure.Storage;
 using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using CouponAPI.Models.Dto;
 using CourseAPI.Models;
 using CourseAPI.Models.AzureConfig;
@@ -29,14 +30,13 @@ namespace CourseAPI.Services
             BlobServiceClient blobServiceClient = new BlobServiceClient(_lecture.ConnectionString);
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_lecture.ContainerName);
             var extension = Path.GetExtension(file.FileName).ToLower();
-            var blobClient = containerClient.GetBlobClient(_lecture.ContainerName);
             if (extension == ".mp4" || extension == ".avi" || extension == ".mkv")
             {
                 var fileName = Guid.NewGuid().ToString() + extension;
-                
-               
-                    
-                   var response =  await blobClient.UploadAsync(file.OpenReadStream());
+				var blobClient = containerClient.GetBlobClient(fileName);
+
+                var blobHttpHeader = new BlobHttpHeaders { ContentType = $"video/{extension.Substring(1)}" };
+				var response =  await blobClient.UploadAsync(file.OpenReadStream(), new BlobUploadOptions { HttpHeaders = blobHttpHeader });
 
                 return new ResponseDto { Success = true, Message = "123123" };
             }

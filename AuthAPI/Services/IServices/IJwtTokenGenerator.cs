@@ -1,9 +1,10 @@
 ﻿using AuthAPI.Models;
+using BaseCourse.Models;
 
 namespace AuthAPI.Services.IServices
 {
     public interface IJwtTokenGenerator
     {
-        string GenerateToken(ApplicationUser user,IEnumerable<string> roles);
+        string GenerateToken(User user,IEnumerable<string> roles);
     }
 }

@@ -11,11 +11,10 @@ namespace BaseCourse.Models
             UserCourses = new HashSet<UserCourse>();
         }
 
-        public int Id { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
         public string? Requirments { get; set; }
-        public string? CreateUserId { get; set; }
+        public int CreateUserId { get; set; }
         public int? Time { get; set; }
         public string? Target { get; set; }
         public string? Knowledge { get; set; }
