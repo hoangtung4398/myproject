@@ -10,6 +10,7 @@ namespace Mango.Web.Service.IService
 		Task<ResponseDto> GetListSection(int id);
 		Task<ResponseDto> GetListLecture(int id);
 		Task<ResponseDto> CreateLecture(Lecture insertLectureDto);
+		Task<ResponseDto> GetDetailLecture(int id);
 
 	}
 }

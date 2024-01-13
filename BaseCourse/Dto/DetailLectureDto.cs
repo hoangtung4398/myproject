@@ -11,7 +11,7 @@ namespace BaseCourse.Dto
         public int Id { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
-        public int SectionId { get; set; }
+        public int? SectionId { get; set; }
 
     }
 }

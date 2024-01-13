@@ -35,9 +35,16 @@ namespace Mango.Web.Controllers
         }
 
         // GET: LectureController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var response = await _courseService.GetDetailLecture(id);
+            var detailLecture = new DetailLectureDto();
+            if (response.Success == true && response != null)
+            {
+                detailLecture = JsonConvert.DeserializeObject<DetailLectureDto>(Convert.ToString(response.Result));
+            }
+            ViewBag.SectionId = id;
+            return View(detailLecture);
         }
 
         // GET: LectureController/Create

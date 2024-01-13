@@ -10,7 +10,6 @@ namespace Mango.Web.Service
 	public class CourseService : ICourseService
 	{
 		private readonly IBaseService _baseService;
-        private readonly ILectureStorageService _lectureStorageService;
 
         public CourseService(IBaseService baseService)
 		{
@@ -52,5 +51,14 @@ namespace Mango.Web.Service
                 Url = $"{SD.CourseAPIbase}/api/Course/CreatLecture"
             });
         }
-	}
+
+        public async Task<ResponseDto> GetDetailLecture(int id)
+        {
+            return await _baseService.SendAsync(new Requestmsg()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = $"{SD.CourseAPIbase}/api/Course/DetailLecture/{id}"
+            });
+        }
+    }
 }

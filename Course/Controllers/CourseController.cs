@@ -104,6 +104,26 @@ namespace CourseAPI.Controllers
             _response.Success = false;
             return Ok(_response);
         }
-        
+        [HttpGet("DetailLecture/{id}")]
+        public IActionResult DetailLecture(int id)
+        {
+            var lecture = _lectureRepository.Get(x => x.Id == id).Select(x => new DetailLectureDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Url = x.Url,
+                SectionId = x.SectionId
+            }).FirstOrDefault();
+            if(lecture == null)
+            {
+                _response.Success = false;
+                _response.Message = "Not Found";
+                return Ok(_response);
+            }
+            _response.Result=lecture;
+            return Ok(_response);
+        }
+
+
     }
 }

@@ -9,19 +9,17 @@
 <div>
     <h4>DetailLectureDto</h4>
     <hr />
-    <dl class="row">
+    <dl class="row col-md-6">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Url)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Url)
-        </dd>
+        <iframe height="300px" class="w-100"
+                src="@Model.Url"
+                frameborder="0"
+                allowfullscreen></iframe>
         
     </dl>
 </div>
