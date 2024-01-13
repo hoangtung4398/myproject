@@ -1,0 +1,56 @@
+﻿using BaseCourse.Dto;
+using BaseCourse.Models;
+using CourseAPI.Services.IService;
+using Mango.Web.Models;
+using Mango.Web.Service.IService;
+using Mango.Web.Utility;
+
+namespace Mango.Web.Service
+{
+	public class CourseService : ICourseService
+	{
+		private readonly IBaseService _baseService;
+        private readonly ILectureStorageService _lectureStorageService;
+
+        public CourseService(IBaseService baseService)
+		{
+			_baseService = baseService;
+		}
+
+		public async Task<ResponseDto> GetlistCourse()
+		{
+			return await _baseService.SendAsync(new Requestmsg()
+			{
+				ApiType = SD.ApiType.GET,
+				Url = SD.CourseAPIbase + "/api/Course/GetCourseUser"
+			});
+		}
+
+		public async Task<ResponseDto> GetListLecture(int id)
+		{
+			return await _baseService.SendAsync(new Requestmsg()
+			{
+				ApiType = SD.ApiType.GET,
+				Url = $"{SD.CourseAPIbase}/api/Course/GetListLectures/{id}"
+			});
+		}
+
+		public async Task<ResponseDto> GetListSection(int id)
+		{
+			return await _baseService.SendAsync(new Requestmsg()
+			{
+				ApiType = SD.ApiType.GET,
+				Url = $"{SD.CourseAPIbase}/api/Course/GetListSection/{id}"
+			});
+		}
+		public async Task<ResponseDto> CreateLecture(Lecture insertLectureDto)
+		{
+			return await _baseService.SendAsync(new Requestmsg()
+            {
+                ApiType = SD.ApiType.POST,
+				Data = insertLectureDto,
+                Url = $"{SD.CourseAPIbase}/api/Course/CreatLecture"
+            });
+        }
+	}
+}

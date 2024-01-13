@@ -1,7 +1,10 @@
+using CourseAPI.Services.IService;
+using CourseAPI.Services;
 using Mango.Web.Service;
 using Mango.Web.Service.IService;
 using Mango.Web.Utility;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using CourseAPI.Models.AzureConfig;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,9 +13,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 SD.CouponAPIbase = builder.Configuration["ServiceUrls:CouponAPI"];
 SD.AuthAPIbase = builder.Configuration["ServiceUrls:AuthAPI"];
+SD.CourseAPIbase = builder.Configuration["ServiceUrls:CourseAPI"];
 builder.Services.AddHttpClient();
+builder.Services.Configure<StorageLecture>(builder.Configuration.GetSection("AzureOption:LectureAzureStorageConnectionS"));
 builder.Services.AddHttpClient<ICouponService, CouponService>();
-
+builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<ILectureStorageService, LectureStorageService>();
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<ICouponService, CouponService>();
 builder.Services.AddScoped<IBaseService, BaseService>();

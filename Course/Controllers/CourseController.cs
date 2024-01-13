@@ -1,10 +1,12 @@
-﻿using BaseCourse.Models;
+﻿using BaseCourse.Dto;
+using BaseCourse.Models;
 using CouponAPI.Models.Dto;
 using CourseAPI.Models;
 using CourseAPI.Repository.IRepository;
 using CourseAPI.Services;
 using CourseAPI.Services.IService;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CourseAPI.Controllers
@@ -36,6 +38,31 @@ namespace CourseAPI.Controllers
             var url = await _lectureStorageService.UploadLectureAsync(file);
             return Ok(_response);
         }
+        [HttpGet("GetCourseUser")]
+        public IActionResult GetAll()
+        {
+            var rerult = _courseRepository.Get(x => 1 == 1).Select(x => new ListCourseDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                NameCategory = x.Category.Name,
+                QualityLecture = x.Sections.SelectMany(x=>x.Lectures).Any()?x.Sections.Select(x=>x.Lectures).Count():0, 
+            });
+            _response.Result = rerult;
+            return Ok(_response);
+        }
+        [HttpGet("GetListSection/{id}")]
+        public IActionResult GetListSection(int id)
+        {
+            var listSection = _sectionRepository.Get(x=>x.CourseId == id).Select(x=>new ListSectionDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                QualityLecture = x.Lectures.Any()? x.Lectures.Count() : 0,
+            }).ToList();
+            _response.Result = listSection;
+            return Ok(_response);
+        }
         [HttpGet("Get")]
         public IActionResult Get(int id)
         {
@@ -54,36 +81,29 @@ namespace CourseAPI.Controllers
             _response.Result = courses;
             return Ok(_response);
         }
-        [HttpPost("Create")]
-        public IActionResult Create()
+        [HttpGet("GetListLectures/{id}")]
+        public IActionResult GetLiscLecture(int id)
         {
-            var course = new Course
+            var listLecture = _lectureRepository.Get(x=>x.SectionId == id).Select(x=>new ListLectureDto
             {
-                CategoryId = 1,
-                Name = "Test",
-                Description = "Test",
-                Requirments = "test",
-                Target = "test",
-                CreateUserId = 1,
-                Sections = new List<Section>()
-                {
-                    new Section()
-                    {
-                        Name = "Test",
-						Lectures = new List<Lecture>()
-                        {
-                            new Lecture()
-                            {
-                                Name = "test",
-                                Url = "test",
-                                Time = new System.TimeSpan(0,0,10,0,0)
-                            }
-                        }
-                    }
-                }
-            };
-            _courseRepository.Add(course);
+                Id = x.Id,
+                Name = x.Name,
+                Url = x.Url
+            }).ToList();
+            _response.Result = listLecture;
             return Ok(_response);
         }
+        [HttpPost("CreatLecture")]
+        public async Task<IActionResult>CreateLecture(Lecture insertLectureDto)
+        {
+            var id =  _lectureRepository.Add(insertLectureDto);
+            if(id != 0)
+            {
+                return Ok(_response);
+            }
+            _response.Success = false;
+            return Ok(_response);
+        }
+        
     }
 }

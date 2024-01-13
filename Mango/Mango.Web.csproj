@@ -16,4 +16,9 @@
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BaseCourse\BaseCourse.csproj" />
+    <ProjectReference Include="..\Course\CourseAPI.csproj" />
+  </ItemGroup>
+
 </Project>

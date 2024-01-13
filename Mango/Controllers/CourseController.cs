@@ -1,20 +1,36 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BaseCourse.Dto;
+using Mango.Web.Service.IService;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Mango.Web.Controllers
 {
     public class CourseController : Controller
     {
-        // GET: Course
-        public ActionResult Index()
+        private readonly ICourseService _courseService;
+
+		public CourseController(ICourseService courseService)
+		{
+			_courseService = courseService;
+		}
+
+		// GET: Course
+		public async Task <ActionResult> Index()
         {
-            return View();
+            var response = await _courseService.GetlistCourse();
+            var listCourse = new List<ListCourseDto>();
+			if (response != null && response.Success)
+			{
+				 listCourse =JsonConvert.DeserializeObject<List<ListCourseDto>>(Convert.ToString(response.Result));
+			}
+			return View(listCourse);
         }
 
         // GET: Course/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return RedirectToAction("Index", "Section", new {id});
         }
 
         // GET: Course/Create

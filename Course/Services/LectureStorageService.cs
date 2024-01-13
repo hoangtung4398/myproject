@@ -1,6 +1,8 @@
 ﻿using Azure.Storage;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using BaseCourse.Dto;
+using BaseCourse.Models;
 using CouponAPI.Models.Dto;
 using CourseAPI.Models;
 using CourseAPI.Models.AzureConfig;
@@ -36,9 +38,14 @@ namespace CourseAPI.Services
 				var blobClient = containerClient.GetBlobClient(fileName);
 
                 var blobHttpHeader = new BlobHttpHeaders { ContentType = $"video/{extension.Substring(1)}" };
-				var response =  await blobClient.UploadAsync(file.OpenReadStream(), new BlobUploadOptions { HttpHeaders = blobHttpHeader });
+				await blobClient.UploadAsync(file.OpenReadStream(), new BlobUploadOptions { HttpHeaders = blobHttpHeader });
+                var lecture = new ResultUpload
+                {
+                    Name = fileName,
+                    Url = blobClient.Uri.AbsoluteUri
+                };
 
-                return new ResponseDto { Success = true, Message = "123123" };
+                return new ResponseDto { Success = true, Result = lecture, Message = "" };
             }
             else
             {

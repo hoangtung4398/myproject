@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BaseCourse.Dto.ListCourseDto>
+﻿@model IEnumerable<BaseCourse.Dto.ListLectureDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -7,7 +7,8 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+
+    @Html.ActionLink("Create", "Create", new { id = ViewBag.SectionId })
 </p>
 <table class="table">
     <thead>
@@ -19,10 +20,7 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NameCategory)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.QualityLecture)
+                @Html.DisplayNameFor(model => model.Url)
             </th>
             <th></th>
         </tr>
@@ -30,19 +28,18 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NameCategory)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QualityLecture)
+                @Html.DisplayFor(modelItem => item.Url)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Sections", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new {  id=item.Id  }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
