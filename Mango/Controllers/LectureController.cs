@@ -2,7 +2,7 @@
 using BaseCourse.Models;
 using CourseAPI.Services.IService;
 using Mango.Web.Service.IService;
-using Microsoft.AspNetCore.Http;
+using Mango.Web.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -58,7 +58,7 @@ namespace Mango.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromForm] InsertLectureDto insertLecture)
         {
-            var uploadResponse = await _lectureStorageService.UploadLectureAsync(insertLecture.File);
+            var uploadResponse = await _lectureStorageService.UploadLectureAsync(insertLecture.File,(int)SD.TypeUpload.Video);
             if(uploadResponse.Success == false)
             {
                 return View();

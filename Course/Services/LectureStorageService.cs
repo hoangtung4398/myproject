@@ -27,7 +27,7 @@ namespace CourseAPI.Services
             throw new NotImplementedException();
         }
 
-        public async Task<ResponseDto> UploadLectureAsync(IFormFile file)
+        public async Task<ResponseDto> UploadLectureAsync(IFormFile file,int type)
         {
             BlobServiceClient blobServiceClient = new BlobServiceClient(_lecture.ConnectionString);
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_lecture.ContainerName);
@@ -36,8 +36,19 @@ namespace CourseAPI.Services
             {
                 var fileName = Guid.NewGuid().ToString() + extension;
 				var blobClient = containerClient.GetBlobClient(fileName);
-
-                var blobHttpHeader = new BlobHttpHeaders { ContentType = $"video/{extension.Substring(1)}" };
+                var blobHttpHeader = new BlobHttpHeaders();
+                if (type == 0)
+                {
+                    blobHttpHeader = new BlobHttpHeaders { ContentType = $"video/{extension.Substring(1)}" };
+                }
+                else if (type == 1)
+                {
+                    
+                }
+                else if(type == 2)
+                {
+                    blobHttpHeader = new BlobHttpHeaders { ContentType = $"image/{extension.Substring(1)}" };
+                }
 				await blobClient.UploadAsync(file.OpenReadStream(), new BlobUploadOptions { HttpHeaders = blobHttpHeader });
                 var lecture = new ResultUpload
                 {

@@ -4,6 +4,7 @@ using BaseCourse.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BaseCourse.Migrations
 {
     [DbContext(typeof(CourseContext))]
-    partial class CourseContextModelSnapshot : ModelSnapshot
+    [Migration("20240114095325_fixnull")]
+    partial class fixnull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,36 +146,6 @@ namespace BaseCourse.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("CourseExam");
-                });
-
-            modelBuilder.Entity("BaseCourse.Models.Document", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("LectureId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NameAzure")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LectureId");
-
-                    b.ToTable("Document");
                 });
 
             modelBuilder.Entity("BaseCourse.Models.Lecture", b =>
@@ -469,13 +442,6 @@ namespace BaseCourse.Migrations
                         .HasForeignKey("CourseId");
                 });
 
-            modelBuilder.Entity("BaseCourse.Models.Document", b =>
-                {
-                    b.HasOne("BaseCourse.Models.Lecture", null)
-                        .WithMany("Documents")
-                        .HasForeignKey("LectureId");
-                });
-
             modelBuilder.Entity("BaseCourse.Models.Lecture", b =>
                 {
                     b.HasOne("BaseCourse.Models.Section", "Section")
@@ -591,11 +557,6 @@ namespace BaseCourse.Migrations
                     b.Navigation("Questions");
 
                     b.Navigation("UserExams");
-                });
-
-            modelBuilder.Entity("BaseCourse.Models.Lecture", b =>
-                {
-                    b.Navigation("Documents");
                 });
 
             modelBuilder.Entity("BaseCourse.Models.Question", b =>

@@ -25,5 +25,6 @@ namespace BaseCourse.Models
         public virtual User? CreateUser { get; set; }
         public virtual ICollection<Section> Sections { get; set; }
         public virtual ICollection<UserCourse> UserCourses { get; set; }
+        public virtual ICollection<CourseExam> CourseExams { get; set; }
     }
 }

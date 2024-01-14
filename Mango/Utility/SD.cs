@@ -13,5 +13,9 @@
         {
             GET, POST, PUT, DELETE
         }
+        public enum TypeUpload
+        {
+            Video,Doc,Image
+        }
     }
 }

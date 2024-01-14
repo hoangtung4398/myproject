@@ -21,6 +21,7 @@ builder.Services.AddScoped<ILectureRepository,LectureRepository >();
 builder.Services.AddScoped<ISectionRepository, SectionRepository>();
 builder.Services.AddScoped<IUserCourseRepository, UserCourseRepository>();
 builder.Services.AddScoped<ILectureStorageService, LectureStorageService>();
+builder.Services.AddScoped<ICategoryCourseRepository, CategoryCourseRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
