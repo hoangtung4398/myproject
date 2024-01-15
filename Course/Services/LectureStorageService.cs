@@ -1,10 +1,7 @@
-﻿using Azure.Storage;
-using Azure.Storage.Blobs;
+﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using BaseCourse.Dto;
-using BaseCourse.Models;
 using CouponAPI.Models.Dto;
-using CourseAPI.Models;
 using CourseAPI.Models.AzureConfig;
 using CourseAPI.Repository.IRepository;
 using CourseAPI.Services.IService;
