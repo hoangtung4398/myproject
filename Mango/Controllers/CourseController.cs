@@ -1,4 +1,5 @@
-﻿using BaseCourse.Dto;
+﻿using Azure;
+using BaseCourse.Dto;
 using BaseCourse.Models;
 using CourseAPI.Services.IService;
 using Mango.Web.Service.IService;
@@ -23,21 +24,21 @@ namespace Mango.Web.Controllers
 
 
         // GET: Course
-        public async Task <ActionResult> Index()
+        public async Task<ActionResult> Index()
         {
             var response = await _courseService.GetlistCourse();
             var listCourse = new List<ListCourseDto>();
-			if (response != null && response.Success)
-			{
-				 listCourse =JsonConvert.DeserializeObject<List<ListCourseDto>>(Convert.ToString(response.Result));
-			}
-			return View(listCourse);
+            if (response != null && response.Success)
+            {
+                listCourse = JsonConvert.DeserializeObject<List<ListCourseDto>>(Convert.ToString(response.Result));
+            }
+            return View(listCourse);
         }
 
         // GET: Course/Details/5
         public ActionResult Sections(int id)
         {
-            return RedirectToAction("Index", "Section", new {id});
+            return RedirectToAction("Index", "Section", new { id });
         }
 
         // GET: Course/Create
@@ -55,8 +56,8 @@ namespace Mango.Web.Controllers
 
         // POST: Course/Create
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromForm]InsertCourseDto insertCourseDto)
-         {
+        public async Task<IActionResult> CreateAsync([FromForm] InsertCourseDto insertCourseDto)
+        {
             try
             {
                 var responseUpload = await _lectureStorageService.UploadLectureAsync(insertCourseDto.File, (int)SD.TypeUpload.Image);
@@ -65,9 +66,20 @@ namespace Mango.Web.Controllers
                     return View();
                 }
                 var urlAzure = (ResultUpload)responseUpload.Result;
-                
-
-                return RedirectToAction(nameof(Index));
+                var course = new RequestCourseDto
+                {
+                    Name = insertCourseDto.Name,
+                    Description = insertCourseDto.Description,
+                    Knowledge = insertCourseDto.Knowledge,
+                    Requirments = insertCourseDto.Requirments,
+                    ImageUrl = urlAzure.Url,
+                    CategoryId = insertCourseDto.CategoryId,
+                    Target = insertCourseDto.Target,
+                };
+                var respone = await _courseService.CreateCourse(course);
+                if (respone.Success == true)
+                    return RedirectToAction(nameof(Index));
+                return View();
             }
             catch
             {
@@ -76,24 +88,60 @@ namespace Mango.Web.Controllers
         }
 
         // GET: CourseController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
+            var response = await _courseService.GetCourseById(id);
+            var course = new RequestCourseDto();
+            if (response != null && response.Success)
+            {
+                course = JsonConvert.DeserializeObject<RequestCourseDto>(Convert.ToString(response.Result));
+            }
+            ViewBag.Course = course;
+            var responseCate = await _courseService.GetCategoryCourse();
+            var listCategory = new List<CategoryCourse>();
+            if (responseCate != null && responseCate.Success)
+            {
+                listCategory = JsonConvert.DeserializeObject<List<CategoryCourse>>(Convert.ToString(responseCate.Result));
+            }
+            ViewBag.LisCate = listCategory;
             return View();
         }
 
         // POST: CourseController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> EditAsync([FromForm] InsertCourseDto insertCourseDto)
         {
-            try
+            var urlAzure = new ResultUpload();
+            if (insertCourseDto.File!= null)
             {
+                var responseUpload = await _lectureStorageService.UploadLectureAsync(insertCourseDto.File, (int)SD.TypeUpload.Image);
+                if (responseUpload.Success == false)
+                {
+                    return View();
+                }
+                urlAzure = (ResultUpload)responseUpload.Result;
+            }
+            else
+            {
+                urlAzure.Url = "";
+            }
+            var course = new RequestCourseDto
+            {
+                Id = insertCourseDto.Id,
+                Name = insertCourseDto.Name,
+                Description = insertCourseDto.Description,
+                Knowledge = insertCourseDto.Knowledge,
+                Requirments = insertCourseDto.Requirments,
+                ImageUrl = urlAzure.Url,
+                CategoryId = insertCourseDto.CategoryId,
+                Target = insertCourseDto.Target,
+            };
+            var respone = await _courseService.UpdateCourse(course);
+            if (respone.Success == true)
                 return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return View();
+
         }
 
         // GET: CourseController1/Delete/5
