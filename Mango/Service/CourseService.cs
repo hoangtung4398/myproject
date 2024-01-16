@@ -4,6 +4,7 @@ using CourseAPI.Services.IService;
 using Mango.Web.Models;
 using Mango.Web.Service.IService;
 using Mango.Web.Utility;
+using static System.Collections.Specialized.BitVector32;
 
 namespace Mango.Web.Service
 {
@@ -95,6 +96,43 @@ namespace Mango.Web.Service
             {
                 ApiType = SD.ApiType.GET,
                 Url = $"{SD.CourseAPIbase}/api/Course/GetCourseById/{id}"
+            });
+        }
+
+        public async Task<ResponseDto> DeleteCourse(int id)
+        {
+            return await _baseService.SendAsync(new Requestmsg()
+            {
+                ApiType = SD.ApiType.DELETE,
+                Url = $"{SD.CourseAPIbase}/api/Course/DeleteCourse/{id}"
+            });
+        }
+        public async Task<ResponseDto> CreateSection(DataItem section)
+        {
+            return await _baseService.SendAsync(new Requestmsg()
+            {
+                ApiType = SD.ApiType.POST,
+                Data = section,
+                Url = $"{SD.CourseAPIbase}/api/Course/CreateSection"
+            });
+        }
+
+        public async Task<ResponseDto> UpdateLecture(int id, Lecture insertCourseDto)
+        {
+            return await _baseService.SendAsync(new Requestmsg()
+            {
+                ApiType = SD.ApiType.PUT,
+                Data = insertCourseDto,
+                Url = $"{SD.CourseAPIbase}/api/Course/UpdateLecture/{id}"
+            });
+        }
+
+        public async Task<ResponseDto> DeleteLecture(int id)
+        {
+            return await _baseService.SendAsync(new Requestmsg()
+            {
+                ApiType = SD.ApiType.DELETE,
+                Url = $"{SD.CourseAPIbase}/api/Course/DeleteLecture/{id}"
             });
         }
     }

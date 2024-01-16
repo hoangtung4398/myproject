@@ -75,53 +75,88 @@ namespace Mango.Web.Controllers
             };
 
             var response = await _courseService.CreateLecture(lecture);
+            if (response.Success == true)
+            {
+                return RedirectToAction(nameof(Index), new { id = insertLecture.SectionId });
 
-            return RedirectToAction(nameof(Index), new {id = insertLecture.SectionId });
+            }
+            return View();
 
-            
+
 
         }
 
         // GET: LectureController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
+            var response = await _courseService.GetDetailLecture(id);
+            var detailLecture = new DetailLectureDto();
+            if (response.Success == true && response != null)
+            {
+                detailLecture = JsonConvert.DeserializeObject<DetailLectureDto>(Convert.ToString(response.Result));
+            }
+            ViewBag.Lecture = detailLecture;
             return View();
         }
 
         // POST: LectureController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit([FromForm]InsertLectureDto insertLecture)
         {
-            try
+            var urlAzure = new ResultUpload();
+
+			if (insertLecture.File != null)
             {
-                return RedirectToAction(nameof(Index));
+                var uploadResponse = await _lectureStorageService.UploadLectureAsync(insertLecture.File, (int)SD.TypeUpload.Video);
+                if (uploadResponse.Success == false)
+                {
+                    return View();
+                }
+
+                urlAzure = (ResultUpload)uploadResponse.Result;
             }
-            catch
+            var lecture = new Lecture()
             {
-                return View();
-            }
+                Name = insertLecture.Name,
+                Url = urlAzure.Url,
+                NameFileAzure = urlAzure.Name,
+                SectionId = insertLecture.SectionId,
+            };
+
+            var response = await _courseService.UpdateLecture((int)insertLecture.Id, lecture);
+
+            return RedirectToAction(nameof(Index), new { id = insertLecture.SectionId });
         }
 
         // GET: LectureController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+            var response = await _courseService.GetDetailLecture(id);
+            var detailLecture = new DetailLectureDto();
+            if (response.Success == true && response != null)
+            {
+                detailLecture = JsonConvert.DeserializeObject<DetailLectureDto>(Convert.ToString(response.Result));
+            }
+            ViewBag.SectionId = id;
+            return View(detailLecture);
             return View();
         }
 
         // POST: LectureController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
-            try
+            var sectionId = collection["SectionId"];
+            var response = await _courseService.DeleteLecture(id);
+            if(response.Success == true)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new {id = sectionId });
+
             }
-            catch
-            {
-                return View();
-            }
+            return View();
+
         }
     }
 }

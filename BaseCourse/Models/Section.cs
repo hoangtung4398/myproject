@@ -12,7 +12,7 @@ namespace BaseCourse.Models
 
         public string? Name { get; set; }
         public int? CourseId { get; set; }
-        public int Sort {  get; set; }
+        public int? Sort {  get; set; }
 
         public virtual Course? Course { get; set; }
         public virtual ICollection<Lecture> Lectures { get; set; }

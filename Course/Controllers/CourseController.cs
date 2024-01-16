@@ -206,6 +206,56 @@ namespace CourseAPI.Controllers
             _response.Result = course;
             return Ok(_response);
         }
+        [HttpDelete("DeleteCourse/{id}")]
+        public IActionResult DeleteCourse(int id)
+        {
+            var courseDelete = _courseRepository.Get(x => x.Id == id).FirstOrDefault();
+            if (courseDelete == null)
+            {
+                _response.Success = false;
+                return Ok(_response);
+            }
+            _courseRepository.Delete(id);
+            return Ok(_response);
+        }
+        [HttpPost("CreateSection")]
+        public IActionResult CreateSection(DataItem section)
+        {
+            var sectionInsert = new Section
+            {
+                CourseId = section.Id,
+                Name = section.Name,
+            };
+            var id = _sectionRepository.Add(sectionInsert);
+            if (id == 0)
+            {
+                _response.Success = false;
+                return Ok(_response);
+            }
+            return Ok(_response);
+        }
+        [HttpPut("UpdateLecture/{id}")]
+        public IActionResult UpdateLecture(int id, Lecture insertLectureDto)
+        {
+            var lectureUpdate = _lectureRepository.Get(x => x.Id == id).FirstOrDefault();
+            if (lectureUpdate == null)
+            {
+                _response.Success = false;
+                return Ok(_response);
+            }
+            lectureUpdate.Name = insertLectureDto.Name;
+            lectureUpdate.Url = insertLectureDto.Url;
+            lectureUpdate.NameFileAzure = insertLectureDto.NameFileAzure;
+            _lectureRepository.Update(lectureUpdate);
+            _response.Success = true;
+            return Ok(_response);  
+        }
+        [HttpDelete("DeleteLecture/{id}")]
+        public IActionResult DeleteLecture(int id)
+        {
+            _lectureRepository.Delete(id);
+            return Ok(_response);
+        }
 
     }
 }

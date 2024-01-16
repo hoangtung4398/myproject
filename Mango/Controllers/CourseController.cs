@@ -113,7 +113,7 @@ namespace Mango.Web.Controllers
         public async Task<ActionResult> EditAsync([FromForm] InsertCourseDto insertCourseDto)
         {
             var urlAzure = new ResultUpload();
-            if (insertCourseDto.File!= null)
+            if (insertCourseDto.File != null)
             {
                 var responseUpload = await _lectureStorageService.UploadLectureAsync(insertCourseDto.File, (int)SD.TypeUpload.Image);
                 if (responseUpload.Success == false)
@@ -145,24 +145,36 @@ namespace Mango.Web.Controllers
         }
 
         // GET: CourseController1/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            var response = await _courseService.GetCourseById(id);
+            var course = new RequestCourseDto();
+            if (response != null && response.Success)
+            {
+                course = JsonConvert.DeserializeObject<RequestCourseDto>(Convert.ToString(response.Result));
+            }
+            ViewBag.Course = course;
+            var responseCate = await _courseService.GetCategoryCourse();
+            var listCategory = new List<CategoryCourse>();
+            if (responseCate != null && responseCate.Success)
+            {
+                listCategory = JsonConvert.DeserializeObject<List<CategoryCourse>>(Convert.ToString(responseCate.Result));
+            }
+            ViewBag.LisCate = listCategory;
+            return View(course);
         }
 
         // POST: CourseController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
-            try
+            var response = await _courseService.DeleteCourse(id);
+            if (response.Success == true)
             {
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
     }
 }

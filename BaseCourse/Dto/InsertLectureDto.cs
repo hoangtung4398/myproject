@@ -9,8 +9,9 @@ namespace BaseCourse.Dto
 {
 	public class InsertLectureDto
 	{
+		public int? Id { get; set; }
 		public string Name { get; set; }
-		public IFormFile File { get; set; }
+		public IFormFile? File { get; set; }
 		public int SectionId {  get; set; }
 	}
 }
