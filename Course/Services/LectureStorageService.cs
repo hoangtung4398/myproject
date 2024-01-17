@@ -29,8 +29,7 @@ namespace CourseAPI.Services
             BlobServiceClient blobServiceClient = new BlobServiceClient(_lecture.ConnectionString);
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_lecture.ContainerName);
             var extension = Path.GetExtension(file.FileName).ToLower();
-            if (extension == ".mp4" || extension == ".avi" || extension == ".mkv")
-            {
+           
                 var fileName = Guid.NewGuid().ToString() + extension;
 				var blobClient = containerClient.GetBlobClient(fileName);
                 var blobHttpHeader = new BlobHttpHeaders();
@@ -54,11 +53,8 @@ namespace CourseAPI.Services
                 };
 
                 return new ResponseDto { Success = true, Result = lecture, Message = "" };
-            }
-            else
-            {
-                return new ResponseDto { Success = false, Message = "File extension not supported" };
-            }
+            
+            
         }
     }
 }

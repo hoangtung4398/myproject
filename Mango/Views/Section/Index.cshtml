@@ -33,7 +33,7 @@
                 @Html.DisplayFor(modelItem => item.QualityLecture)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Edit", "Edit", new { item.Id }) |
                 @Html.ActionLink("Lectures", "Details", new { item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>

@@ -13,5 +13,13 @@ namespace Mango.Web.Service.IService
 		Task<ResponseDto> GetDetailLecture(int id);
 
         Task<ResponseDto> GetCategoryCourse();
+		Task<ResponseDto> CreateCourse(RequestCourseDto course);
+		Task<ResponseDto> UpdateCourse(RequestCourseDto course);
+        Task<ResponseDto> GetCourseById(int id);
+		Task<ResponseDto> DeleteCourse(int id);
+		Task<ResponseDto> CreateSection(DataItem dataItem);
+		Task<ResponseDto> UpdateLecture(int id, Lecture insertCourseDto);
+
+        Task<ResponseDto> DeleteLecture(int id);
     }
 }

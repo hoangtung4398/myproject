@@ -10,7 +10,7 @@ namespace BaseCourse.Models
         public int? SectionId { get; set; }
         public TimeSpan? Time { get; set; }
         public string? NameFileAzure { get; set; }
-        public int Sort {  get; set; }
+        public int? Sort {  get; set; }
         public virtual Section? Section { get; set; }
         public virtual ICollection<Document>? Documents { get; set; }
     }

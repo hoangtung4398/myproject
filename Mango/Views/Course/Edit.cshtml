@@ -1,63 +1,73 @@
-﻿@model BaseCourse.Dto.InsertCourseDto
+﻿@using BaseCourse.Dto;
+@model BaseCourse.Dto.InsertCourseDto
+
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     var cate = new SelectList(ViewBag.LisCate, "Id", "Name");
+    RequestCourseDto course = ViewBag.Course;
+    foreach (var item in cate)
+    {
+        if (Int32.Parse(item.Value) == course.CategoryId)
+        {
+            item.Selected = true;
+        }
+    }
 }
 
-<h1>Create</h1>
+<h1>Edit</h1>
 
-<h4>InsertLectureDto</h4>
+<h4>InsertCourseDto</h4>
 <hr />
 <div class="row">
-    <div class="col-md-6">
-        <form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Id" value="@course.Id" hidden class="form-control" />
             <div class="form-group">
                 @Html.DropDownListFor(x=>x.CategoryId,cate,"Category",new { @class = "form-control" })
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" value="@course.Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+            <img src="@course.ImageUrl" class="w-100" />
             <div class="form-group">
                 <label asp-for="File" class="control-label"></label>
                 <input type="file" asp-for="File" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <input asp-for="Description" value="@course.Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Requirments" class="control-label"></label>
-                <input asp-for="Requirments" class="form-control" />
+                <input asp-for="Requirments" value="@course.Requirments" class="form-control" />
                 <span asp-validation-for="Requirments" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Target" class="control-label"></label>
-                <input asp-for="Target" class="form-control" />
+                <input asp-for="Target" value="@course.Target" class="form-control" />
                 <span asp-validation-for="Target" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Knowledge" class="control-label"></label>
-                <input asp-for="Knowledge" class="form-control" />
+                <input asp-for="Knowledge" value="@course.Knowledge" class="form-control" />
                 <span asp-validation-for="Knowledge" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    @Html.ActionLink("Back to List","Index",new {id = ViewBag.SectionId})
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-

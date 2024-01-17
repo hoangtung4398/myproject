@@ -121,11 +121,141 @@ namespace CourseAPI.Controllers
         [HttpGet("GetCategory")]
         public IActionResult GetCategory()
         {
-            var category =_categoryCourseRepository.GetAll();
+            var category = _categoryCourseRepository.GetAll();
             _response.Result = category;
             return Ok(_response);
         }
+        [HttpPost("CreateCourse")]
+        public IActionResult CreateCourse(RequestCourseDto course)
+        {
+            var courseInsert = new Course
+            {
+                Name = course.Name,
+                Description = course.Description,
+                Knowledge = course.Knowledge,
+                Requirments = course.Requirments,
+                ImageUrl = course.ImageUrl,
+                CategoryId = course.CategoryId,
+                Target = course.Target,
+                //fix when have authen
+                CreateUserId = 1
+            };
+            var Id = _courseRepository.Add(courseInsert);
+            if (Id == 0)
+            {
+                _response.Success = false;
+                return Ok(_response);
+            }
+            return Ok(_response);
+        }
+        [HttpPut("UpdateCourse/")]
+        public IActionResult UpdateCourse(RequestCourseDto course)
+        {
+            var courseUpdate = _courseRepository.Get(x => x.Id == course.Id).Select(x => new Course
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description,
+                Knowledge = x.Knowledge,
+                Requirments = x.Requirments,
+                ImageUrl = x.ImageUrl,
+                CreateUserId = x.CreateUserId,
+                CategoryId = x.CategoryId,
+                Target = x.Target,
+            }).FirstOrDefault();
+            if (courseUpdate == null)
+            {
+                _response.Success = false;
+                _response.Message = "Not Found";
+                return Ok(_response);
+            }
 
+            courseUpdate.Name = course.Name;
+            courseUpdate.Description = course.Description;
+            courseUpdate.Knowledge = course.Knowledge;
+            courseUpdate.Requirments = course.Requirments;
+            if (!string.IsNullOrEmpty(course.ImageUrl))
+                courseUpdate.ImageUrl = course.ImageUrl;
+            courseUpdate.CategoryId = course.CategoryId;
+            courseUpdate.Target = course.Target;
+            //fix when have authen
+            courseUpdate.CreateUserId = 1;
+            _courseRepository.Update(courseUpdate);
+
+            return Ok(_response);
+        }
+        [HttpGet("GetCourseById/{id}")]
+        public IActionResult GetCourseById(int id)
+        {
+            var course = _courseRepository.Get(x => x.Id == id).Select(x => new RequestCourseDto
+            {
+                Id = x.Id,
+                CategoryId = x.CategoryId,
+                Name = x.Name,
+                Description = x.Description,
+                ImageUrl = x.ImageUrl,
+                Requirments = x.Requirments,
+                Target = x.Target,
+                Knowledge = x.Knowledge,
+            }).FirstOrDefault();
+            if (course == null)
+            {
+                _response.Success = false;
+                return Ok(_response);
+            }
+            _response.Result = course;
+            return Ok(_response);
+        }
+        [HttpDelete("DeleteCourse/{id}")]
+        public IActionResult DeleteCourse(int id)
+        {
+            var courseDelete = _courseRepository.Get(x => x.Id == id).FirstOrDefault();
+            if (courseDelete == null)
+            {
+                _response.Success = false;
+                return Ok(_response);
+            }
+            _courseRepository.Delete(id);
+            return Ok(_response);
+        }
+        [HttpPost("CreateSection")]
+        public IActionResult CreateSection(DataItem section)
+        {
+            var sectionInsert = new Section
+            {
+                CourseId = section.Id,
+                Name = section.Name,
+            };
+            var id = _sectionRepository.Add(sectionInsert);
+            if (id == 0)
+            {
+                _response.Success = false;
+                return Ok(_response);
+            }
+            return Ok(_response);
+        }
+        [HttpPut("UpdateLecture/{id}")]
+        public IActionResult UpdateLecture(int id, Lecture insertLectureDto)
+        {
+            var lectureUpdate = _lectureRepository.Get(x => x.Id == id).FirstOrDefault();
+            if (lectureUpdate == null)
+            {
+                _response.Success = false;
+                return Ok(_response);
+            }
+            lectureUpdate.Name = insertLectureDto.Name;
+            lectureUpdate.Url = insertLectureDto.Url;
+            lectureUpdate.NameFileAzure = insertLectureDto.NameFileAzure;
+            _lectureRepository.Update(lectureUpdate);
+            _response.Success = true;
+            return Ok(_response);  
+        }
+        [HttpDelete("DeleteLecture/{id}")]
+        public IActionResult DeleteLecture(int id)
+        {
+            _lectureRepository.Delete(id);
+            return Ok(_response);
+        }
 
     }
 }

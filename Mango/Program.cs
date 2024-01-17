@@ -16,11 +16,9 @@ SD.AuthAPIbase = builder.Configuration["ServiceUrls:AuthAPI"];
 SD.CourseAPIbase = builder.Configuration["ServiceUrls:CourseAPI"];
 builder.Services.AddHttpClient();
 builder.Services.Configure<StorageLecture>(builder.Configuration.GetSection("AzureOption:LectureAzureStorageConnectionS"));
-builder.Services.AddHttpClient<ICouponService, CouponService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<ILectureStorageService, LectureStorageService>();
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
-builder.Services.AddScoped<ICouponService, CouponService>();
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
