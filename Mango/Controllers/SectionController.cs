@@ -1,4 +1,5 @@
 ﻿using BaseCourse.Dto;
+using BaseCourse.Models;
 using Mango.Web.Service.IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -48,47 +49,62 @@ namespace Mango.Web.Controllers
             var response = await _courseService.CreateSection(section);
             if (response.Success == true)
             {
-                return RedirectToAction(nameof(Index), new {id = section.Id});
+                return RedirectToAction(nameof(Index), new { id = section.Id });
             }
             return View();
         }
 
         // GET: SectionController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var response = await _courseService.GetSectionById(id);
+            var section = new Section();
+            if (response.Success == true)
+            {
+                section = JsonConvert.DeserializeObject<Section>(Convert.ToString(response.Result));
+            }
+            return View(section);
         }
 
         // POST: SectionController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, Section section)
         {
-            try
+            var response = await _courseService.UpdateSection(id, section);
+            if (response.Success == true)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = section.CourseId });
+
             }
-            catch
-            {
-                return View();
-            }
+            return View(section);
+
+
         }
 
         // GET: SectionController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            var response = await _courseService.GetSectionById(id);
+            var section = new Section();
+            if (response.Success == true)
+            {
+                section = JsonConvert.DeserializeObject<Section>(Convert.ToString(response.Result));
+            }
+            return View(section);
         }
 
         // POST: SectionController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
-
-
-            return RedirectToAction(nameof(Index));
-
+            var courseId = collection["CourseId"];
+            var response = await _courseService.DeleteSection(id);
+            if (response.Success == true)
+            {
+                return RedirectToAction(nameof(Index), new { id = courseId });
+            }
             return View();
         }
     }

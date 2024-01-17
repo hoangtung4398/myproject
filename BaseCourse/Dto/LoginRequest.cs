@@ -1,4 +1,6 @@
-﻿namespace AuthAPI.Models
+﻿
+
+namespace BaseCourse.Dto
 {
     public class LoginRequest
     {

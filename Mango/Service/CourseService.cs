@@ -1,10 +1,8 @@
 ﻿using BaseCourse.Dto;
 using BaseCourse.Models;
-using CourseAPI.Services.IService;
 using Mango.Web.Models;
 using Mango.Web.Service.IService;
 using Mango.Web.Utility;
-using static System.Collections.Specialized.BitVector32;
 
 namespace Mango.Web.Service
 {
@@ -133,6 +131,34 @@ namespace Mango.Web.Service
             {
                 ApiType = SD.ApiType.DELETE,
                 Url = $"{SD.CourseAPIbase}/api/Course/DeleteLecture/{id}"
+            });
+        }
+
+        public async Task<ResponseDto> UpdateSection(int id, Section section)
+        {
+            return await _baseService.SendAsync(new Requestmsg()
+            {
+                ApiType = SD.ApiType.PUT,
+                Data = section,
+                Url = $"{SD.CourseAPIbase}/api/Course/UpdateSection/{id}"
+            });
+        }
+
+        public async Task<ResponseDto> GetSectionById(int id)
+        {
+            return await _baseService.SendAsync(new Requestmsg()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = $"{SD.CourseAPIbase}/api/Course/GetSectionById/{id}"
+            });
+        }
+
+        public async Task<ResponseDto> DeleteSection(int id)
+        {
+            return await _baseService.SendAsync(new Requestmsg()
+            {
+                ApiType = SD.ApiType.DELETE,
+                Url = $"{SD.CourseAPIbase}/api/Course/DeleteSection/{id}"
             });
         }
     }

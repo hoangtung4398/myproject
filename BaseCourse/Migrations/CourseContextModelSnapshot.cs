@@ -56,17 +56,14 @@ namespace BaseCourse.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Urlimage")
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("CategoryCourse", (string)null);
+                    b.ToTable("CategoryCourses");
                 });
 
             modelBuilder.Entity("BaseCourse.Models.Course", b =>
@@ -84,39 +81,33 @@ namespace BaseCourse.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Knowledge")
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Requirments")
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Target")
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Time")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "CategoryId" }, "IX_Course_CategoryId");
+                    b.HasIndex("CategoryId");
 
-                    b.HasIndex(new[] { "CreateUserId" }, "IX_Course_CreateUserId");
+                    b.HasIndex("CreateUserId");
 
-                    b.ToTable("Course", (string)null);
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("BaseCourse.Models.CourseExam", b =>
@@ -184,33 +175,28 @@ namespace BaseCourse.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameFileAzure")
-                        .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("SectionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Sort")
+                    b.Property<int?>("Sort")
                         .HasColumnType("int");
 
                     b.Property<TimeSpan?>("Time")
                         .HasColumnType("time");
 
                     b.Property<string>("Url")
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "SectionId" }, "IX_Lecture_SectionId");
+                    b.HasIndex("SectionId");
 
-                    b.ToTable("Lecture", (string)null);
+                    b.ToTable("Lectures");
                 });
 
             modelBuilder.Entity("BaseCourse.Models.Question", b =>
@@ -279,8 +265,7 @@ namespace BaseCourse.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -299,18 +284,16 @@ namespace BaseCourse.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Sort")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "CourseId" }, "IX_Section_CourseId");
+                    b.HasIndex("CourseId");
 
-                    b.ToTable("Section", (string)null);
+                    b.ToTable("Sections");
                 });
 
             modelBuilder.Entity("BaseCourse.Models.User", b =>
@@ -322,42 +305,35 @@ namespace BaseCourse.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AboutMe")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValueSql("(N'')");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Education")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValueSql("(N'')");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Experiences")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValueSql("(N'')");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValueSql("(N'')");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OverView")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValueSql("(N'')");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -384,11 +360,11 @@ namespace BaseCourse.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "CourseId" }, "IX_UserCourse_CourseId");
+                    b.HasIndex("CourseId");
 
-                    b.HasIndex(new[] { "UserId" }, "IX_UserCourse_UserId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("UserCourse", (string)null);
+                    b.ToTable("UserCourses");
                 });
 
             modelBuilder.Entity("BaseCourse.Models.UserExam", b =>
@@ -420,21 +396,6 @@ namespace BaseCourse.Migrations
                     b.ToTable("UserExam");
                 });
 
-            modelBuilder.Entity("UserRole", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex(new[] { "RoleId" }, "IX_UserRoles_RoleId");
-
-                    b.ToTable("UserRoles", (string)null);
-                });
-
             modelBuilder.Entity("BaseCourse.Models.Answer", b =>
                 {
                     b.HasOne("BaseCourse.Models.Question", null)
@@ -446,16 +407,13 @@ namespace BaseCourse.Migrations
                 {
                     b.HasOne("BaseCourse.Models.CategoryCourse", "Category")
                         .WithMany("Courses")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .HasConstraintName("Category");
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("BaseCourse.Models.User", "CreateUser")
                         .WithMany("Courses")
                         .HasForeignKey("CreateUserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("creat");
+                        .IsRequired();
 
                     b.Navigation("Category");
 
@@ -480,9 +438,7 @@ namespace BaseCourse.Migrations
                 {
                     b.HasOne("BaseCourse.Models.Section", "Section")
                         .WithMany("Lectures")
-                        .HasForeignKey("SectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .HasConstraintName("VideoSection");
+                        .HasForeignKey("SectionId");
 
                     b.Navigation("Section");
                 });
@@ -515,11 +471,20 @@ namespace BaseCourse.Migrations
                 {
                     b.HasOne("BaseCourse.Models.Course", "Course")
                         .WithMany("Sections")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .HasConstraintName("SectionCourse");
+                        .HasForeignKey("CourseId");
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("BaseCourse.Models.User", b =>
+                {
+                    b.HasOne("BaseCourse.Models.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("BaseCourse.Models.UserCourse", b =>
@@ -527,14 +492,14 @@ namespace BaseCourse.Migrations
                     b.HasOne("BaseCourse.Models.Course", "Course")
                         .WithMany("UserCourses")
                         .HasForeignKey("CourseId")
-                        .IsRequired()
-                        .HasConstraintName("courseId");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BaseCourse.Models.User", "User")
                         .WithMany("UserCourses")
                         .HasForeignKey("UserId")
-                        .IsRequired()
-                        .HasConstraintName("user");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Course");
 
@@ -550,21 +515,6 @@ namespace BaseCourse.Migrations
                     b.HasOne("BaseCourse.Models.User", null)
                         .WithMany("UserExams")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("UserRole", b =>
-                {
-                    b.HasOne("BaseCourse.Models.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BaseCourse.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("BaseCourse.Models.Answer", b =>
@@ -603,6 +553,11 @@ namespace BaseCourse.Migrations
                     b.Navigation("Answers");
 
                     b.Navigation("ResultExams");
+                });
+
+            modelBuilder.Entity("BaseCourse.Models.Role", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("BaseCourse.Models.Section", b =>

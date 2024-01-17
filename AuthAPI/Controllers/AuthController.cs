@@ -1,5 +1,6 @@
 ﻿using AuthAPI.Models;
 using AuthAPI.Services.IServices;
+using BaseCourse.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthAPI.Controllers
@@ -15,8 +16,7 @@ namespace AuthAPI.Controllers
             _AuthService = authService;
             _responseDto = new ResponseDto();
         }
-        [HttpPost]
-        [Route("/Register")]
+        [HttpPost("/Register")]
         public async Task<IActionResult> Register([FromBody] RegisterationRequest request)
         {
             var result = await _AuthService.Register(request);
@@ -29,8 +29,7 @@ namespace AuthAPI.Controllers
             }
             return Ok(_responseDto);
         }
-        [HttpPost]
-        [Route("/Login")]
+        [HttpPost("/Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             var loginResponse = await _AuthService.Login(request);
@@ -42,7 +41,6 @@ namespace AuthAPI.Controllers
             }
             _responseDto.Result = loginResponse;
             return Ok(_responseDto);
-
         }
         [HttpPost]
         [Route("/AssginRole")]

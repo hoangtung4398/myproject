@@ -21,5 +21,8 @@ namespace Mango.Web.Service.IService
 		Task<ResponseDto> UpdateLecture(int id, Lecture insertCourseDto);
 
         Task<ResponseDto> DeleteLecture(int id);
+		Task<ResponseDto> UpdateSection(int id,Section section);
+		Task <ResponseDto> GetSectionById(int id);
+		Task<ResponseDto> DeleteSection(int id);
     }
 }

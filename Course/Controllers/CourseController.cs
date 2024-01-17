@@ -256,6 +256,48 @@ namespace CourseAPI.Controllers
             _lectureRepository.Delete(id);
             return Ok(_response);
         }
+        [HttpPut("UpdateSection/{id}")]
+        public IActionResult UpdateSection(int id, Section section)
+        {
+            var sectionUpdate = _sectionRepository.Get(x => x.Id == id).FirstOrDefault();
+            if (sectionUpdate == null)
+            {
+                _response.Success = false;
+                return Ok(_response);
+            }
+            sectionUpdate.Name = section.Name;
+            _sectionRepository.Update(sectionUpdate);
+            return Ok(_response);
+        }
+        [HttpGet("GetSectionById/{id}")]
+        public IActionResult GetSectionById(int id)
+        {
+            var section = _sectionRepository.Get(x => x.Id == id).Select(x => new Section
+            {
+                Id = x.Id,
+                Name = x.Name,
+                CourseId = x.CourseId,
+            }).FirstOrDefault();
+            if (section == null)
+            {
+                _response.Success = false;
+                return Ok(_response);
+            }
+            _response.Result = section;
+            return Ok(_response);
+        }
+        [HttpDelete("DeleteSection/{id}")]
+        public IActionResult DeleteSection(int id)
+        {
+            var sectionDelete = _sectionRepository.Get(x => x.Id == id).FirstOrDefault();
+            if (sectionDelete == null)
+            {
+                _response.Success = false;
+                return Ok(_response);
+            }
+            _sectionRepository.Delete(id);
+            return Ok(_response);
+        }   
 
     }
 }

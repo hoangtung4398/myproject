@@ -1,8 +1,10 @@
 ﻿using AuthAPI.Models;
 using AuthAPI.Repositorys.IRepository;
 using AuthAPI.Services.IServices;
+using BaseCourse.Dto;
 using BaseCourse.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace AuthAPI.Services
 {
@@ -11,20 +13,23 @@ namespace AuthAPI.Services
         private readonly IUserRepository _userRepository;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
         private readonly IRoleRepository _roleRepository;
+        private readonly CourseContext _context;
 
-        public AuthService(IUserRepository userRepository, IJwtTokenGenerator jwtTokenGenerator, IRoleRepository roleRepository)
+        public AuthService(IUserRepository userRepository, IJwtTokenGenerator jwtTokenGenerator, IRoleRepository roleRepository, CourseContext context)
         {
             _userRepository = userRepository;
             _jwtTokenGenerator = jwtTokenGenerator;
             _roleRepository = roleRepository;
+            _context = context;
         }
 
         public async Task<bool> AssignRole(string email, string roleName)
         {
             var user = _userRepository.Get(u => u.Email == email).FirstOrDefault();
+            var user1 = _context.Users.Where(u => u.Email == email).FirstOrDefault();
             if (user != null)
             {
-                if (user.Roles.Any(x => x.Name == roleName))
+                if (user.Role.Name == roleName)
                 {
                     return false;
                 }
@@ -33,7 +38,7 @@ namespace AuthAPI.Services
                 {
                     return false;
                 }
-                user.Roles.Add(role);
+                user.Role = role;
                 return true;
             }
             return false;
@@ -46,14 +51,17 @@ namespace AuthAPI.Services
         public async Task<LoginResponse> Login(LoginRequest request)
         {
 
-            var user = _userRepository.Get(x => x.Email == request.Email && x.Password == request.Password).FirstOrDefault();
-
+            var user = 
+                _userRepository.Get(x => x.Email == request.Email && x.Password == request.Password).FirstOrDefault();
+            var roles = _roleRepository.Get(x => x.Id ==1).FirstOrDefault();
             if (user == null)
             {
                 return new LoginResponse() { User = null, Token = "" };
             }
-
-            var token = _jwtTokenGenerator.GenerateToken(user, user.Roles.Select(x => x.Name).ToList());
+            var user1 = _context.Users.Where(u => u.Email == request.Email).FirstOrDefault();
+            var role = user.Role.Name;
+            
+            var token = _jwtTokenGenerator.GenerateToken(user, role);
             UserDTO UserDTO = new UserDTO()
             {
                 Email = user.Email,

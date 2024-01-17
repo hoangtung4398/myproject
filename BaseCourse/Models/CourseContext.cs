@@ -28,158 +28,158 @@ namespace BaseCourse.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CategoryCourse>(entity =>
-            {
-                entity.ToTable("CategoryCourse");
+            //modelBuilder.Entity<CategoryCourse>(entity =>
+            //{
+            //    entity.ToTable("CategoryCourse");
 
-                entity.Property(e => e.Name)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+            //    entity.Property(e => e.Name)
+            //        .HasMaxLength(255)
+            //        .IsUnicode(false);
 
-                entity.Property(e => e.Urlimage).IsUnicode(false);
-            });
+            //    entity.Property(e => e.Urlimage).IsUnicode(false);
+            //});
 
-            modelBuilder.Entity<Course>(entity =>
-            {
-                entity.ToTable("Course");
+            //modelBuilder.Entity<Course>(entity =>
+            //{
+            //    entity.ToTable("Course");
 
-                entity.HasIndex(e => e.CategoryId, "IX_Course_CategoryId");
+            //    entity.HasIndex(e => e.CategoryId, "IX_Course_CategoryId");
 
-                entity.HasIndex(e => e.CreateUserId, "IX_Course_CreateUserId");
+            //    entity.HasIndex(e => e.CreateUserId, "IX_Course_CreateUserId");
 
-                entity.Property(e => e.Description).IsUnicode(false);
+            //    entity.Property(e => e.Description).IsUnicode(false);
 
-                entity.Property(e => e.ImageUrl).IsUnicode(false);
+            //    entity.Property(e => e.ImageUrl).IsUnicode(false);
 
-                entity.Property(e => e.Knowledge).IsUnicode(false);
+            //    entity.Property(e => e.Knowledge).IsUnicode(false);
 
-                entity.Property(e => e.Name).IsUnicode(false);
+            //    entity.Property(e => e.Name).IsUnicode(false);
 
-                entity.Property(e => e.Requirments).IsUnicode(false);
+            //    entity.Property(e => e.Requirments).IsUnicode(false);
 
-                entity.Property(e => e.Target).IsUnicode(false);
+            //    entity.Property(e => e.Target).IsUnicode(false);
 
-                entity.HasOne(d => d.Category)
-                    .WithMany(p => p.Courses)
-                    .HasForeignKey(d => d.CategoryId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("Category");
+            //    entity.HasOne(d => d.Category)
+            //        .WithMany(p => p.Courses)
+            //        .HasForeignKey(d => d.CategoryId)
+            //        .OnDelete(DeleteBehavior.Cascade)
+            //        .HasConstraintName("Category");
 
-                entity.HasOne(d => d.CreateUser)
-                    .WithMany(p => p.Courses)
-                    .HasForeignKey(d => d.CreateUserId)
-                    .HasConstraintName("creat");
-            });
+            //    entity.HasOne(d => d.CreateUser)
+            //        .WithMany(p => p.Courses)
+            //        .HasForeignKey(d => d.CreateUserId)
+            //        .HasConstraintName("creat");
+            //});
 
-            modelBuilder.Entity<Lecture>(entity =>
-            {
-                entity.ToTable("Lecture");
+            //modelBuilder.Entity<Lecture>(entity =>
+            //{
+            //    entity.ToTable("Lecture");
 
-                entity.HasIndex(e => e.SectionId, "IX_Lecture_SectionId");
+            //    entity.HasIndex(e => e.SectionId, "IX_Lecture_SectionId");
 
-                entity.Property(e => e.Name)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+            //    entity.Property(e => e.Name)
+            //        .HasMaxLength(255)
+            //        .IsUnicode(false);
 
-                entity.Property(e => e.NameFileAzure)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+            //    entity.Property(e => e.NameFileAzure)
+            //        .HasMaxLength(255)
+            //        .IsUnicode(false);
 
-                entity.Property(e => e.Url).IsUnicode(false);
+            //    entity.Property(e => e.Url).IsUnicode(false);
 
-                entity.HasOne(d => d.Section)
-                    .WithMany(p => p.Lectures)
-                    .HasForeignKey(d => d.SectionId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("VideoSection");
-            });
+            //    entity.HasOne(d => d.Section)
+            //        .WithMany(p => p.Lectures)
+            //        .HasForeignKey(d => d.SectionId)
+            //        .OnDelete(DeleteBehavior.Cascade)
+            //        .HasConstraintName("VideoSection");
+            //});
 
-            modelBuilder.Entity<Role>(entity =>
-            {
+            //modelBuilder.Entity<Role>(entity =>
+            //{
                 
 
-                entity.Property(e => e.Name).HasMaxLength(256);
+            //    entity.Property(e => e.Name).HasMaxLength(256);
 
                
-            });
+            //});
 
 
 
-            modelBuilder.Entity<Section>(entity =>
-            {
-                entity.ToTable("Section");
+            //modelBuilder.Entity<Section>(entity =>
+            //{
+            //    entity.ToTable("Section");
 
-                entity.HasIndex(e => e.CourseId, "IX_Section_CourseId");
+            //    entity.HasIndex(e => e.CourseId, "IX_Section_CourseId");
 
-                entity.Property(e => e.Name)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+            //    entity.Property(e => e.Name)
+            //        .HasMaxLength(255)
+            //        .IsUnicode(false);
 
-                entity.HasOne(d => d.Course)
-                    .WithMany(p => p.Sections)
-                    .HasForeignKey(d => d.CourseId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("SectionCourse");
-            });
+            //    entity.HasOne(d => d.Course)
+            //        .WithMany(p => p.Sections)
+            //        .HasForeignKey(d => d.CourseId)
+            //        .OnDelete(DeleteBehavior.Cascade)
+            //        .HasConstraintName("SectionCourse");
+            //});
 
-            modelBuilder.Entity<User>(entity =>
-            {
+            //modelBuilder.Entity<User>(entity =>
+            //{
                 
 
-                entity.Property(e => e.AboutMe).HasDefaultValueSql("(N'')");
+            //    entity.Property(e => e.AboutMe).HasDefaultValueSql("(N'')");
 
-                entity.Property(e => e.Education).HasDefaultValueSql("(N'')");
+            //    entity.Property(e => e.Education).HasDefaultValueSql("(N'')");
 
-                entity.Property(e => e.Email).HasMaxLength(256);
+            //    entity.Property(e => e.Email).HasMaxLength(256);
 
-                entity.Property(e => e.Experiences).HasDefaultValueSql("(N'')");
+            //    entity.Property(e => e.Experiences).HasDefaultValueSql("(N'')");
 
-                entity.Property(e => e.FullName).HasDefaultValueSql("(N'')");
+            //    entity.Property(e => e.FullName).HasDefaultValueSql("(N'')");
 
 
 
-                entity.Property(e => e.OverView).HasDefaultValueSql("(N'')");
+            //    entity.Property(e => e.OverView).HasDefaultValueSql("(N'')");
 
-                entity.Property(e => e.UserName).HasMaxLength(256);
+            //    entity.Property(e => e.UserName).HasMaxLength(256);
 
-                entity.HasMany(d => d.Roles)
-                    .WithMany(p => p.Users)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "UserRole",
-                        l => l.HasOne<Role>().WithMany().HasForeignKey("RoleId"),
-                        r => r.HasOne<User>().WithMany().HasForeignKey("UserId"),
-                        j =>
-                        {
-                            j.HasKey("UserId", "RoleId");
+            //    entity.HasMany(d => d.Roles)
+            //        .WithMany(p => p.Users)
+            //        .UsingEntity<Dictionary<string, object>>(
+            //            "UserRole",
+            //            l => l.HasOne<Role>().WithMany().HasForeignKey("RoleId"),
+            //            r => r.HasOne<User>().WithMany().HasForeignKey("UserId"),
+            //            j =>
+            //            {
+            //                j.HasKey("UserId", "RoleId");
 
-                            j.ToTable("UserRoles");
+            //                j.ToTable("UserRoles");
 
-                            j.HasIndex(new[] { "RoleId" }, "IX_UserRoles_RoleId");
-                        });
-            });
+            //                j.HasIndex(new[] { "RoleId" }, "IX_UserRoles_RoleId");
+            //            });
+            //});
 
-            modelBuilder.Entity<UserCourse>(entity =>
-            {
-                entity.ToTable("UserCourse");
+            //modelBuilder.Entity<UserCourse>(entity =>
+            //{
+            //    entity.ToTable("UserCourse");
 
-                entity.HasIndex(e => e.CourseId, "IX_UserCourse_CourseId");
+            //    entity.HasIndex(e => e.CourseId, "IX_UserCourse_CourseId");
 
-                entity.HasIndex(e => e.UserId, "IX_UserCourse_UserId");
+            //    entity.HasIndex(e => e.UserId, "IX_UserCourse_UserId");
 
-                entity.HasOne(d => d.Course)
-                    .WithMany(p => p.UserCourses)
-                    .HasForeignKey(d => d.CourseId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("courseId");
+            //    entity.HasOne(d => d.Course)
+            //        .WithMany(p => p.UserCourses)
+            //        .HasForeignKey(d => d.CourseId)
+            //        .OnDelete(DeleteBehavior.ClientSetNull)
+            //        .HasConstraintName("courseId");
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserCourses)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("user");
-            });
+            //    entity.HasOne(d => d.User)
+            //        .WithMany(p => p.UserCourses)
+            //        .HasForeignKey(d => d.UserId)
+            //        .OnDelete(DeleteBehavior.ClientSetNull)
+            //        .HasConstraintName("user");
+            //});
 
-            OnModelCreatingPartial(modelBuilder);
+            //OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

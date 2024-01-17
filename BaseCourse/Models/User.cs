@@ -5,13 +5,6 @@ namespace BaseCourse.Models
 {
     public partial class User :BaseEntity
     {
-        public User()
-        {
-            Courses = new HashSet<Course>();
-            UserCourses = new HashSet<UserCourse>();
-            Roles = new HashSet<Role>();
-        }
-
         public string? UserName { get; set; }
         public string? Email { get; set; }
         public string? Password { get; set; }
@@ -24,7 +17,7 @@ namespace BaseCourse.Models
         public virtual ICollection<Course> Courses { get; set; }
         public virtual ICollection<UserCourse> UserCourses { get; set; }
 
-        public virtual ICollection<Role> Roles { get; set; }
+        public virtual Role Role { get; set; }
         public virtual ICollection<UserExam> UserExams { get; set; }
     }
 }

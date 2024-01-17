@@ -5,6 +5,6 @@ namespace AuthAPI.Services.IServices
 {
     public interface IJwtTokenGenerator
     {
-        string GenerateToken(User user,IEnumerable<string> roles);
+        string GenerateToken(User user,string roles);
     }
 }

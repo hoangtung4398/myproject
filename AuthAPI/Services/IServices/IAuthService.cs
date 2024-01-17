@@ -1,4 +1,5 @@
 ﻿using AuthAPI.Models;
+using BaseCourse.Dto;
 
 namespace AuthAPI.Services.IServices
 {

@@ -1,4 +1,5 @@
-﻿using Mango.Web.Models;
+﻿using BaseCourse.Dto;
+using Mango.Web.Models;
 
 namespace Mango.Web.Service.IService
 {

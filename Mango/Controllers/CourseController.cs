@@ -176,5 +176,25 @@ namespace Mango.Web.Controllers
             }
             return View();
         }
+        // GET: Course/Details/5
+        public async Task<ActionResult> Details(int id)
+        {
+            var response = await _courseService.GetCourseById(id);
+            var course = new RequestCourseDto();
+            if (response != null && response.Success)
+            {
+                course = JsonConvert.DeserializeObject<RequestCourseDto>(Convert.ToString(response.Result));
+            }
+            ViewBag.Course = course;
+            var responseCate = await _courseService.GetCategoryCourse();
+            var listCategory = new List<CategoryCourse>();
+            if (responseCate != null && responseCate.Success)
+            {
+                listCategory = JsonConvert.DeserializeObject<List<CategoryCourse>>(Convert.ToString(responseCate.Result));
+            }
+            var category = listCategory.FirstOrDefault(x => x.Id == course.CategoryId).Name;
+            ViewBag.LisCate = category;
+            return View(course);    
+        }
     }
 }
