@@ -1,12 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BaseCourse.Dto;
+using Mango.Web.Service.IService;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Mango.Web.Controllers
 {
     public class CourseUsersController : Controller
     {
-        public IActionResult CourseDetail()
+        private readonly IUserCourseService _userCourseService;
+
+        public CourseUsersController(IUserCourseService userCourseService)
         {
-            return View();
+            _userCourseService = userCourseService;
+        }
+
+        public async Task<IActionResult> CourseDetailAsync(int id)
+        {
+            id = 1;
+            var response = await _userCourseService.ViewCourseDetail(id);
+            var courseDetail = new CourseDetailDto();
+            if (response != null && response.Success)
+            {
+                courseDetail = JsonConvert.DeserializeObject<CourseDetailDto>(Convert.ToString(response.Result));
+            }
+            return View(courseDetail);
         }
     }
 }

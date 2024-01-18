@@ -1,4 +1,6 @@
 
+using AuthAPI.Repositorys;
+using AuthAPI.Repositorys.IRepository;
 using BaseCourse.Models;
 using CourseAPI.Models;
 using CourseAPI.Models.AzureConfig;
@@ -22,6 +24,8 @@ builder.Services.AddScoped<ISectionRepository, SectionRepository>();
 builder.Services.AddScoped<IUserCourseRepository, UserCourseRepository>();
 builder.Services.AddScoped<ILectureStorageService, LectureStorageService>();
 builder.Services.AddScoped<ICategoryCourseRepository, CategoryCourseRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

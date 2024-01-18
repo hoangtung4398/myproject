@@ -1,4 +1,5 @@
-﻿@*
+﻿@model BaseCourse.Dto.CourseDetailDto
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -14,14 +15,14 @@
                             <a href="#" class="fs-6 text-secondary">Course</a>
                         </li>
                         <li class="breadcrumb-item fs-6 text-secondary d-none d-lg-inline-block" aria-current="page">
-                            Gamification: Motivation Psychology & The Art of Engagement
+                            @Model.Name
                         </li>
                     </ol>
                 </nav>
                 <div class="row event-sub-section-main">
                     <div class="col-lg-8">
                         <h3 class="font-title--sm">
-                            Gamification: Motivation Psychology & The Art of Engagement
+                            @Model.Name
                         </h3>
                         <div class="created-by d-flex align-items-center">
                             <div class="created-by-image me-3">
@@ -29,25 +30,13 @@
                             </div>
                             <div class="created-by-text">
                                 <p>Created by</p>
-                                <h6><a href="instructor-profile.html">Martin Bator</a></h6>
+                                <h6><a href="instructor-profile.html">@Model.CreateUser.Name</a></h6>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="icon-with-date d-flex align-items-lg-center">
-                            <div class="icon-with-date-end d-flex align-items-center">
-                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M9 16.5C13.1421 16.5 16.5 13.1421 16.5 9C16.5 4.85786 13.1421 1.5 9 1.5C4.85786 1.5 1.5 4.85786 1.5 9C1.5 13.1421 4.85786 16.5 9 16.5Z"
-                                        stroke="#FFC91B"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                    <path d="M9 4.5V9L12 10.5" stroke="#FFC91B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                                <p class="font-para--md">3 Hours</p>
-                            </div>
+                           
                         </div>
                         <div class="icon-with-date d-flex align-items-lg-cente mb-0">
                             <div class="icon-with-date-start d-flex align-items-center">
@@ -61,7 +50,7 @@
                                         stroke-linejoin="round"
                                     />
                                 </svg>
-                                <p class="font-para--md">19,97,2547 Enrolled</p>
+                                <p class="font-para--md">@Model.EnrollmentsCount Enrolled</p>
                             </div>
                             <div class="icon-with-date-end d-flex align-items-center">
                                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,7 +69,7 @@
                                         stroke-linejoin="round"
                                     />
                                 </svg>
-                                <p class="font-para--md">35 Lesson</p>
+                                <p class="font-para--md">@Model.LectureCount Lesson</p>
                             </div>
                         </div>
                     </div>
@@ -162,83 +151,29 @@
                                         <div class="course-overview-main-item">
                                             <h6 class="font-title--card">Description</h6>
                                             <p class="mb-3 font-para--lg">
-                                                Duis placerat eleifend leo nec mattis. Phasellus scelerisque arcu quis feugiat efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer laoreet est eget est sagittis, et
-                                                scelerisque quam convallis. Praesent at tortor facilisis, tempus ex quis, tempor arcu. Duis id velit mattis diam fermentum tincidunt. Sed et vehicula lectus.
+                                                @Model.Description
                                             </p>
-                                            <p class="font-para--lg">
-                                                Sed ut tincidunt velit, eu bibendum turpis. Fusce in posuere felis, sed lobortis elit. Integer mollis sodales congue
-                                            </p>
+                                            
                                         </div>
                                         <div class="course-overview-main-item">
                                             <h6 class="font-title--card">Requirments</h6>
                                             <p class="mb-2 font-para--lg">
-                                                Donec tristique ligula id tellus porta, dapibus imperdiet mi ullamcorper. Vivamus suscipit, nisi eu tincidunt interdum.
+                                                @Model.Requirments
                                             </p>
-                                            <p class="bullets-line font-para--lg"><span></span>Mauris ut libero ut mauris sagittis consectetur quis eget elit.</p>
-                                            <p class="bullets-line font-para--lg"><span></span>Praesent egestas sapien vel ante gravida pharetra.</p>
-                                            <p class="bullets-line font-para--lg"><span></span>Pellentesque sit amet odio interdum, mollis eros id, tincidunt augue.</p>
-                                            <p class="bullets-line font-para--lg"><span></span> Donec eget nunc vel nisl blandit facilisis.</p>
-                                            <p class="bullets-line font-para--lg"><span></span>Quisque faucibus nisi eu diam placerat, dapibus ullamcorper augue mollis.</p>
+                                            
                                         </div>
                                         <div class="course-overview-main-item">
                                             <h6 class="font-title--card">Who This Course is For</h6>
                                             <p class="mb-2 font-para--lg">
-                                                Sed arcu odio, ornare ac porttitor at, placerat nec dui. Nulla nec euismod tellus. Donec facilisis condimentum commodo. Pellentesque ultricies dolor ut magna aliquet, vitae sodales massa
-                                                euismod.
-                                            </p>
-                                            <p class="bullets-line">
-                                                <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M1 5L13 5" stroke="#202029" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                    <path d="M9 0.999999L13 5L9 9" stroke="#202029" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                                This Course for Complete Beginner Students who want learn UI/UX.
-                                            </p>
-                                            <p class="bullets-line">
-                                                <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M1 5L13 5" stroke="#202029" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                    <path d="M9 0.999999L13 5L9 9" stroke="#202029" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                                Nunc a ex sodales sem accumsan tristique.
-                                            </p>
-                                            <p class="bullets-line">
-                                                <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M1 5L13 5" stroke="#202029" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                    <path d="M9 0.999999L13 5L9 9" stroke="#202029" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                                Suspendisse eget eros eget leo pellentesque ullamcorper ac non augue.
+                                               @Model.Target
                                             </p>
                                         </div>
                                         <div class="course-overview-main-item mb-0">
                                             <h6 class="font-title--card">What You Will be Learn</h6>
                                             <p class="mb-2 font-para--lg">
-                                                Sed arcu odio, ornare ac porttitor at, placerat nec dui. Nulla nec euismod tellus. Donec facilisis condimentum commodo. Pellentesque ultricies dolor ut magna aliquet, vitae sodales massa
-                                                euismod.
+                                               @Model.Knowledge
                                             </p>
-                                            <p class="bullets-line">
-                                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M15 4.5L6.75 13.5L3 9.40909" stroke="#00AF91" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                                This Course for Complete Beginner Students who want learn UI/UX.
-                                            </p>
-                                            <p class="bullets-line">
-                                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M15 4.5L6.75 13.5L3 9.40909" stroke="#00AF91" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-
-                                                Nunc a ex sodales sem accumsan tristique.
-                                            </p>
-                                            <p class="bullets-line">
-                                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M15 4.5L6.75 13.5L3 9.40909" stroke="#00AF91" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                                Suspendisse eget eros eget leo pellentesque ullamcorper ac non augue.
-                                            </p>
-                                            <p class="bullets-line mb-0">
-                                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M15 4.5L6.75 13.5L3 9.40909" stroke="#00AF91" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                                Suspendisse eget eros eget leo pellentesque ullamcorper ac non augue.
-                                            </p>
+                                            
                                         </div>
                                     </div>
                                     <!-- Course Overview Ends Here -->
@@ -2717,19 +2652,19 @@
                                     <h6 class="font-title--card">This course includes:</h6>
                                     <ul>
                                         <li>
-                                            <span><img src="./img/icon/dollar.png" alt="dollar" /></span>
+                                            <span><img src="../img/icon/dollar.png" alt="dollar" /></span>
                                             <p class="font-para--md">Full Lifetime Access</p>
                                         </li>
                                         <li>
-                                    <span><img src="./img/icon/paper-plus.png" alt="paper-plus" /></span>
+                                    <span><img src="../img/icon/paper-plus.png" alt="paper-plus" /></span>
                                             <p class="font-para--md">Free Exercises File</p>
                                         </li>
                                         <li>
-                                    <span><img src="./img/icon/airplay.png" alt="airplay" /></span>
+                                    <span><img src="../img/icon/airplay.png" alt="airplay" /></span>
                                             <p class="font-para--md">Access on Mobile , Tablet and TV</p>
                                         </li>
                                         <li>
-                                    <span><img src="./img/icon/clipboard.png" alt="clipboard" /></span>
+                                    <span><img src="../img/icon/clipboard.png" alt="clipboard" /></span>
                                             <p class="font-para--md">Certificate of Completion</p>
                                         </li>
                                     </ul>
