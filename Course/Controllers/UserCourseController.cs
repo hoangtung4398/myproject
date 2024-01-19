@@ -48,6 +48,18 @@ namespace CourseAPI.Controllers
                 Knowledge = x.Knowledge,
                 LectureCount = x.Sections.SelectMany(x=>x.Lectures).Count(),
                 EnrollmentsCount = x.UserCourses.Count,
+                RelateCourses = x.Category.Courses.Select(x=>new RelateCourseDto
+                {
+                    Id = x.Id,
+                    EnrollmentsCount = x.UserCourses.Count,
+                    ImageUrl = x.ImageUrl,
+                    Name = x.Name,
+                    CreateUser = new DataItem
+                    {
+                        Id = x.CreateUser.Id,
+                        Name = x.CreateUser.UserName, 
+                    }
+                }).Take(4).ToList(),
                 Sections = x.Sections.Select(x => new SectionDto
                 {
                     Id = x.Id,

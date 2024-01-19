@@ -25,7 +25,10 @@ namespace Mango.Web.Service
                 HttpRequestMessage msg = new();
                 msg.Headers.Add("Accept", "application/json");
                 //token
-                msg.Headers.Add("Authorization", _tokenProvider.GetToken());
+                if (_tokenProvider.GetToken() != null)
+                {
+                    msg.Headers.Add("Authorization", _tokenProvider.GetToken());
+                }
 
                 msg.RequestUri = new Uri(request.Url);
                 if (request.Data != null)

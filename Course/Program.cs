@@ -2,6 +2,7 @@
 using AuthAPI.Repositorys;
 using AuthAPI.Repositorys.IRepository;
 using BaseCourse.Models;
+using CourseAPI.Middleware;
 using CourseAPI.Models;
 using CourseAPI.Models.AzureConfig;
 using CourseAPI.Repository;
@@ -19,6 +20,7 @@ builder.Services.AddDbContext<CourseContext>(option =>
 });
 builder.Services.Configure<StorageLecture>(builder.Configuration.GetSection("AzureOption:LectureAzureStorageConnectionS"));
 builder.Services.AddScoped<ICourseRepository,CourseRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILectureRepository,LectureRepository >();
 builder.Services.AddScoped<ISectionRepository, SectionRepository>();
 builder.Services.AddScoped<IUserCourseRepository, UserCourseRepository>();
@@ -26,6 +28,8 @@ builder.Services.AddScoped<ILectureStorageService, LectureStorageService>();
 builder.Services.AddScoped<ICategoryCourseRepository, CategoryCourseRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IGetUserService, GetUserService>();
+builder.Services.AddTransient<GetTokenMiddleware>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -38,6 +42,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseMiddleware<GetTokenMiddleware>();
 }
 
 app.UseHttpsRedirection();

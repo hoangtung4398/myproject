@@ -19,6 +19,7 @@ namespace BaseCourse.Dto
         public int EnrollmentsCount { get; set; }
         public Instructor CreateUser { get; set; }
         public ICollection<SectionDto> Sections { get; set; }
+        public ICollection<RelateCourseDto> RelateCourses { get; set; }
 
 
     }
@@ -28,6 +29,15 @@ namespace BaseCourse.Dto
         public string Name { get; set; }
         public int LectureCount { get; set; }
         public ICollection<LectureDto> Lectures { get; set; }
+        
+    }
+    public class RelateCourseDto
+    {
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public string ImageUrl { get; set; }
+        public int EnrollmentsCount { get; set; }
+        public DataItem CreateUser { get; set; }
     }
     public class LectureDto
     {

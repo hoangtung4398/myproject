@@ -1,20 +1,25 @@
 ﻿using CourseAPI.Services.IService;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace CourseAPI.Middleware
 {
-    public class GetTokenMiddleware
+    public class GetTokenMiddleware : IMiddleware
     {
-        private readonly RequestDelegate _next;
+        private readonly IGetUserService _getUserService;
 
-        public GetTokenMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
+		public GetTokenMiddleware(IGetUserService getUserService)
+		{
+			_getUserService = getUserService;
+		}
 
-        public async Task Invoke(HttpContext context, IGetUserService GetUserService)
+		public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var userId = 1;
+            var readToken = new JwtSecurityTokenHandler();
+            var tokenData = readToken.ReadJwtToken(token);
+            var userId = tokenData.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Sub).Value;
+
+            await next(context);
         }
     }
 }

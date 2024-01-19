@@ -22,8 +22,9 @@ namespace CourseAPI.Controllers
         private readonly IUserCourseRepository _userCourseRepository;
         private readonly ILectureStorageService _lectureStorageService;
         private readonly ICategoryCourseRepository _categoryCourseRepository;
+        private readonly IGetUserService _getUserService;
 
-        public CourseController(ICourseRepository courseRepository, ISectionRepository sectionRepository, ILectureRepository lectureRepository, IUserCourseRepository userCourseRepository, ILectureStorageService lectureStorageService, ICategoryCourseRepository categoryCourseRepository)
+        public CourseController(ICourseRepository courseRepository, ISectionRepository sectionRepository, ILectureRepository lectureRepository, IUserCourseRepository userCourseRepository, ILectureStorageService lectureStorageService, ICategoryCourseRepository categoryCourseRepository, IGetUserService getUserService)
         {
             _response = new ResponseDto();
             _courseRepository = courseRepository;
@@ -32,7 +33,9 @@ namespace CourseAPI.Controllers
             _userCourseRepository = userCourseRepository;
             _lectureStorageService = lectureStorageService;
             _categoryCourseRepository = categoryCourseRepository;
+            _getUserService = getUserService;
         }
+
         [HttpGet("GetCourseUser")]
         public IActionResult GetAll()
         {
@@ -297,7 +300,6 @@ namespace CourseAPI.Controllers
             }
             _sectionRepository.Delete(id);
             return Ok(_response);
-        }   
-
+        }
     }
 }

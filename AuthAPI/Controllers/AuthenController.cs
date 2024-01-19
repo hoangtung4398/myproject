@@ -7,11 +7,11 @@ namespace AuthAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthenController : ControllerBase
     {
         public readonly IAuthService _AuthService;
         private ResponseDto _responseDto;
-        public AuthController(IAuthService authService)
+        public AuthenController(IAuthService authService)
         {
             _AuthService = authService;
             _responseDto = new ResponseDto();

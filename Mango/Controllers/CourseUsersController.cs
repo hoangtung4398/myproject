@@ -16,7 +16,6 @@ namespace Mango.Web.Controllers
 
         public async Task<IActionResult> CourseDetail(int id)
         {
-            id = 1;
             var response = await _userCourseService.ViewCourseDetail(id);
             var courseDetail = new CourseDetailDto();
             if (response != null && response.Success)
