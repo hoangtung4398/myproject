@@ -300,9 +300,18 @@
 
                         <div class="cart__checkout-process">
                             <form action="#">
-                                <button type="submit" class="button button-lg button--primary w-100">
-                                    Enroll Now
-                                </button>
+                                @if (Model.IsEnrolled)
+                                {
+                                    <button disabled type="submit" class="button button-lg button--primary w-100">
+                                        Enrolled
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="button button-lg button--primary w-100">
+                                        Enroll Now
+                                    </button>
+                                }
                             </form>
                         </div>
                         <div class="cart__includes-info">

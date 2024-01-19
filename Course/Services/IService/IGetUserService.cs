@@ -4,6 +4,7 @@ namespace CourseAPI.Services.IService
 {
     public interface IGetUserService
     {
-        User GetUser(int userId);
+        User GetUser();
+        void SetUser(int userId);
     }
 }

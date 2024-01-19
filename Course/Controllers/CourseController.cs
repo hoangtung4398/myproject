@@ -20,7 +20,6 @@ namespace CourseAPI.Controllers
         private readonly ISectionRepository _sectionRepository;
         private readonly ILectureRepository _lectureRepository;
         private readonly IUserCourseRepository _userCourseRepository;
-        private readonly ILectureStorageService _lectureStorageService;
         private readonly ICategoryCourseRepository _categoryCourseRepository;
         private readonly IGetUserService _getUserService;
 
@@ -31,7 +30,6 @@ namespace CourseAPI.Controllers
             _sectionRepository = sectionRepository;
             _lectureRepository = lectureRepository;
             _userCourseRepository = userCourseRepository;
-            _lectureStorageService = lectureStorageService;
             _categoryCourseRepository = categoryCourseRepository;
             _getUserService = getUserService;
         }
@@ -39,7 +37,8 @@ namespace CourseAPI.Controllers
         [HttpGet("GetCourseUser")]
         public IActionResult GetAll()
         {
-            var rerult = _courseRepository.Get(x => 1 == 1).Select(x => new ListCourseDto
+            var user = _getUserService.GetUser();
+            var rerult = _courseRepository.Get(x => x.CreateUserId == user.Id ).Select(x => new ListCourseDto
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -49,7 +48,7 @@ namespace CourseAPI.Controllers
             _response.Result = rerult;
             return Ok(_response);
         }
-        [HttpGet("GetListSection/{id}")]
+        [HttpGet("CSection/{id}")]
         public IActionResult GetListSection(int id)
         {
             var listSection = _sectionRepository.Get(x => x.CourseId == id).Select(x => new ListSectionDto
@@ -131,6 +130,7 @@ namespace CourseAPI.Controllers
         [HttpPost("CreateCourse")]
         public IActionResult CreateCourse(RequestCourseDto course)
         {
+            var user = _getUserService.GetUser();
             var courseInsert = new Course
             {
                 Name = course.Name,
@@ -140,8 +140,7 @@ namespace CourseAPI.Controllers
                 ImageUrl = course.ImageUrl,
                 CategoryId = course.CategoryId,
                 Target = course.Target,
-                //fix when have authen
-                CreateUserId = 1
+                CreateUserId = user.Id,
             };
             var Id = _courseRepository.Add(courseInsert);
             if (Id == 0)
@@ -154,6 +153,7 @@ namespace CourseAPI.Controllers
         [HttpPut("UpdateCourse/")]
         public IActionResult UpdateCourse(RequestCourseDto course)
         {
+            var user = _getUserService.GetUser();
             var courseUpdate = _courseRepository.Get(x => x.Id == course.Id).Select(x => new Course
             {
                 Id = x.Id,
@@ -182,7 +182,7 @@ namespace CourseAPI.Controllers
             courseUpdate.CategoryId = course.CategoryId;
             courseUpdate.Target = course.Target;
             //fix when have authen
-            courseUpdate.CreateUserId = 1;
+            courseUpdate.CreateUserId = user.Id;
             _courseRepository.Update(courseUpdate);
 
             return Ok(_response);

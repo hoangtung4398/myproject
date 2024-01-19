@@ -1,5 +1,6 @@
 ﻿using AuthAPI.Repositorys.IRepository;
 using BaseCourse.Dto;
+using BaseCourse.Models;
 using CouponAPI.Models.Dto;
 using CourseAPI.Repository.IRepository;
 using CourseAPI.Services.IService;
@@ -21,8 +22,8 @@ namespace CourseAPI.Controllers
         private readonly ICategoryCourseRepository _categoryCourseRepository;
         private readonly IUserRepository _userRepository;
         private readonly IRoleRepository _roleRepository;
-
-        public UserCourseController(ICourseRepository courseRepository, ISectionRepository sectionRepository, ILectureRepository lectureRepository, IUserCourseRepository userCourseRepository, ILectureStorageService lectureStorageService, ICategoryCourseRepository categoryCourseRepository, IUserRepository userRepository, IRoleRepository roleRepository)
+        private readonly IGetUserService _getUserService;
+        public UserCourseController(IGetUserService getUserService,ICourseRepository courseRepository, ISectionRepository sectionRepository, ILectureRepository lectureRepository, IUserCourseRepository userCourseRepository, ILectureStorageService lectureStorageService, ICategoryCourseRepository categoryCourseRepository, IUserRepository userRepository, IRoleRepository roleRepository)
         {
             _response = new ResponseDto();
             _courseRepository = courseRepository;
@@ -33,10 +34,12 @@ namespace CourseAPI.Controllers
             _categoryCourseRepository = categoryCourseRepository;
             _userRepository = userRepository;
             _roleRepository = roleRepository;
+            _getUserService = getUserService;
         }
         [HttpGet("ViewCourseDetail/{id}")]
         public IActionResult ViewCourseDetail(int id)
         {
+            var user = _getUserService.GetUser();
             var course = _courseRepository.Get(x=>x.Id == id).Select(x => new CourseDetailDto
             {
                 Id = x.Id,
@@ -46,6 +49,7 @@ namespace CourseAPI.Controllers
                 Requirments = x.Requirments,
                 Target = x.Target,
                 Knowledge = x.Knowledge,
+                IsEnrolled = x.UserCourses.Any(x=>x.CourseId == id && x.UserId == user.Id),
                 LectureCount = x.Sections.SelectMany(x=>x.Lectures).Count(),
                 EnrollmentsCount = x.UserCourses.Count,
                 RelateCourses = x.Category.Courses.Select(x=>new RelateCourseDto
@@ -82,6 +86,20 @@ namespace CourseAPI.Controllers
                 }
             }).FirstOrDefault();
             _response.Result = course;
+            return Ok(_response);
+        }
+        [HttpPost("EnrollCourse/{id}")]
+        public IActionResult EnrollCourse(int id)
+        {
+            var user = _getUserService.GetUser();
+            var userCourse = new UserCourse
+            {
+                CourseId = id,
+                UserId = user.Id,
+                CreateAt  = DateTime.Now,
+            };
+            _userCourseRepository.Add(userCourse);
+            _response.Success = true;
             return Ok(_response);
         }
     }

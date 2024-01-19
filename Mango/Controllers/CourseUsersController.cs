@@ -22,6 +22,7 @@ namespace Mango.Web.Controllers
             {
                 courseDetail = JsonConvert.DeserializeObject<CourseDetailDto>(Convert.ToString(response.Result));
             }
+            
             return View(courseDetail);
         }
     }

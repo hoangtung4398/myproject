@@ -18,7 +18,7 @@ namespace CourseAPI.Middleware
             var readToken = new JwtSecurityTokenHandler();
             var tokenData = readToken.ReadJwtToken(token);
             var userId = tokenData.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Sub).Value;
-
+            _getUserService.SetUser(int.Parse(userId));
             await next(context);
         }
     }

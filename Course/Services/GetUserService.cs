@@ -7,17 +7,24 @@ namespace CourseAPI.Services
 {
 	public class GetUserService : IGetUserService
 	{
+		public User User { get; set; }
 		private readonly IUserRepository _userRepository;
 
 		public GetUserService(IUserRepository userRepository)
 		{
 			_userRepository = userRepository;
-		}
+            User = new User();
 
-		public User GetUser(int userId)
+        }
+
+		public void SetUser(int userId)
 		{
 			var user =  _userRepository.Get(x => x.Id == userId).Include(x=>x.Roles).FirstOrDefault();
-			return user;
+			User = user;
 		}
+		public User GetUser()
+		{
+            return User;
+        }
 	}
 }

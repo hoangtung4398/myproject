@@ -18,6 +18,7 @@ namespace BaseCourse.Dto
         public string ImageUrl { get; set; }
         public int EnrollmentsCount { get; set; }
         public Instructor CreateUser { get; set; }
+        public bool IsEnrolled { get; set; }
         public ICollection<SectionDto> Sections { get; set; }
         public ICollection<RelateCourseDto> RelateCourses { get; set; }
 
