@@ -18,7 +18,7 @@ namespace BaseCourse.Models
         public virtual ICollection<Course> Courses { get; set; }
         public virtual ICollection<UserCourse> UserCourses { get; set; }
 
-        public virtual Role Role { get; set; }
+        public virtual ICollection<Role> Roles { get; set; }
         public virtual ICollection<UserExam> UserExams { get; set; }
     }
 }

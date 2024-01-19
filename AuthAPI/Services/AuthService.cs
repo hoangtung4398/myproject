@@ -25,20 +25,21 @@ namespace AuthAPI.Services
 
         public async Task<bool> AssignRole(string email, string roleName)
         {
-            var user = _userRepository.Get(u => u.Email == email).FirstOrDefault();
-            var user1 = _context.Users.Where(u => u.Email == email).FirstOrDefault();
+            var user = _userRepository.Get(u => u.Email == email).Include(x=>x.Roles).FirstOrDefault();
+            var role = _roleRepository.Get(x => x.Name == roleName).FirstOrDefault();
             if (user != null)
             {
-                if (user.Role.Name == roleName)
+                if (user.Roles.Any(x=>x.Name == roleName))
                 {
                     return false;
                 }
-                var role = _roleRepository.Get(x => x.Name == roleName).FirstOrDefault();
-                if (role != null)
+                
+                if (role == null)
                 {
                     return false;
                 }
-                user.Role = role;
+                user.Roles.Add(role);
+                _context.SaveChanges();
                 return true;
             }
             return false;
@@ -52,14 +53,13 @@ namespace AuthAPI.Services
         {
 
             var user = 
-                _userRepository.Get(x => x.Email == request.Email && x.Password == request.Password).FirstOrDefault();
+                _userRepository.Get(x => x.Email == request.Email && x.Password == request.Password).Include(x=>x.Roles).FirstOrDefault();
             if (user == null)
             {
                 return new LoginResponse() { User = null, Token = "" };
             }
-            var user1 = _context.Users.Where(u => u.Email == request.Email).FirstOrDefault();
-            var role = user.Role.Name;
-            
+            var user1 = _context.Users.Include(x=>x.Roles).Where(u => u.Email == request.Email).FirstOrDefault();
+            var role = user.Roles.FirstOrDefault()?.Name;
             var token = _jwtTokenGenerator.GenerateToken(user, role);
             UserDTO UserDTO = new UserDTO()
             {

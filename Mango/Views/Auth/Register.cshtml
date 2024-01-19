@@ -1,4 +1,4 @@
-﻿@model RegisterationRequest
+﻿@model BaseCourse.Dto.RegisterationRequest
 
 
 <div class="container">
@@ -6,21 +6,23 @@
         <div class="col-lg-5 order-2 order-lg-0">
             <div class="signup-area-textwrapper">
                 <h2 class="font-title--md mb-0">Sign Up</h2>
-                <p class="mt-2 mb-lg-4 mb-3">Already have account? <a href="signin.html" class="text-black-50">Sign In</a></p>
+                <p class="mt-2 mb-lg-4 mb-3">Already have account? <a asp-action="Login" class="text-black-50">Sign In</a></p>
                 <form method="post" action="#">
                     <div class="form-element">
                         <div class="form-alert">
                             <label for="name">Full Name</label>
                         </div>
                         <div class="form-alert-input">
-                            <input asp-for=Name type="email" placeholder="Email" />
+                            <input asp-for ="Name" type="text" placeholder="UserName" />
                             
                         </div>
                     </div>
                     <div class="form-element ">
-                        
+                        <div class="form-alert">
+                            <label for="name">Email</label>
+                        </div>
                         <div class="form-alert-input">
-                            <input asp-for=Email type="email" placeholder="email" />
+                            <input asp-for=Email type="email" placeholder="mail" />
                             <div class="form-alert-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                      width="24"
@@ -79,17 +81,6 @@
                                     <circle cx="12" cy="12" r="3"></circle>
                                 </svg>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-element">
-                        <div class="form-alert">
-                            <label for="name">Full Name</label>
-                        </div>
-                        <div class="form-alert-input">
-                            <select  asp-for="RoleName" asp-items="@ViewBag.Roles">
-                                <option value="">Select Role</option>
-                                </select>
-                        
                         </div>
                     </div>
                     <br />
