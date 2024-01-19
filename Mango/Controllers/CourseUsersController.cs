@@ -14,7 +14,7 @@ namespace Mango.Web.Controllers
             _userCourseService = userCourseService;
         }
 
-        public async Task<IActionResult> CourseDetailAsync(int id)
+        public async Task<IActionResult> CourseDetail(int id)
         {
             id = 1;
             var response = await _userCourseService.ViewCourseDetail(id);

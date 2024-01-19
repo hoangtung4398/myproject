@@ -18,7 +18,21 @@ namespace BaseCourse.Dto
         public string ImageUrl { get; set; }
         public int EnrollmentsCount { get; set; }
         public Instructor CreateUser { get; set; }
+        public ICollection<SectionDto> Sections { get; set; }
 
+
+    }
+    public class SectionDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int LectureCount { get; set; }
+        public ICollection<LectureDto> Lectures { get; set; }
+    }
+    public class LectureDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
 
     }
     public class Instructor

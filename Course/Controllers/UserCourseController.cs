@@ -48,6 +48,17 @@ namespace CourseAPI.Controllers
                 Knowledge = x.Knowledge,
                 LectureCount = x.Sections.SelectMany(x=>x.Lectures).Count(),
                 EnrollmentsCount = x.UserCourses.Count,
+                Sections = x.Sections.Select(x => new SectionDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    LectureCount = x.Lectures.Count,
+                    Lectures = x.Lectures.Select(x => new LectureDto
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                    }).ToList()
+                }).ToList(),
                 CreateUser = new Instructor
                 {
                     Id = x.CreateUser.Id,
@@ -57,7 +68,7 @@ namespace CourseAPI.Controllers
                     CourseCount = x.CreateUser.Courses.Count,
                     
                 }
-            });
+            }).FirstOrDefault();
             _response.Result = course;
             return Ok(_response);
         }

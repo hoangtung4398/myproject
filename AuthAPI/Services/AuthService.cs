@@ -53,7 +53,6 @@ namespace AuthAPI.Services
 
             var user = 
                 _userRepository.Get(x => x.Email == request.Email && x.Password == request.Password).FirstOrDefault();
-            var roles = _roleRepository.Get(x => x.Id ==1).FirstOrDefault();
             if (user == null)
             {
                 return new LoginResponse() { User = null, Token = "" };
