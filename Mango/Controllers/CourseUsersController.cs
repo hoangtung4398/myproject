@@ -25,5 +25,22 @@ namespace Mango.Web.Controllers
             
             return View(courseDetail);
         }
+        [HttpPost]
+        public async Task<IActionResult> Enroll(int courseId)
+        {
+			var response = await _userCourseService.EnrollInCourse(courseId);
+			if (response != null && response.Success)
+            {
+				return RedirectToAction(nameof(CourseDetail),new {id = courseId });
+			}
+
+			return View();
+		}
+
+        public IActionResult WatchCourse()
+        {
+            return View();
+        }
+
     }
 }

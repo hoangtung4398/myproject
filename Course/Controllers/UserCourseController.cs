@@ -88,13 +88,13 @@ namespace CourseAPI.Controllers
             _response.Result = course;
             return Ok(_response);
         }
-        [HttpPost("EnrollCourse/{id}")]
-        public IActionResult EnrollCourse(int id)
+        [HttpPost("EnrollCourse")]
+        public IActionResult EnrollCourse([FromBody]int courseId)
         {
             var user = _getUserService.GetUser();
             var userCourse = new UserCourse
             {
-                CourseId = id,
+                CourseId = courseId,
                 UserId = user.Id,
                 CreateAt  = DateTime.Now,
             };

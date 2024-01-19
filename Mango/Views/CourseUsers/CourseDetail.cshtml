@@ -299,7 +299,8 @@
                     <div class="cart">
 
                         <div class="cart__checkout-process">
-                            <form action="#">
+                            <form asp-action="Enroll" asp-controller="CourseUsers" method="post">
+                                <input hidden name="courseId" value="@Model.Id" />
                                 @if (Model.IsEnrolled)
                                 {
                                     <button disabled type="submit" class="button button-lg button--primary w-100">
@@ -308,6 +309,7 @@
                                 }
                                 else
                                 {
+                                    
                                     <button type="submit" class="button button-lg button--primary w-100">
                                         Enroll Now
                                     </button>

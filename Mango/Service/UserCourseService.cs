@@ -12,7 +12,18 @@ namespace Mango.Web.Service
         {
             _baseService = baseService;
         }
-        public async Task<ResponseDto> ViewCourseDetail(int id)
+
+		public Task<ResponseDto> EnrollInCourse(int courseId)
+		{
+			return _baseService.SendAsync(new Requestmsg()
+            {
+				ApiType = SD.ApiType.POST,
+				Data = courseId,
+				Url = $"{SD.CourseAPIbase}/api/UserCourse/EnrollCourse"
+			});
+		}
+
+		public async Task<ResponseDto> ViewCourseDetail(int id)
         {
             return await _baseService.SendAsync(new Requestmsg()
             {
