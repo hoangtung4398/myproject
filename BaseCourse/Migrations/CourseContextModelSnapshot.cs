@@ -451,7 +451,8 @@ namespace BaseCourse.Migrations
                 {
                     b.HasOne("BaseCourse.Models.Section", "Section")
                         .WithMany("Lectures")
-                        .HasForeignKey("SectionId");
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade); 
 
                     b.Navigation("Section");
                 });
@@ -484,7 +485,8 @@ namespace BaseCourse.Migrations
                 {
                     b.HasOne("BaseCourse.Models.Course", "Course")
                         .WithMany("Sections")
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Course");
                 });
@@ -494,13 +496,13 @@ namespace BaseCourse.Migrations
                     b.HasOne("BaseCourse.Models.Course", "Course")
                         .WithMany("UserCourses")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("BaseCourse.Models.User", "User")
                         .WithMany("UserCourses")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Course");

@@ -48,7 +48,7 @@ namespace CourseAPI.Controllers
             _response.Result = rerult;
             return Ok(_response);
         }
-        [HttpGet("CSection/{id}")]
+        [HttpGet("GetListSection/{id}")]
         public IActionResult GetListSection(int id)
         {
             var listSection = _sectionRepository.Get(x => x.CourseId == id).Select(x => new ListSectionDto
