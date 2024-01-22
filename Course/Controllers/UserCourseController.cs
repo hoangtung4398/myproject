@@ -102,5 +102,64 @@ namespace CourseAPI.Controllers
             _response.Success = true;
             return Ok(_response);
         }
+        [HttpGet("WatchCourse/{id}")]
+        public IActionResult WatchCourse(int id)
+        {
+            var user = _getUserService.GetUser();
+            var isEnrolled = _userCourseRepository.Get(x => x.CourseId == id && x.UserId == user.Id).Any();
+            if (!isEnrolled)
+            {
+                _response.Message = "You are not enrolled this course";
+                _response.Success = false;
+                return BadRequest(_response);
+            }
+            var course = _courseRepository.Get(x => x.Id == id).Select(x => new CourseDetailDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description,
+                ImageUrl = x.ImageUrl,
+                Requirments = x.Requirments,
+                Target = x.Target,
+                Knowledge = x.Knowledge,
+                
+                LectureCount = x.Sections.SelectMany(x => x.Lectures).Count(),
+                RelateCourses = x.Category.Courses.Select(x => new RelateCourseDto
+                {
+                    Id = x.Id,
+                    EnrollmentsCount = x.UserCourses.Count,
+                    ImageUrl = x.ImageUrl,
+                    Name = x.Name,
+                    CreateUser = new DataItem
+                    {
+                        Id = x.CreateUser.Id,
+                        Name = x.CreateUser.UserName,
+                    }
+                }).Take(4).ToList(),
+                Sections = x.Sections.Select(x => new SectionDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    LectureCount = x.Lectures.Count,
+                    Lectures = x.Lectures.Select(x => new LectureDto
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        VideoUrl = x.Url,
+                    }).ToList()
+                }).ToList(),
+                CreateUser = new Instructor
+                {
+                    Id = x.CreateUser.Id,
+                    Name = x.CreateUser.UserName,
+                    Job = x.CreateUser.Job,
+                    AboutMe = x.CreateUser.AboutMe,
+                    CourseCount = x.CreateUser.Courses.Count,
+
+                }
+            }).FirstOrDefault();
+            _response.Result = course;
+            return Ok(_response);
+        }
     }
 }
