@@ -25,5 +25,9 @@ namespace Mango.Web.Controllers
             
             return View(courseDetail);
         }
+        public IActionResult SearchList(int id)
+        {
+            return View();
+        }
     }
 }
