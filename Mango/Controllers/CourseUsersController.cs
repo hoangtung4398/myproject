@@ -37,9 +37,15 @@ namespace Mango.Web.Controllers
 			return View();
 		}
 
-        public IActionResult WatchCourse()
+        public async Task<IActionResult> WatchCourse(int id)
         {
-            return View();
+            var response = await _userCourseService.WatchCourse(id);
+            var courseDetail = new CourseDetailDto();
+            if (response != null && response.Success)
+            {
+                courseDetail = JsonConvert.DeserializeObject<CourseDetailDto>(Convert.ToString(response.Result));
+            }
+            return View(courseDetail);
         }
 
         public IActionResult SearchList(int id)
