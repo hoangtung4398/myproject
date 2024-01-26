@@ -18,19 +18,17 @@ namespace CourseAPI.Controllers
         private readonly ISectionRepository _sectionRepository;
         private readonly ILectureRepository _lectureRepository;
         private readonly IUserCourseRepository _userCourseRepository;
-        private readonly ILectureStorageService _lectureStorageService;
         private readonly ICategoryCourseRepository _categoryCourseRepository;
         private readonly IUserRepository _userRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IGetUserService _getUserService;
-        public UserCourseController(IGetUserService getUserService,ICourseRepository courseRepository, ISectionRepository sectionRepository, ILectureRepository lectureRepository, IUserCourseRepository userCourseRepository, ILectureStorageService lectureStorageService, ICategoryCourseRepository categoryCourseRepository, IUserRepository userRepository, IRoleRepository roleRepository)
+        public UserCourseController(IGetUserService getUserService,ICourseRepository courseRepository, ISectionRepository sectionRepository, ILectureRepository lectureRepository, IUserCourseRepository userCourseRepository, ICategoryCourseRepository categoryCourseRepository, IUserRepository userRepository, IRoleRepository roleRepository)
         {
             _response = new ResponseDto();
             _courseRepository = courseRepository;
             _sectionRepository = sectionRepository;
             _lectureRepository = lectureRepository;
             _userCourseRepository = userCourseRepository;
-            _lectureStorageService = lectureStorageService;
             _categoryCourseRepository = categoryCourseRepository;
             _userRepository = userRepository;
             _roleRepository = roleRepository;
