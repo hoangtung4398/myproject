@@ -7,6 +7,8 @@ using Mango.Web.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using X.PagedList;
 
 namespace Mango.Web.Controllers
 {
@@ -24,7 +26,7 @@ namespace Mango.Web.Controllers
 
 
         // GET: Course
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? page)
         {
             var response = await _courseService.GetlistCourse();
             var listCourse = new List<ListCourseDto>();
@@ -32,7 +34,9 @@ namespace Mango.Web.Controllers
             {
                 listCourse = JsonConvert.DeserializeObject<List<ListCourseDto>>(Convert.ToString(response.Result));
             }
-            return View(listCourse);
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(listCourse.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Course/Details/5
