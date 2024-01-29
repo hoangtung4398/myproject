@@ -5,6 +5,10 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+  <PropertyGroup>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+  </PropertyGroup>
+
 
   <ItemGroup>
     <PackageReference Include="BeginCollectionItemCore" Version="1.1.0" />
@@ -18,10 +22,12 @@
   <ItemGroup>
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
+<PropertyGroup>
+ <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+</PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BaseCourse\BaseCourse.csproj" />
-    <ProjectReference Include="..\Course\CourseAPI.csproj" />
   </ItemGroup>
 
 </Project>

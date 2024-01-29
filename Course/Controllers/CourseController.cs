@@ -19,11 +19,10 @@ namespace CourseAPI.Controllers
         private readonly ICourseRepository _courseRepository;
         private readonly ISectionRepository _sectionRepository;
         private readonly ILectureRepository _lectureRepository;
-        private readonly IUserCourseRepository _userCourseRepository;
         private readonly ICategoryCourseRepository _categoryCourseRepository;
         private readonly IGetUserService _getUserService;
 
-        public CourseController(ICourseRepository courseRepository, ISectionRepository sectionRepository, ILectureRepository lectureRepository, IUserCourseRepository userCourseRepository, ILectureStorageService lectureStorageService, ICategoryCourseRepository categoryCourseRepository, IGetUserService getUserService)
+        public CourseController(ICourseRepository courseRepository, ISectionRepository sectionRepository, ILectureRepository lectureRepository, IUserCourseRepository userCourseRepository, ICategoryCourseRepository categoryCourseRepository, IGetUserService getUserService)
         {
             _response = new ResponseDto();
             _courseRepository = courseRepository;

@@ -1,10 +1,10 @@
-using CourseAPI.Services.IService;
 using CourseAPI.Services;
 using Mango.Web.Service;
 using Mango.Web.Service.IService;
 using Mango.Web.Utility;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using CourseAPI.Models.AzureConfig;
+using BaseCourse.Service.IService;
+using BaseCourse.AzureConfig;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,5 +1,6 @@
 ﻿using BaseCourse.Dto;
 using Mango.Web.Service.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -22,24 +23,31 @@ namespace Mango.Web.Controllers
             {
                 courseDetail = JsonConvert.DeserializeObject<CourseDetailDto>(Convert.ToString(response.Result));
             }
-            
+
             return View(courseDetail);
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Enroll(int courseId)
         {
-			var response = await _userCourseService.EnrollInCourse(courseId);
-			if (response != null && response.Success)
+            var response = await _userCourseService.EnrollInCourse(courseId);
+            if (response != null && response.Success)
             {
-				return RedirectToAction(nameof(CourseDetail),new {id = courseId });
-			}
+                return RedirectToAction(nameof(CourseDetail), new { id = courseId });
+            }
 
-			return View();
-		}
-
-        public IActionResult WatchCourse()
-        {
             return View();
+        }
+        [Authorize]
+        public async Task<IActionResult> WatchCourse(int id)
+        {
+            var response = await _userCourseService.WatchCourse(id);
+            var courseDetail = new CourseDetailDto();
+            if (response != null && response.Success)
+            {
+                courseDetail = JsonConvert.DeserializeObject<CourseDetailDto>(Convert.ToString(response.Result));
+            }
+            return View(courseDetail);
         }
 
         public IActionResult SearchList(int id)

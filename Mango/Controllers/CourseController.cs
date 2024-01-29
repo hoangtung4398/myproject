@@ -1,7 +1,7 @@
 ﻿using Azure;
 using BaseCourse.Dto;
 using BaseCourse.Models;
-using CourseAPI.Services.IService;
+using BaseCourse.Service.IService;
 using Mango.Web.Service.IService;
 using Mango.Web.Utility;
 using Microsoft.AspNetCore.Http;

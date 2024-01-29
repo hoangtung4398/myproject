@@ -31,5 +31,14 @@ namespace Mango.Web.Service
                 Url = $"{SD.CourseAPIbase}/api/UserCourse/ViewCourseDetail/{id}"
             });
         }
+
+        public async Task<ResponseDto> WatchCourse(int id)
+        {
+            return await _baseService.SendAsync(new Requestmsg()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = $"{SD.CourseAPIbase}/api/UserCourse/WatchCourse/{id}"
+            });
+        }
     }
 }
