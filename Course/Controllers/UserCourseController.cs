@@ -34,6 +34,7 @@ namespace CourseAPI.Controllers
             _roleRepository = roleRepository;
             _getUserService = getUserService;
         }
+
         [HttpGet("ViewCourseDetail/{id}")]
         public IActionResult ViewCourseDetail(int id)
         {
@@ -86,6 +87,7 @@ namespace CourseAPI.Controllers
             _response.Result = course;
             return Ok(_response);
         }
+
         [HttpPost("EnrollCourse")]
         public IActionResult EnrollCourse([FromBody]int courseId)
         {
@@ -100,6 +102,7 @@ namespace CourseAPI.Controllers
             _response.Success = true;
             return Ok(_response);
         }
+
         [HttpGet("WatchCourse/{id}")]
         public IActionResult WatchCourse(int id)
         {

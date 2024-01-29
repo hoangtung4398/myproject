@@ -57,9 +57,8 @@ namespace Mango.Web.Controllers
 			ResponseDto response = await _authService.RegisterAsync(registerationRequest);
 			if (response != null && response.Success)
 			{
-				LoginRequest loginRequestDto =
-					JsonConvert.DeserializeObject<LoginRequest>(Convert.ToString(response.Result));
-				RedirectToAction(nameof(Login));
+				
+				return RedirectToAction(nameof(Login));
 			}
 			return View();
 		}

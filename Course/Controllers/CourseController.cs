@@ -28,7 +28,6 @@ namespace CourseAPI.Controllers
             _courseRepository = courseRepository;
             _sectionRepository = sectionRepository;
             _lectureRepository = lectureRepository;
-            _userCourseRepository = userCourseRepository;
             _categoryCourseRepository = categoryCourseRepository;
             _getUserService = getUserService;
         }
