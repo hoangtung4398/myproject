@@ -19,7 +19,6 @@ namespace CourseAPI.Controllers
         private readonly ICourseRepository _courseRepository;
         private readonly ISectionRepository _sectionRepository;
         private readonly ILectureRepository _lectureRepository;
-        private readonly IUserCourseRepository _userCourseRepository;
         private readonly ICategoryCourseRepository _categoryCourseRepository;
         private readonly IGetUserService _getUserService;
 
