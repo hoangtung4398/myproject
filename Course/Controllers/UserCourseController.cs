@@ -159,5 +159,39 @@ namespace CourseAPI.Controllers
             _response.Result = course;
             return Ok(_response);
         }
+
+        [HttpGet("MyLearning")]
+        public IActionResult MyLearning()
+        {
+            var user = _getUserService.GetUser();
+            var courses = _userCourseRepository.Get(x => x.UserId == user.Id).Select(x => new CourseLearnDto
+            {
+                Id = x.Course.Id,
+                Name = x.Course.Name,
+                ImageUrl = x.Course.ImageUrl,
+                Instructor = new InstructorDto
+                {
+                    Id = x.Course.CreateUser.Id,
+                    Name = x.Course.CreateUser.UserName,
+                }
+            }).ToList();
+            _response.Result = courses;
+            return Ok(_response);
+        }
+        [HttpDelete("RemoveCourse/{courseId}")]
+        public IActionResult RemoveCourse(int courseId)
+        {
+            var user = _getUserService.GetUser();
+            var userCourse = _userCourseRepository.Get(x => x.CourseId == courseId && x.UserId == user.Id).FirstOrDefault();
+            if (userCourse == null)
+            {
+                _response.Message = "You are not enrolled this course";
+                _response.Success = false;
+                return BadRequest(_response);
+            }
+            _userCourseRepository.Delete(userCourse.Id);
+            _response.Success = true;
+            return Ok(_response);
+        }
     }
 }

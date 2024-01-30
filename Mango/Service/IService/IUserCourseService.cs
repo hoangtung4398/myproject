@@ -8,5 +8,7 @@ namespace Mango.Web.Service.IService
         Task<ResponseDto> ViewCourseDetail(int id);
         Task<ResponseDto> EnrollInCourse(int courseId);
         Task<ResponseDto> WatchCourse(int id);
+        Task<ResponseDto> MyLearning();
+        Task<ResponseDto> RemoveCourse(int id);
     }
 }

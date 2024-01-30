@@ -54,5 +54,25 @@ namespace Mango.Web.Controllers
         {
             return View();
         }
+        public async Task<IActionResult> MyLearning()
+        {
+            var response = await _userCourseService.MyLearning();
+            var courseLearnDto = new List<CourseLearnDto>();
+            if (response != null && response.Success)
+            {
+                courseLearnDto = JsonConvert.DeserializeObject<List<CourseLearnDto>>(Convert.ToString(response.Result));
+            }
+            return View(courseLearnDto);
+        }
+
+        public async Task<IActionResult> RemoveCourse(int id)
+        {
+            var response = await _userCourseService.RemoveCourse(id);
+            if (response != null && response.Success)
+            {
+                return RedirectToAction(nameof(MyLearning));
+            }
+            return View();
+        }
     }
 }
