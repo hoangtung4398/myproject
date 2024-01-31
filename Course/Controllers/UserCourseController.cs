@@ -193,5 +193,26 @@ namespace CourseAPI.Controllers
             _response.Success = true;
             return Ok(_response);
         }
+        [HttpGet("SearchList")]
+        public IActionResult SearchList(int categoryId=0,string name="")
+        {
+            var listCourse = _courseRepository.Get(x=>
+                (categoryId==0|| x.CategoryId == categoryId)
+                && (string.IsNullOrEmpty(name))|| x.Name.Contains(name)).Select(x=>new SearchListDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    ImageUrl = x.ImageUrl,
+                    EnrollmentsCount = x.UserCourses.Count,
+                    LectureCount = x.Sections.SelectMany(x=>x.Lectures).Count(),
+                    instructorDto = new InstructorDto
+                    {
+                        Id = x.CreateUser.Id,
+                        Name = x.CreateUser.UserName,
+                    }
+                });
+            _response.Result = listCourse;
+            return Ok(_response);
+        }
     }
 }

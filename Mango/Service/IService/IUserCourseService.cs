@@ -10,5 +10,6 @@ namespace Mango.Web.Service.IService
         Task<ResponseDto> WatchCourse(int id);
         Task<ResponseDto> MyLearning();
         Task<ResponseDto> RemoveCourse(int id);
+        Task<ResponseDto> GetListCourse(int categoryId,string name);
     }
 }

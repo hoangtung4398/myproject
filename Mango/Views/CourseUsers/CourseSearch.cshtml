@@ -1,0 +1,157 @@
+﻿@using BaseCourse.Models
+@model IEnumerable<BaseCourse.Dto.SearchListDto>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    List<CategoryCourse> categoryCourses = ViewBag.LisCate;
+}
+<div class="event-sub-section event-sub-section--spaceY eventsearch-sub-section">
+    <div class="container">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb align-items-center bg-transparent p-0 mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html" class="fs-6 text-secondary">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="course-search.html" class="fs-6 text-secondary">course</a>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Breadcrumb Ends Here -->
+<!-- Event Search Starts Here -->
+<section class="section event-search">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 mx-auto">
+                <div class="event-search-bar">
+                    <form action="#">
+                        <div class="form-input-group">
+                            <input type="text" class="form-control" name="name" placeholder="Search Course..." />
+                            <button class="button button-lg button--primary" type="submit" id="button-addon2">
+                                Search
+                            </button>
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 width="24"
+                                 height="24"
+                                 viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 stroke-width="2"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round"
+                                 class="feather feather-search">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 d-none d-lg-block">
+                <div class="accordion sidebar-filter" id="sidebarFilter">
+                    <!-- Category  -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="categoryAcc">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#categoryCollapse" aria-expanded="true" aria-controls="categoryCollapse">
+                                category
+                            </button>
+                        </h2>
+                        <div id="categoryCollapse" class="accordion-collapse collapse show" aria-labelledby="categoryAcc" data-bs-parent="#sidebarFilter">
+                            <div class="accordion-body">
+                                <form method="get" action="CourseSearch">
+                                    <div class="accordion-body__item">
+                                        <div class="check-box">
+                                            <input type="radio" name="categoryId" value=0 class="checkbox-primary" />
+                                            <label> All </label>
+                                        </div>
+                                    </div>
+                                    @foreach (var item in categoryCourses)
+                                    {
+                                        <div class="accordion-body__item">
+                                            <div class="check-box">
+                                                <input type="radio" name="categoryId" value="@item.Id" class="checkbox-primary" />
+                                                <label> @item.Name </label>
+                                            </div>
+                                        </div>
+                                    }
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="event-search-results">
+                    <div class="event-search-results-heading">
+                        <p>@Model.Count() results found.</p>
+                        <button class="button button-lg button--primary button--primary-filter d-lg-none" id="filter">
+                            <span>
+                                <svg width="19" height="16" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.3335 14.9999V9.55554" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M3.3335 6.4444V1" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M9.55469 14.9999V8" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M9.55469 4.88886V1" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M15.7773 14.9999V11.1111" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M15.7773 7.99995V1" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M1 9.55554H5.66663" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M7.22217 4.88867H11.8888" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M13.4443 11.1111H18.111" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </span>
+                            Filter
+                        </button>
+                    </div>
+                </div>
+                <div class="row event-search-content">
+                    @foreach(var item in Model){
+                    <div class="col-md-6 mb-4">
+                        <div class="contentCard contentCard--course">
+                            <div class="contentCard-top">
+                                <a href="course-details.html"><img src="@item.ImageUrl" alt="images" class="img-fluid" /></a>
+                            </div>
+                            <div class="contentCard-bottom">
+                                <h5>
+                                    <a href="course-details.html" class="font-title--card">@item.Name</a>
+                                </h5>
+                                <div class="contentCard-info d-flex align-items-center justify-content-between">
+                                    <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
+                                        <img src="dist/images/courses/7.png" alt="client-image" class="rounded-circle" />
+                                        <p class="font-para--md">@item.instructorDto.Name</p>
+                                    </a>
+                                </div>
+                                <div class="contentCard-more">
+
+                                    <div class="eye d-flex align-items-center">
+                                        <div class="icon">
+                                            <img src="dist/images/icon/eye.png" alt="eye" />
+                                        </div>
+                                        <span>@item.EnrollmentsCount</span>
+                                    </div>
+                                    <div class="book d-flex align-items-center">
+                                        <div class="icon">
+                                            <img src="dist/images/icon/book.png" alt="location" />
+                                        </div>
+                                        <span>@item.LectureCount Lesson</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $('input[type=radio]').on('change', function() {
+    $(this).closest("form").submit();
+});
+</script>

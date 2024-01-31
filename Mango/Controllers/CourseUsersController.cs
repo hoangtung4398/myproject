@@ -1,4 +1,6 @@
 ﻿using BaseCourse.Dto;
+using BaseCourse.Models;
+using Mango.Web.Service;
 using Mango.Web.Service.IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +11,12 @@ namespace Mango.Web.Controllers
     public class CourseUsersController : Controller
     {
         private readonly IUserCourseService _userCourseService;
+        private readonly ICourseService _courseService;
 
-        public CourseUsersController(IUserCourseService userCourseService)
+        public CourseUsersController(IUserCourseService userCourseService, ICourseService courseService)
         {
             _userCourseService = userCourseService;
+            _courseService = courseService;
         }
 
         public async Task<IActionResult> CourseDetail(int id)
@@ -73,6 +77,24 @@ namespace Mango.Web.Controllers
                 return RedirectToAction(nameof(MyLearning));
             }
             return View();
+        }
+        public async Task<IActionResult> CourseSearch(int categoryId, string name)
+        {
+            var response = await _courseService.GetCategoryCourse();
+            var listCategory = new List<CategoryCourse>();
+            if (response != null && response.Success)
+            {
+                listCategory = JsonConvert.DeserializeObject<List<CategoryCourse>>(Convert.ToString(response.Result));
+            }
+            ViewBag.LisCate = listCategory;
+            var responseCourse = await _userCourseService.GetListCourse(categoryId, name);
+            var listCourse = new List<SearchListDto>();
+            if (responseCourse != null && responseCourse.Success)
+            {
+                listCourse = JsonConvert.DeserializeObject<List<SearchListDto>>(Convert.ToString(responseCourse.Result));
+            }
+            
+            return View(listCourse);
         }
     }
 }
