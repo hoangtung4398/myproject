@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Create";
 }
-
+<div class="container">
 <h1>Create</h1>
 
 <h4>InsertLectureDto</h4>
@@ -35,7 +35,7 @@
 <div>
     @Html.ActionLink("Back to List","Index",new {id = ViewBag.SectionId})
 </div>
-
+</div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

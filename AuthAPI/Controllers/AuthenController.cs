@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AuthAPI.Controllers
 {
     [Route("api/[controller]")]
+
     [ApiController]
     public class AuthenController : ControllerBase
     {
@@ -16,7 +17,7 @@ namespace AuthAPI.Controllers
             _AuthService = authService;
             _responseDto = new ResponseDto();
         }
-        [HttpPost("/Register")]
+        [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterationRequest request)
         {
             var result = await _AuthService.Register(request);
@@ -34,7 +35,7 @@ namespace AuthAPI.Controllers
             };
             return Ok(_responseDto);
         }
-        [HttpPost("/Login")]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             var loginResponse = await _AuthService.Login(request);
@@ -47,8 +48,8 @@ namespace AuthAPI.Controllers
             _responseDto.Result = loginResponse;
             return Ok(_responseDto);
         }
-        [HttpPost]
-        [Route("/AssginRole")]
+        [HttpPost("AssginRole")]
+
         public async Task<IActionResult> AssginRole([FromBody] RegisterationRequest request)
         {
             var assignRoleisSuccess = await _AuthService.AssignRole(request.Email, request.RoleName.ToUpper());

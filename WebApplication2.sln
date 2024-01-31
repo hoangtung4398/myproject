@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{2F1EF7B6-C754-4956-8C62-6BF0F3707D0F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Web", "Mango\Mango.Web.csproj", "{7AE8359C-9832-4047-A907-8EAF08362B74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Learnify.Web", "Mango\Learnify.Web.csproj", "{7AE8359C-9832-4047-A907-8EAF08362B74}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A98E2655-D33A-4AEC-8876-8A8042CEFECF} = {A98E2655-D33A-4AEC-8876-8A8042CEFECF}
 	EndProjectSection
@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseAPI", "Course\CourseA
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseCourse", "BaseCourse\BaseCourse.csproj", "{A98E2655-D33A-4AEC-8876-8A8042CEFECF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{74E3D6B5-2AF4-4CF6-A5B2-4BEBBAE37B4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learnify.APIGateway", "Learnify.APIGateway\Learnify.APIGateway.csproj", "{D267AAC2-FDC3-404C-AB93-398FDE8D2E50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +50,10 @@ Global
 		{A98E2655-D33A-4AEC-8876-8A8042CEFECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A98E2655-D33A-4AEC-8876-8A8042CEFECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A98E2655-D33A-4AEC-8876-8A8042CEFECF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D267AAC2-FDC3-404C-AB93-398FDE8D2E50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D267AAC2-FDC3-404C-AB93-398FDE8D2E50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D267AAC2-FDC3-404C-AB93-398FDE8D2E50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D267AAC2-FDC3-404C-AB93-398FDE8D2E50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +63,7 @@ Global
 		{485971AA-5BF6-4D97-BEF8-F57A4D6E6E0B} = {680F17E6-B470-41C6-BA08-30BA5BC08B1E}
 		{A1F5C871-D8FC-4407-B6AD-60621C8D8923} = {680F17E6-B470-41C6-BA08-30BA5BC08B1E}
 		{A98E2655-D33A-4AEC-8876-8A8042CEFECF} = {680F17E6-B470-41C6-BA08-30BA5BC08B1E}
+		{D267AAC2-FDC3-404C-AB93-398FDE8D2E50} = {74E3D6B5-2AF4-4CF6-A5B2-4BEBBAE37B4B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {58C3ED3B-9813-46A7-AA77-99F5C309EB4F}

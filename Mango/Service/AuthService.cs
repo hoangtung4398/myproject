@@ -18,7 +18,7 @@ namespace Mango.Web.Service
             {
                 ApiType = SD.ApiType.POST,
                 Data = registerationRequest,
-                Url = SD.AuthAPIbase + "/AssginRole"
+                Url = SD.AuthAPIbase + "/api/Authen/AssginRole"
 
             });
         }
@@ -29,7 +29,7 @@ namespace Mango.Web.Service
             {
                 ApiType = SD.ApiType.POST,
                 Data = loginRequest,
-                Url = SD.AuthAPIbase + "/Login"
+                Url = SD.AuthAPIbase + "/api/Authen/Login"
 
             });
         }
@@ -40,7 +40,7 @@ namespace Mango.Web.Service
             {
                 ApiType = Utility.SD.ApiType.POST,
                 Data = registerationRequest,
-                Url = SD.AuthAPIbase + "/Register"
+                Url = SD.AuthAPIbase + "/api/Authen/Register"
 
             });
         }

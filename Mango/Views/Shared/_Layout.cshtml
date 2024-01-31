@@ -30,16 +30,10 @@
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                        
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">
+                            <a asp-action="CourseSearch" asp-controller="CourseUsers" class="nav-link" aria-current="page" >
                                 Course
                             </a>
-                            <div class="nav-item--dropdown">
-                                <ul>
-                                    <li><a href="course-search.html">search course list</a></li>
-                                    <li><a asp-controller="CourseUsers" asp-action="CourseDetail" asp-route-id="1">course details</a></li>
-                                    <li><a asp-action="WatchCourse" asp-controller="CourseUsers" asp-route-id="1">Watch Course</a></li>
-                                </ul>
-                            </div>
+
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="about.html">About</a>
@@ -53,34 +47,9 @@
                             </li>
                         }
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                Learning
+                            <a class="nav-link" asp-action="MyLearning" asp-controller="CourseUsers">
+                                My Learning
                             </a>
-                            <div class="nav-item--dropdown">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            My Account
-                                        </a>
-                                        <div class="nav-item--subDropdown">
-                                            <ul>
-                                                <li><a href="students-profile.html">Students Profile</a></li>
-                                                <li><a href="@Url.Action("Login", "Account")">Sign in</a></li>
-                                                <li><a href="signup.html">Sign up</a></li>
-                                                <li><a href="verify.html">Verify Email</a></li>
-                                                <li><a href="forget-password.html">Forget Password</a></li>
-                                                <li><a href="reset-password.html">Reset Password</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="instructor-profile.html">Instructor Profile</a></li>
-                                    <li><a href="become-instructor.html">Become Instructor</a></li>
-                                    <li><a href="checkout.html">Check out</a></li>
-                                    <li><a href="faq.html">Faq</a></li>
-                                    <li><a href="404.html">404</a></li>
-                                    <li><a href="comingsoon.html">Coming Soon</a></li>
-                                </ul>
-                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contact.html">Contact</a>
@@ -88,7 +57,7 @@
 
                     </ul>
                     <div class="d-flex align-items-center justify-content-between rightContent">
-                        <form class="header__Search-form" id="searchForm">
+                        <form class="header__Search-form" id="searchForm" asp-action="CourseSearch" asp-controller="CourseUsers">
                             <button type="button" class="border-0 bg-transparent header__Search-button" onclick="openSearch()">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="9.19522" cy="9.19518" r="7.61714" stroke="#35343E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></circle>
@@ -99,8 +68,8 @@
                                 <span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
                                 <div class="overlay-content">
                                     <div>
-                                        <input type="text" placeholder="Search.." name="search" />
-                                        <button type="button">
+                                        <input type="text" placeholder="Search.." name="name" />
+                                        <button type="submit">
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                  width="24"
                                                  height="24"
@@ -126,7 +95,7 @@
                         }
                         else
                         {
-                            <a asp-controller="Auth" asp-action="Login" class="button button--text">@User.Claims.Where(x => x.Type == "name").FirstOrDefault().Value</a>
+                            <a href="#" class="button button--text">@User.Claims.Where(x => x.Type == "name").FirstOrDefault().Value</a>
                             <a asp-controller="Auth" asp-action="Logout" class="button button--dark">Logout</a>
                         }
 
@@ -334,11 +303,9 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    
             @RenderBody()
-        </main>
-    </div>
+        
 
     <footer class="footer">
         <div class="container">

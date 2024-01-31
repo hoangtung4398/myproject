@@ -40,5 +40,32 @@ namespace Mango.Web.Service
                 Url = $"{SD.CourseAPIbase}/api/UserCourse/WatchCourse/{id}"
             });
         }
+        public async Task<ResponseDto> MyLearning()
+        {
+            return await _baseService.SendAsync(new Requestmsg()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = $"{SD.CourseAPIbase}/api/UserCourse/MyLearning"
+            });
+        }
+
+        public Task<ResponseDto> RemoveCourse(int id)
+        {
+            return _baseService.SendAsync(new Requestmsg()
+            {
+                ApiType = SD.ApiType.DELETE,
+                Data = id,
+                Url = $"{SD.CourseAPIbase}/api/UserCourse/RemoveCourse/{id}"
+            });
+        }
+
+        public Task<ResponseDto> GetListCourse(int categoryId, string name)
+        {
+            return _baseService.SendAsync(new Requestmsg()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = $"{SD.CourseAPIbase}/api/UserCourse/SearchList?categoryId={categoryId}&name={name}"
+            });
+        }
     }
 }
