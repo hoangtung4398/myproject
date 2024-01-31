@@ -201,7 +201,7 @@ namespace CourseAPI.Controllers
         {
             var listCourse = _courseRepository.Get(x=>
                 (categoryId==0|| x.CategoryId == categoryId)
-                && (string.IsNullOrEmpty(name))|| x.Name.Contains(name)).Select(x=>new SearchListDto
+                &&( string.IsNullOrEmpty(name)|| x.Name.Contains(name))).Select(x=>new SearchListDto
                 {
                     Id = x.Id,
                     Name = x.Name,
