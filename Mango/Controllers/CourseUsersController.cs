@@ -5,6 +5,7 @@ using Mango.Web.Service.IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using X.PagedList;
 
 namespace Mango.Web.Controllers
 {
@@ -78,7 +79,7 @@ namespace Mango.Web.Controllers
             }
             return View();
         }
-        public async Task<IActionResult> CourseSearch(int categoryId, string name)
+        public async Task<IActionResult> CourseSearch(int categoryId, string name,int? page)
         {
             var response = await _courseService.GetCategoryCourse();
             var listCategory = new List<CategoryCourse>();
@@ -92,9 +93,10 @@ namespace Mango.Web.Controllers
             if (responseCourse != null && responseCourse.Success)
             {
                 listCourse = JsonConvert.DeserializeObject<List<SearchListDto>>(Convert.ToString(responseCourse.Result));
-            }
-            
-            return View(listCourse);
+            } 
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+            return View(listCourse.ToPagedList(pageNumber, pageSize));
         }
     }
 }
