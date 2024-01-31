@@ -6,7 +6,7 @@
 @{
     List<CategoryCourse> categoryCourses = ViewBag.LisCate;
 }
-<div class="event-sub-section event-sub-section--spaceY eventsearch-sub-section">
+<div class="event-sub-section event-sub-section--spaceY eventsearch-sub-section bg-secondary">
     <div class="container">
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb align-items-center bg-transparent p-0 mb-0">
@@ -22,12 +22,12 @@
 </div>
 <!-- Breadcrumb Ends Here -->
 <!-- Event Search Starts Here -->
-<section class="section event-search">
+<section class="section event-search  bg-secondary">
     <div class="container">
         <div class="row">
             <div class="col-lg-9 mx-auto">
                 <div class="event-search-bar">
-                    <form action="#">
+                    <form asp-action="CourseSearch" method="get">
                         <div class="form-input-group">
                             <input type="text" class="form-control" name="name" placeholder="Search Course..." />
                             <button class="button button-lg button--primary" type="submit" id="button-addon2">
@@ -63,7 +63,7 @@
                         </h2>
                         <div id="categoryCollapse" class="accordion-collapse collapse show" aria-labelledby="categoryAcc" data-bs-parent="#sidebarFilter">
                             <div class="accordion-body">
-                                <form method="get" action="CourseSearch">
+                                <form method="get" asp-action="CourseSearch">
                                     <div class="accordion-body__item">
                                         <div class="check-box">
                                             <input type="radio" name="categoryId" value=0 class="checkbox-primary" />

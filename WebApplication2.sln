@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{2F1EF7B6-C754-4956-8C62-6BF0F3707D0F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Web", "Mango\Mango.Web.csproj", "{7AE8359C-9832-4047-A907-8EAF08362B74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Learnify.Web", "Mango\Learnify.Web.csproj", "{7AE8359C-9832-4047-A907-8EAF08362B74}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A98E2655-D33A-4AEC-8876-8A8042CEFECF} = {A98E2655-D33A-4AEC-8876-8A8042CEFECF}
 	EndProjectSection
