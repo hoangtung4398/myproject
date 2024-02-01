@@ -96,6 +96,7 @@ namespace Mango.Web.Controllers
             } 
             int pageSize = 6;
             int pageNumber = (page ?? 1);
+            ViewBag.CategoryId = categoryId;
             return View(listCourse.ToPagedList(pageNumber, pageSize));
         }
     }

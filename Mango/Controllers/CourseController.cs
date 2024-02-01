@@ -33,6 +33,7 @@ namespace Mango.Web.Controllers
             if (response != null && response.Success)
             {
                 listCourse = JsonConvert.DeserializeObject<List<ListCourseDto>>(Convert.ToString(response.Result));
+                listCourse = listCourse.OrderByDescending(x => x.Id).ToList();
             }
             int pageSize = 5;
             int pageNumber = (page ?? 1);
