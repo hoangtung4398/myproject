@@ -8,6 +8,7 @@ using CourseAPI.Services.IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CourseAPI.Controllers
 {
@@ -122,7 +123,13 @@ namespace CourseAPI.Controllers
         [HttpGet("GetCategory")]
         public IActionResult GetCategory()
         {
-            var category = _categoryCourseRepository.GetAll();
+            var category = _categoryCourseRepository.Get(cate => true).Include(c=>c.Courses).Select(c=> new CategoryCourse
+            {
+                Id=c.Id,
+                Name = c.Name,
+                Urlimage = c.Urlimage,
+                Courses = c.Courses,
+            }).ToList();
             _response.Result = category;
             return Ok(_response);
         }

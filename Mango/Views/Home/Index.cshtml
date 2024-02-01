@@ -1,5 +1,10 @@
-﻿@{
+﻿@using BaseCourse.Dto;
+@using BaseCourse.Models;
+@{
     ViewData["Title"] = "Home Page";
+    Dictionary<int, List<SearchListDto>> dicCateCourses = ViewBag.dicCateCourses;
+    List<CategoryCourse> categoryCourses = ViewBag.LisCate;
+    List<SearchListDto> popularCourse = ViewBag.popularCourse;
 }
 
 <!-- Banner Starts Here -->
@@ -148,78 +153,30 @@
     </div>
 
     <div class="categories categories__slider">
-        <div class="category">
-            <div class="category__img">
-                <a href="#"><img src="~/img/category/1.png" alt="images" class="img-fluid" /></a>
+        @foreach (var item in categoryCourses)
+        {
+            <div class="category">
+                <div class="category__img">
+                    <a href="#"><img src="(@item.Urlimage ?? ~/img/category/1.png)" alt="images" class="img-fluid" /></a>
+                </div>
+                <div class="category__tittle">
+                    <h6><a href="#">@item.Name</a></h6>
+                    <span>@item.Courses.Count Courses</span>
+                </div>
             </div>
-            <div class="category__tittle">
-                <h6><a href="#">UI/UX Design</a></h6>
-                <span>90k Courses</span>
+        }
+        @foreach (var item in categoryCourses)
+        {
+            <div class="category">
+                <div class="category__img">
+                    <a href="#"><img src="(@item.Urlimage ?? ~/img/category/1.png)" alt="images" class="img-fluid" /></a>
+                </div>
+                <div class="category__tittle">
+                    <h6><a href="#">@item.Name</a></h6>
+                    <span>@item.Courses.Count Courses</span>
+                </div>
             </div>
-        </div>
-        <div class="category">
-            <div class="category__img">
-                <a href="#"><img src="~/img/category/2.jpg" alt="images" class="img-fluid" /></a>
-            </div>
-            <div class="category__tittle">
-                <h6><a href="#">Development</a></h6>
-                <span>100k Courses</span>
-            </div>
-        </div>
-        <div class="category">
-            <div class="category__img">
-                <a href="#"><img src="~/img/category/3.png" alt="images" class="img-fluid" /></a>
-            </div>
-            <div class="category__tittle">
-                <h6><a href="#">IT & Software</a></h6>
-                <span>5.5k Courses</span>
-            </div>
-        </div>
-        <div class="category">
-            <div class="category__img">
-                <a href="#"><img src=" " alt="images" class="img-fluid" /></a>
-            </div>
-            <div class="category__tittle">
-                <h6><a href="#">Health & Fitness</a></h6>
-                <span>90k Courses</span>
-            </div>
-        </div>
-        <div class="category">
-            <div class="category__img">
-                <a href="#"><img src="~/img/category/1.png" alt="images" class="img-fluid" /></a>
-            </div>
-            <div class="category__tittle">
-                <h6><a href="#">UI/UX Design</a></h6>
-                <span>90k Courses</span>
-            </div>
-        </div>
-        <div class="category">
-            <div class="category__img">
-                <a href="#"><img src="~/img/category/2.jpg" alt="images" class="img-fluid" /></a>
-            </div>
-            <div class="category__tittle">
-                <h6><a href="#">Development</a></h6>
-                <span>100k Courses</span>
-            </div>
-        </div>
-        <div class="category">
-            <div class="category__img">
-                <a href="#"><img src="~/img/category/3.png" alt="images" class="img-fluid" /></a>
-            </div>
-            <div class="category__tittle">
-                <h6><a href="#">IT & Software</a></h6>
-                <span>5.5k Courses</span>
-            </div>
-        </div>
-        <div class="category">
-            <div class="category__img">
-                <a href="#"><img src="~/img/category/4.png" alt="images" class="img-fluid" /></a>
-            </div>
-            <div class="category__tittle">
-                <h6><a href="#">Health & Fitness</a></h6>
-                <span>90k Courses</span>
-            </div>
-        </div>
+        }
     </div>
 </div>
 <div class="row mb-150">
@@ -231,749 +188,348 @@
 </div>
 
 
-        <!--  Popular Courses Starts Here -->
-       
-            <div class="container mb-150">
+<!--  Popular Courses Starts Here -->
+
+<div class="container mb-150">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="featured-popular-courses-heading d-flex align-content-center justify-content-between">
+                <div class="main-heading">
+                    <h3 class="font-title--md">Our Popular Courses</h3>
+                </div>
+                <div class="nav-button featured-popular-courses-tabs">
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active ps-0" id="pills-all-tab" data-bs-toggle="pill" data-bs-target="#pills-all" type="button" role="tab" aria-controls="pills-all" aria-selected="true">
+                                All
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-design-tab" data-bs-toggle="pill" data-bs-target="#pills-design" type="button" role="tab" aria-controls="pills-design" aria-selected="false">
+                                Design
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-dev-tab" data-bs-toggle="pill" data-bs-target="#pills-dev" type="button" role="tab" aria-controls="pills-dev" aria-selected="false">
+                                Development
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-bus-tab" data-bs-toggle="pill" data-bs-target="#pills-bus" type="button" role="tab" aria-controls="pills-bus" aria-selected="false">
+                                Business
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link me-0" id="pills-its-tab" data-bs-toggle="pill" data-bs-target="#pills-its" type="button" role="tab" aria-controls="pills-its" aria-selected="false">
+                                IT & Software
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="featured-popular-courses-heading d-flex align-content-center justify-content-between">
-                            <div class="main-heading">
-                                <h3 class="font-title--md">Our Popular Courses</h3>
+                    @{
+                        foreach (var item in popularCourse)
+                        {
+                            <div class="col-md-6 mb-4">
+                                <div class="contentCard contentCard--course">
+                                    <div class="contentCard-top">
+                                        <a href="course-details.html"><img src="@item.ImageUrl" alt="images" class="img-fluid" /></a>
+                                    </div>
+                                    <div class="contentCard-bottom">
+                                        <h5>
+                                            <a href="course-details.html" class="font-title--card">@item.Name</a>
+                                        </h5>
+                                        <div class="contentCard-info d-flex align-items-center justify-content-between">
+                                            <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
+                                                <img src="dist/images/courses/7.png" alt="client-image" class="rounded-circle" />
+                                                <p class="font-para--md">@item.instructorDto.Name</p>
+                                            </a>
+                                        </div>
+                                        <div class="contentCard-more">
+
+                                            <div class="eye d-flex align-items-center">
+                                                <div class="icon">
+                                                    <img src="dist/images/icon/eye.png" alt="eye" />
+                                                </div>
+                                                <span>@item.EnrollmentsCount</span>
+                                            </div>
+                                            <div class="book d-flex align-items-center">
+                                                <div class="icon">
+                                                    <img src="dist/images/icon/book.png" alt="location" />
+                                                </div>
+                                                <span>@item.LectureCount Lesson</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="nav-button featured-popular-courses-tabs">
-                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active ps-0" id="pills-all-tab" data-bs-toggle="pill" data-bs-target="#pills-all" type="button" role="tab" aria-controls="pills-all" aria-selected="true">
-                                            All
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-design-tab" data-bs-toggle="pill" data-bs-target="#pills-design" type="button" role="tab" aria-controls="pills-design" aria-selected="false">
-                                            Design
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-dev-tab" data-bs-toggle="pill" data-bs-target="#pills-dev" type="button" role="tab" aria-controls="pills-dev" aria-selected="false">
-                                            Development
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-bus-tab" data-bs-toggle="pill" data-bs-target="#pills-bus" type="button" role="tab" aria-controls="pills-bus" aria-selected="false">
-                                            Business
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link me-0" id="pills-its-tab" data-bs-toggle="pill" data-bs-target="#pills-its" type="button" role="tab" aria-controls="pills-its" aria-selected="false">
-                                            IT & Software
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                        }
+                    }
+
                 </div>
                 <div class="row">
-                    <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
-                            <div class="row">
-                                <div class="col-xl-4 col-md-6">
-                                    <div class="contentCard contentCard--course">
-                                        <div class="contentCard-top">
-                                    <a href="course-details.html"><img src="~/img/courses/demo-img-01.png" alt="images" class="img-fluid" /></a>
-                                        </div>
-                                        <div class="contentCard-bottom">
-                                            <h5>
-                                                <a href="course-details.html" class="font-title--card">Chicago International Conference on Education</a>
-                                            </h5>
-                                            <div class="contentCard-info d-flex align-items-center justify-content-between">
-                                                <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
-                                            <img src="~/img/courses/7.png" alt="client-image" class="rounded-circle" />
-                                                    <p class="font-para--md">Brandon Dias</p>
-                                                </a>
-                                                <div class="price">
-                                                    <span>$12</span>
-                                                    <del>$95</del>
-                                                </div>
-                                            </div>
-                                            <div class="contentCard-more">
-                                               
-                                                <div class="eye d-flex align-items-center">
-                                                    <div class="icon">
-                                                <img src="~/img/icon/eye.png" alt="eye" />
-                                                    </div>
-                                                    <span>24,517</span>
-                                                </div>
-                                                <div class="book d-flex align-items-center">
-                                                    <div class="icon">
-                                                <img src="~/img/icon/book.png" alt="location" />
-                                                    </div>
-                                                    <span>37 Lesson</span>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6">
-                                    <div class="contentCard contentCard--course">
-                                        <div class="contentCard-top">
-                                    <a href="course-details.html"><img src="~/img/courses/demo-img-02.png" alt="images" class="img-fluid" /></a>
-                                        </div>
-                                        <div class="contentCard-bottom">
-                                            <h5>
-                                                <a href="course-details.html" class="font-title--card">Chicago International Conference on Education</a>
-                                            </h5>
-                                            <div class="contentCard-info d-flex align-items-center justify-content-between">
-                                                <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
-                                            <img src="~/img/courses/7.png" alt="client-image" class="rounded-circle" />
-                                                    <p class="font-para--md">Brandon Dias</p>
-                                                </a>
-                                                <div class="price">
-                                                    <span>$12</span>
-                                                    <del>$95</del>
-                                                </div>
-                                            </div>
-                                            <div class="contentCard-more">
-                                                
-                                                <div class="eye d-flex align-items-center">
-                                                    <div class="icon">
-                                                <img src="~/img/icon/eye.png" alt="eye" />
-                                                    </div>
-                                                    <span>24,517</span>
-                                                </div>
-                                                <div class="book d-flex align-items-center">
-                                                    <div class="icon">
-                                                <img src="~/img/icon/book.png" alt="location" />
-                                                    </div>
-                                                    <span>37 Lesson</span>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6">
-                                    <div class="contentCard contentCard--course">
-                                        <div class="contentCard-top">
-                                    <a href="course-details.html"><img src="~/img/courses/demo-img-03.png" alt="images" class="img-fluid" /></a>
-                                        </div>
-                                        <div class="contentCard-bottom">
-                                            <h5>
-                                                <a href="course-details.html" class="font-title--card">Chicago International Conference on Education</a>
-                                            </h5>
-                                            <div class="contentCard-info d-flex align-items-center justify-content-between">
-                                                <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
-                                            <img src="~/img/courses/7.png" alt="client-image" class="rounded-circle" />
-                                                    <p class="font-para--md">Brandon Dias</p>
-                                                </a>
-                                                <div class="price">
-                                                    <span>$12</span>
-                                                    <del>$95</del>
-                                                </div>
-                                            </div>
-                                            <div class="contentCard-more">
-                                                
-                                                <div class="eye d-flex align-items-center">
-                                                    <div class="icon">
-                                                <img src="~/img/icon/eye.png" alt="eye" />
-                                                    </div>
-                                                    <span>24,517</span>
-                                                </div>
-                                                <div class="book d-flex align-items-center">
-                                                    <div class="icon">
-                                                <img src="~/img/icon/book.png" alt="location" />
-                                                    </div>
-                                                    <span>37 Lesson</span>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6">
-                                    <div class="contentCard contentCard--course">
-                                        <div class="contentCard-top">
-                                    <a href="course-details.html"><img src="~/img/courses/demo-img-04.png" alt="images" class="img-fluid" /></a>
-                                        </div>
-                                        <div class="contentCard-bottom">
-                                            <h5>
-                                                <a href="course-details.html" class="font-title--card">Chicago International Conference on Education</a>
-                                            </h5>
-                                            <div class="contentCard-info d-flex align-items-center justify-content-between">
-                                                <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
-                                            <img src="~/img/courses/7.png" alt="client-image" class="rounded-circle" />
-                                                    <p class="font-para--md">Brandon Dias</p>
-                                                </a>
-                                                <div class="price">
-                                                    <span>$12</span>
-                                                    <del>$95</del>
-                                                </div>
-                                            </div>
-                                            <div class="contentCard-more">
-                                                
-                                                <div class="eye d-flex align-items-center">
-                                                    <div class="icon">
-                                                <img src="~/img/icon/eye.png" alt="eye" />
-                                                    </div>
-                                                    <span>24,517</span>
-                                                </div>
-                                                <div class="book d-flex align-items-center">
-                                                    <div class="icon">
-                                                <img src="~/img/icon/book.png" alt="location" />
-                                                    </div>
-                                                    <span>37 Lesson</span>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6">
-                                    <div class="contentCard contentCard--course">
-                                        <div class="contentCard-top">
-                                    <a href="course-details.html"><img src="~/img/courses/demo-img-05.png" alt="images" class="img-fluid" /></a>
-                                        </div>
-                                        <div class="contentCard-bottom">
-                                            <h5>
-                                                <a href="course-details.html" class="font-title--card">Chicago International Conference on Education</a>
-                                            </h5>
-                                            <div class="contentCard-info d-flex align-items-center justify-content-between">
-                                                <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
-                                            <img src="~/img/courses/7.png" alt="client-image" class="rounded-circle" />
-                                                    <p class="font-para--md">Brandon Dias</p>
-                                                </a>
-                                                <div class="price">
-                                                    <span>$12</span>
-                                                    <del>$95</del>
-                                                </div>
-                                            </div>
-                                            <div class="contentCard-more">
-                                                
-                                                <div class="eye d-flex align-items-center">
-                                                    <div class="icon">
-                                                <img src="~/img/icon/eye.png" alt="eye" />
-                                                    </div>
-                                                    <span>24,517</span>
-                                                </div>
-                                                <div class="book d-flex align-items-center">
-                                                    <div class="icon">
-                                                <img src="~/img/icon/book.png" alt="location" />
-                                                    </div>
-                                                    <span>37 Lesson</span>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-4 col-md-6">
-                                    <div class="contentCard contentCard--course">
-                                        <div class="contentCard-top">
-                                    <a href="course-details.html"><img src="~/img/courses/demo-img-02.png" alt="images" class="img-fluid" /></a>
-                                        </div>
-                                        <div class="contentCard-bottom">
-                                            <h5>
-                                                <a href="course-details.html" class="font-title--card">Chicago International Conference on Education</a>
-                                            </h5>
-                                            <div class="contentCard-info d-flex align-items-center justify-content-between">
-                                                <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
-                                            <img src="~/img/courses/7.png" alt="client-image" class="rounded-circle" />
-                                                    <p class="font-para--md">Brandon Dias</p>
-                                                </a>
-                                                <div class="price">
-                                                    <span>$12</span>
-                                                    <del>$95</del>
-                                                </div>
-                                            </div>
-                                            <div class="contentCard-more">
-                                                
-                                                <div class="eye d-flex align-items-center">
-                                                    <div class="icon">
-                                                <img src="~/img/icon/eye.png" alt="eye" />
-                                                    </div>
-                                                    <span>24,517</span>
-                                                </div>
-                                                <div class="book d-flex align-items-center">
-                                                    <div class="icon">
-                                                <img src="~/img/icon/book.png" alt="location" />
-                                                    </div>
-                                                    <span>37 Lesson</span>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 text-center">
-                                    <a href="course-search.html" class="button button-lg button--primary">Browse all Courses</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="pills-design" role="tabpanel" aria-labelledby="pills-design-tab">
-                            <div class="row">
-                                <div class="col-xl-4 col-md-6">
-                                    <div class="contentCard contentCard--course">
-                                        <div class="contentCard-top">
-                                    <a href="course-details.html"><img src="~/img/courses/demo-img-01.png" alt="images" class="img-fluid" /></a>
-                                        </div>
-                                        <div class="contentCard-bottom">
-                                            <h5>
-                                                <a href="course-details.html" class="font-title--card">Chicago International Conference on Education</a>
-                                            </h5>
-                                            <div class="contentCard-info d-flex align-items-center justify-content-between">
-                                                <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
-                                            <img src="~/img/courses/7.png" alt="client-image" class="rounded-circle" />
-                                                    <p class="font-para--md">Brandon Dias</p>
-                                                </a>
-                                                <div class="price">
-                                                    <span>$12</span>
-                                                    <del>$95</del>
-                                                </div>
-                                            </div>
-                                            <div class="contentCard-more">
-                                                
-                                                <div class="eye d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/eye.png" alt="eye" />
-                                                    </div>
-                                                    <span>24,517</span>
-                                                </div>
-                                                <div class="book d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/book.png" alt="location" />
-                                                    </div>
-                                                    <span>37 Lesson</span>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6">
-                                    <div class="contentCard contentCard--course">
-                                        <div class="contentCard-top">
-                                            <a href="course-details.html"><img src="~/img/courses/demo-img-02.png" alt="images" class="img-fluid" /></a>
-                                        </div>
-                                        <div class="contentCard-bottom">
-                                            <h5>
-                                                <a href="course-details.html" class="font-title--card">Chicago International Conference on Education</a>
-                                            </h5>
-                                            <div class="contentCard-info d-flex align-items-center justify-content-between">
-                                                <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
-                                                    <img src="~/img/courses/7.png" alt="client-image" class="rounded-circle" />
-                                                    <p class="font-para--md">Brandon Dias</p>
-                                                </a>
-                                                <div class="price">
-                                                    <span>$12</span>
-                                                    <del>$95</del>
-                                                </div>
-                                            </div>
-                                            <div class="contentCard-more">
-                                               
-                                                <div class="eye d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/eye.png" alt="eye" />
-                                                    </div>
-                                                    <span>24,517</span>
-                                                </div>
-                                                <div class="book d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/book.png" alt="location" />
-                                                    </div>
-                                                    <span>37 Lesson</span>
-                                                </div>
-                                               
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6">
-                                    <div class="contentCard contentCard--course">
-                                        <div class="contentCard-top">
-                                            <a href="course-details.html"><img src="~/img/courses/demo-img-03.png" alt="images" class="img-fluid" /></a>
-                                        </div>
-                                        <div class="contentCard-bottom">
-                                            <h5>
-                                                <a href="course-details.html" class="font-title--card">Chicago International Conference on Education</a>
-                                            </h5>
-                                            <div class="contentCard-info d-flex align-items-center justify-content-between">
-                                                <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
-                                                    <img src="~/img/courses/7.png" alt="client-image" class="rounded-circle" />
-                                                    <p class="font-para--md">Brandon Dias</p>
-                                                </a>
-                                                <div class="price">
-                                                    <span>$12</span>
-                                                    <del>$95</del>
-                                                </div>
-                                            </div>
-                                            <div class="contentCard-more">
-                                               
-                                                <div class="eye d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/eye.png" alt="eye" />
-                                                    </div>
-                                                    <span>24,517</span>
-                                                </div>
-                                                <div class="book d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/book.png" alt="location" />
-                                                    </div>
-                                                    <span>37 Lesson</span>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 text-center">
-                                    <a href="course-search.html" class="button button-lg button--primary">Browse all Courses</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="pills-dev" role="tabpanel" aria-labelledby="pills-dev-tab">
-                            <div class="row">
-                                <div class="col-xl-4 col-md-6">
-                                    <div class="contentCard contentCard--course">
-                                        <div class="contentCard-top">
-                                            <a href="course-details.html"><img src="~/img/courses/demo-img-01.png" alt="images" class="img-fluid" /></a>
-                                        </div>
-                                        <div class="contentCard-bottom">
-                                            <h5>
-                                                <a href="course-details.html" class="font-title--card">Chicago International Conference on Education</a>
-                                            </h5>
-                                            <div class="contentCard-info d-flex align-items-center justify-content-between">
-                                                <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
-                                                    <img src="~/img/courses/7.png" alt="client-image" class="rounded-circle" />
-                                                    <p class="font-para--md">Brandon Dias</p>
-                                                </a>
-                                                <div class="price">
-                                                    <span>$12</span>
-                                                    <del>$95</del>
-                                                </div>
-                                            </div>
-                                            <div class="contentCard-more">
-                                                
-                                                <div class="eye d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/eye.png" alt="eye" />
-                                                    </div>
-                                                    <span>24,517</span>
-                                                </div>
-                                                <div class="book d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/book.png" alt="location" />
-                                                    </div>
-                                                    <span>37 Lesson</span>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6">
-                                    <div class="contentCard contentCard--course">
-                                        <div class="contentCard-top">
-                                            <a href="course-details.html"><img src="~/img/courses/demo-img-02.png" alt="images" class="img-fluid" /></a>
-                                        </div>
-                                        <div class="contentCard-bottom">
-                                            <h5>
-                                                <a href="course-details.html" class="font-title--card">Chicago International Conference on Education</a>
-                                            </h5>
-                                            <div class="contentCard-info d-flex align-items-center justify-content-between">
-                                                <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
-                                                    <img src="~/img/courses/7.png" alt="client-image" class="rounded-circle" />
-                                                    <p class="font-para--md">Brandon Dias</p>
-                                                </a>
-                                                <div class="price">
-                                                    <span>$12</span>
-                                                    <del>$95</del>
-                                                </div>
-                                            </div>
-                                            <div class="contentCard-more">
-                                                
-                                                <div class="eye d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/eye.png" alt="eye" />
-                                                    </div>
-                                                    <span>24,517</span>
-                                                </div>
-                                                <div class="book d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/book.png" alt="location" />
-                                                    </div>
-                                                    <span>37 Lesson</span>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 text-center">
-                                    <a href="course-search.html" class="button button-lg button--primary">Browse all Courses</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="pills-bus" role="tabpanel" aria-labelledby="pills-bus-tab">
-                            <div class="row">
-                                <div class="col-xl-4 col-md-6">
-                                    <div class="contentCard contentCard--course">
-                                        <div class="contentCard-top">
-                                            <a href="course-details.html"><img src="~/img/courses/demo-img-01.png" alt="images" class="img-fluid" /></a>
-                                        </div>
-                                        <div class="contentCard-bottom">
-                                            <h5>
-                                                <a href="course-details.html" class="font-title--card">Chicago International Conference on Education</a>
-                                            </h5>
-                                            <div class="contentCard-info d-flex align-items-center justify-content-between">
-                                                <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
-                                                    <img src="~/img/courses/7.png" alt="client-image" class="rounded-circle" />
-                                                    <p class="font-para--md">Brandon Dias</p>
-                                                </a>
-                                                
-                                            </div>
-                                            <div class="contentCard-more">
-                                                
-                                                <div class="eye d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/eye.png" alt="eye" />
-                                                    </div>
-                                                    <span>24,517</span>
-                                                </div>
-                                                <div class="book d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/book.png" alt="location" />
-                                                    </div>
-                                                    <span>37 Lesson</span>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6">
-                                    <div class="contentCard contentCard--course">
-                                        <div class="contentCard-top">
-                                            <a href="course-details.html"><img src="~/img/courses/demo-img-02.png" alt="images" class="img-fluid" /></a>
-                                        </div>
-                                        <div class="contentCard-bottom">
-                                            <h5>
-                                                <a href="course-details.html" class="font-title--card">Chicago International Conference on Education</a>
-                                            </h5>
-                                            <div class="contentCard-info d-flex align-items-center justify-content-between">
-                                                <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
-                                                    <img src="~/img/courses/7.png" alt="client-image" class="rounded-circle" />
-                                                    <p class="font-para--md">Brandon Dias</p>
-                                                </a>
-                                                <div class="price">
-                                                    <span>$12</span>
-                                                    <del>$95</del>
-                                                </div>
-                                            </div>
-                                            <div class="contentCard-more">
-                                                
-                                                <div class="eye d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/eye.png" alt="eye" />
-                                                    </div>
-                                                    <span>24,517</span>
-                                                </div>
-                                                <div class="book d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/book.png" alt="location" />
-                                                    </div>
-                                                    <span>37 Lesson</span>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6">
-                                    <div class="contentCard contentCard--course">
-                                        <div class="contentCard-top">
-                                            <a href="course-details.html"><img src="~/img/courses/demo-img-03.png" alt="images" class="img-fluid" /></a>
-                                        </div>
-                                        <div class="contentCard-bottom">
-                                            <h5>
-                                                <a href="course-details.html" class="font-title--card">Chicago International Conference on Education</a>
-                                            </h5>
-                                            <div class="contentCard-info d-flex align-items-center justify-content-between">
-                                                <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
-                                                    <img src="~/img/courses/7.png" alt="client-image" class="rounded-circle" />
-                                                    <p class="font-para--md">Brandon Dias</p>
-                                                </a>
-                                                <div class="price">
-                                                    <span>$12</span>
-                                                    <del>$95</del>
-                                                </div>
-                                            </div>
-                                            <div class="contentCard-more">
-                                                
-                                                <div class="eye d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/eye.png" alt="eye" />
-                                                    </div>
-                                                    <span>24,517</span>
-                                                </div>
-                                                <div class="book d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/book.png" alt="location" />
-                                                    </div>
-                                                    <span>37 Lesson</span>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6">
-                                    <div class="contentCard contentCard--course">
-                                        <div class="contentCard-top">
-                                            <a href="course-details.html"><img src="~/img/courses/demo-img-04.png" alt="images" class="img-fluid" /></a>
-                                        </div>
-                                        <div class="contentCard-bottom">
-                                            <h5>
-                                                <a href="course-details.html" class="font-title--card">Chicago International Conference on Education</a>
-                                            </h5>
-                                            <div class="contentCard-info d-flex align-items-center justify-content-between">
-                                                <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
-                                                    <img src="~/img/courses/7.png" alt="client-image" class="rounded-circle" />
-                                                    <p class="font-para--md">Brandon Dias</p>
-                                                </a>
-                                                <div class="price">
-                                                    <span>$12</span>
-                                                    <del>$95</del>
-                                                </div>
-                                            </div>
-                                            <div class="contentCard-more">
-                                                
-                                                <div class="eye d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/eye.png" alt="eye" />
-                                                    </div>
-                                                    <span>24,517</span>
-                                                </div>
-                                                <div class="book d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/book.png" alt="location" />
-                                                    </div>
-                                                    <span>37 Lesson</span>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 text-center">
-                                    <a href="course-search.html" class="button button-lg button--primary">Browse all Courses</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="pills-its" role="tabpanel" aria-labelledby="pills-its-tab">
-                            <div class="row">
-                                <div class="col-xl-4 col-md-6">
-                                    <div class="contentCard contentCard--course">
-                                        <div class="contentCard-top">
-                                            <a href="course-details.html"><img src="~/img/courses/demo-img-01.png" alt="images" class="img-fluid" /></a>
-                                        </div>
-                                        <div class="contentCard-bottom">
-                                            <h5>
-                                                <a href="course-details.html" class="font-title--card">Chicago International Conference on Education</a>
-                                            </h5>
-                                            <div class="contentCard-info d-flex align-items-center justify-content-between">
-                                                <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
-                                                    <img src="~/img/courses/7.png" alt="client-image" class="rounded-circle" />
-                                                    <p class="font-para--md">Brandon Dias</p>
-                                                </a>
-                                            </div>
-                                            <div class="contentCard-more">
-                                                
-                                                <div class="eye d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/eye.png" alt="eye" />
-                                                    </div>
-                                                    <span>24,517</span>
-                                                </div>
-                                                <div class="book d-flex align-items-center">
-                                                    <div class="icon">
-                                                        <img src="~/img/icon/book.png" alt="location" />
-                                                    </div>
-                                                    <span>37 Lesson</span>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 text-center">
-                                    <a href="course-search.html" class="button button-lg button--primary">Browse all Courses</a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-lg-12 text-center">
+                        <a href="course-search.html" class="button button-lg button--primary">Browse all Courses</a>
                     </div>
                 </div>
             </div>
-            
-       
+            <div class="tab-pane fade" id="pills-design" role="tabpanel" aria-labelledby="pills-design-tab">
+                <div class="row">
+                    @{
+                        foreach (var item in dicCateCourses[1].Take(6))
+                        {
+                            <div class="col-md-6 mb-4">
+                                <div class="contentCard contentCard--course">
+                                    <div class="contentCard-top">
+                                        <a href="course-details.html"><img src="@item.ImageUrl" alt="images" class="img-fluid" /></a>
+                                    </div>
+                                    <div class="contentCard-bottom">
+                                        <h5>
+                                            <a href="course-details.html" class="font-title--card">@item.Name</a>
+                                        </h5>
+                                        <div class="contentCard-info d-flex align-items-center justify-content-between">
+                                            <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
+                                                <img src="dist/images/courses/7.png" alt="client-image" class="rounded-circle" />
+                                                <p class="font-para--md">@item.instructorDto.Name</p>
+                                            </a>
+                                        </div>
+                                        <div class="contentCard-more">
+
+                                            <div class="eye d-flex align-items-center">
+                                                <div class="icon">
+                                                    <img src="dist/images/icon/eye.png" alt="eye" />
+                                                </div>
+                                                <span>@item.EnrollmentsCount</span>
+                                            </div>
+                                            <div class="book d-flex align-items-center">
+                                                <div class="icon">
+                                                    <img src="dist/images/icon/book.png" alt="location" />
+                                                </div>
+                                                <span>@item.LectureCount Lesson</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <a href="course-search.html" class="button button-lg button--primary">Browse all Courses</a>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-dev" role="tabpanel" aria-labelledby="pills-dev-tab">
+                <div class="row">
+                    @{
+                        foreach (var item in dicCateCourses[2].Take(6))
+                        {
+                            <div class="col-md-6 mb-4">
+                                <div class="contentCard contentCard--course">
+                                    <div class="contentCard-top">
+                                        <a href="course-details.html"><img src="@item.ImageUrl" alt="images" class="img-fluid" /></a>
+                                    </div>
+                                    <div class="contentCard-bottom">
+                                        <h5>
+                                            <a href="course-details.html" class="font-title--card">@item.Name</a>
+                                        </h5>
+                                        <div class="contentCard-info d-flex align-items-center justify-content-between">
+                                            <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
+                                                <img src="dist/images/courses/7.png" alt="client-image" class="rounded-circle" />
+                                                <p class="font-para--md">@item.instructorDto.Name</p>
+                                            </a>
+                                        </div>
+                                        <div class="contentCard-more">
+
+                                            <div class="eye d-flex align-items-center">
+                                                <div class="icon">
+                                                    <img src="dist/images/icon/eye.png" alt="eye" />
+                                                </div>
+                                                <span>@item.EnrollmentsCount</span>
+                                            </div>
+                                            <div class="book d-flex align-items-center">
+                                                <div class="icon">
+                                                    <img src="dist/images/icon/book.png" alt="location" />
+                                                </div>
+                                                <span>@item.LectureCount Lesson</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <a href="course-search.html" class="button button-lg button--primary">Browse all Courses</a>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-bus" role="tabpanel" aria-labelledby="pills-bus-tab">
+                <div class="row">
+                    @{
+                        foreach (var item in dicCateCourses[3].Take(6))
+                        {
+                            <div class="col-md-6 mb-4">
+                                <div class="contentCard contentCard--course">
+                                    <div class="contentCard-top">
+                                        <a href="course-details.html"><img src="@item.ImageUrl" alt="images" class="img-fluid" /></a>
+                                    </div>
+                                    <div class="contentCard-bottom">
+                                        <h5>
+                                            <a href="course-details.html" class="font-title--card">@item.Name</a>
+                                        </h5>
+                                        <div class="contentCard-info d-flex align-items-center justify-content-between">
+                                            <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
+                                                <img src="dist/images/courses/7.png" alt="client-image" class="rounded-circle" />
+                                                <p class="font-para--md">@item.instructorDto.Name</p>
+                                            </a>
+                                        </div>
+                                        <div class="contentCard-more">
+
+                                            <div class="eye d-flex align-items-center">
+                                                <div class="icon">
+                                                    <img src="dist/images/icon/eye.png" alt="eye" />
+                                                </div>
+                                                <span>@item.EnrollmentsCount</span>
+                                            </div>
+                                            <div class="book d-flex align-items-center">
+                                                <div class="icon">
+                                                    <img src="dist/images/icon/book.png" alt="location" />
+                                                </div>
+                                                <span>@item.LectureCount Lesson</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <a href="course-search.html" class="button button-lg button--primary">Browse all Courses</a>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-its" role="tabpanel" aria-labelledby="pills-its-tab">
+                <div class="row">
+                    @{
+                        foreach (var item in dicCateCourses[4].Take(6))
+                        {
+                            <div class="col-md-6 mb-4">
+                                <div class="contentCard contentCard--course">
+                                    <div class="contentCard-top">
+                                        <a href="course-details.html"><img src="@item.ImageUrl" alt="images" class="img-fluid" /></a>
+                                    </div>
+                                    <div class="contentCard-bottom">
+                                        <h5>
+                                            <a href="course-details.html" class="font-title--card">@item.Name</a>
+                                        </h5>
+                                        <div class="contentCard-info d-flex align-items-center justify-content-between">
+                                            <a href="instructor-profile.html" class="contentCard-user d-flex align-items-center">
+                                                <img src="dist/images/courses/7.png" alt="client-image" class="rounded-circle" />
+                                                <p class="font-para--md">@item.instructorDto.Name</p>
+                                            </a>
+                                        </div>
+                                        <div class="contentCard-more">
+
+                                            <div class="eye d-flex align-items-center">
+                                                <div class="icon">
+                                                    <img src="dist/images/icon/eye.png" alt="eye" />
+                                                </div>
+                                                <span>@item.EnrollmentsCount</span>
+                                            </div>
+                                            <div class="book d-flex align-items-center">
+                                                <div class="icon">
+                                                    <img src="dist/images/icon/book.png" alt="location" />
+                                                </div>
+                                                <span>@item.LectureCount Lesson</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <a href="course-search.html" class="button button-lg button--primary">Browse all Courses</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <!--  Students Says Starts Here -->
 
 <div class="container mb-150">
-                <div class="row align-items-center">
-                    <div class="col-xl-5 col-lg-6">
-                        <div class="testimonial__img">
-                            <img src="~/img/hero/hero-img-02.png" alt="image" />
-                            <div class="dot">
-                                <img src="~/img/shape/dots/dots-img-04.png" alt="dot images" />
-                            </div>
-                            <div class="rectangle">
-                                <img src="~/img/shape/rectangle.png" alt="rectangle" />
-                            </div>
-                          
-                        </div>
-                    </div>
-                    <div class="col-xl-7 col-lg-6">
-                        <div class="testimonial__wrapper">
-                            <div class="testimonial__wrapper_title">
-                    <h3 class="font-title--md">About Instructor</h3>
-                            </div>
+    <div class="row align-items-center">
+        <div class="col-xl-5 col-lg-6">
+            <div class="testimonial__img">
+                <img src="~/img/hero/hero-img-02.png" alt="image" />
+                <div class="dot">
+                    <img src="~/img/shape/dots/dots-img-04.png" alt="dot images" />
+                </div>
+                <div class="rectangle">
+                    <img src="~/img/shape/rectangle.png" alt="rectangle" />
+                </div>
 
-                            <div class="testimonial testimonial--03 testimonial__slider--three">
-                                <div class="testimonial__item">
-                                    <p class="font-para--lg">
-                                        “Nam hendrerit quam eu neque egestas, nec lobortis enim rutrum. Quisque ligula tortor, mollis a efficitur vitae, imperdiet et mauris. Nam in orci quis risus dapibus mollis.“
-                                    </p>
-                            </div>
-                        </div>
+            </div>
+        </div>
+        <div class="col-xl-7 col-lg-6">
+            <div class="testimonial__wrapper">
+                <div class="testimonial__wrapper_title">
+                    <h3 class="font-title--md">About Instructor</h3>
+                </div>
+
+                <div class="testimonial testimonial--03 testimonial__slider--three">
+                    <div class="testimonial__item">
+                        <p class="font-para--lg">
+                            “Nam hendrerit quam eu neque egestas, nec lobortis enim rutrum. Quisque ligula tortor, mollis a efficitur vitae, imperdiet et mauris. Nam in orci quis risus dapibus mollis.“
+                        </p>
                     </div>
                 </div>
             </div>
-        
+        </div>
+    </div>
+</div>
 
-    
 
-        <!-- Best Instructors Starts Here -->
+
+
+<!-- Best Instructors Starts Here -->
 
 <div class="container mb-150 mt-5">
-                <div class="row">
-                    <div class="col-lg-12 position-relative">
-                        <h3 class="text-center mb-40 font-title--md">Meet Our Best Instructor</h3>
-                        <div class="ourinstructor__wrapper mt-lg-5 mt-0">
-                            <div class="ourinstructor-active">
-                                <div class="mentor">
-                                    <div class="mentor__img">
-                                        <img src="~/img/instructor/03.jpg" alt="Mentor image" />
+    <div class="row">
+        <div class="col-lg-12 position-relative">
+            <h3 class="text-center mb-40 font-title--md">Meet Our Best Instructor</h3>
+            <div class="ourinstructor__wrapper mt-lg-5 mt-0">
+                <div class="ourinstructor-active">
+                    <div class="mentor">
+                        <div class="mentor__img">
+                            <img src="~/img/instructor/03.jpg" alt="Mentor image" />
 
                             <ul class="list-inline">
                                 <li class="list-inline-item">
@@ -1354,15 +910,8 @@
 </div>
 
 
-        <!--  Join Area Starts Here -->
-       
-
-        
-
-        <!--  Latest Events Featured Starts Here -->
-            
-
-
+<!--  Join Area Starts Here -->
+<!--  Latest Events Featured Starts Here -->
 <!--  Get Started Starts Here -->
 
 <div class="container mb-150">
