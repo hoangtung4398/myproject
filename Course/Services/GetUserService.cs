@@ -14,12 +14,11 @@ namespace CourseAPI.Services
 		{
 			_userRepository = userRepository;
             User = new User();
-
         }
 
 		public void SetUser(int userId)
 		{
-			var user =  _userRepository.Get(x => x.Id == userId).Include(x=>x.Roles).FirstOrDefault();
+			var user =  _userRepository.Get(x => x.Id == userId).Include(x=>x.Roles).AsNoTracking().FirstOrDefault();
 			User = user;
 		}
 		public User GetUser()
