@@ -3,9 +3,9 @@
 
 @{
 	ViewData["Title"] = "Edit";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 	DetailLectureDto detailLecture = ViewBag.Lecture;
 }
-<div class="container">
 <h1>Edit</h1>
 
 <h4>InsertLectureDto</h4>
@@ -43,9 +43,8 @@
 <div>
 	<a asp-action="Index" asp-route-id="@detailLecture.SectionId">Back to List</a>
 </div>
-</div>
-@section Scripts {
+@* @section Scripts {
 	@{
 		await Html.RenderPartialAsync("_ValidationScriptsPartial");
 	}
-}
+} *@

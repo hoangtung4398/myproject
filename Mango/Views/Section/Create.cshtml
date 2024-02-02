@@ -2,8 +2,8 @@
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-<div class="container">
 <h1>Create</h1>
 
 <h4>DataItem</h4>
@@ -30,7 +30,6 @@
 <div>
     <a asp-action="Index" asp-route-id="@Model.Id">Back to List</a>
 </div>
-</div>
-@section Scripts {
+@* @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+} *@
