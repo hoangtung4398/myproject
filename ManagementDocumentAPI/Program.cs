@@ -1,12 +1,20 @@
+using AuthAPI.Repositorys;
+using AuthAPI.Repositorys.IRepository;
+using ManagementDocumentAPI.Repository;
+using ManagementDocumentAPI.Repository.IRepository;
+using ManagementDocumentAPI.Services;
+using ManagementDocumentAPI.Services.IService;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
+builder.Services.AddScoped<IGetUserService, GetUserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
