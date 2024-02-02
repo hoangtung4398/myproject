@@ -113,7 +113,6 @@ namespace Mango.Web.Controllers
                 {
                     return View();
                 }
-
                 urlAzure = (ResultUpload)uploadResponse.Result;
             }
             var lecture = new Lecture()
