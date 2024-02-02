@@ -1,9 +1,10 @@
 ﻿@model BaseCourse.Dto.InsertCourseDto
 @{
     ViewData["Title"] = "Create";
-    var cate = new SelectList(ViewBag.LisCate, "Id", "Name");
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
 }
-<div class="container">
+@{var cate = new SelectList(ViewBag.LisCate, "Id", "Name");}
     <h1>Create</h1>
 
     <h4>InsertLectureDto</h4>
@@ -54,10 +55,9 @@
     <div>
         @Html.ActionLink("Back to List", "Index", new { id = ViewBag.SectionId })
     </div>
-</div>
-@section Scripts {
+@* @section Scripts {
     @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+         Html.RenderPartial("_ValidationScriptsPartial");
     }
-}
+} *@
 

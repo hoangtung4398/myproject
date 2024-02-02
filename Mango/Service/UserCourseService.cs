@@ -19,7 +19,7 @@ namespace Mango.Web.Service
             {
 				ApiType = SD.ApiType.POST,
 				Data = courseId,
-				Url = $"{SD.CourseAPIbase}/api/UserCourse/EnrollCourse"
+				Url = $"{SD.UserCourseAPIbase}/api/UserCourse/EnrollCourse"
 			});
 		}
 
@@ -28,7 +28,7 @@ namespace Mango.Web.Service
             return await _baseService.SendAsync(new Requestmsg()
             {
                 ApiType = SD.ApiType.GET,
-                Url = $"{SD.CourseAPIbase}/api/UserCourse/ViewCourseDetail/{id}"
+                Url = $"{SD.UserCourseAPIbase}/api/UserCourse/ViewCourseDetail/{id}"
             });
         }
 
@@ -37,7 +37,7 @@ namespace Mango.Web.Service
             return await _baseService.SendAsync(new Requestmsg()
             {
                 ApiType = SD.ApiType.GET,
-                Url = $"{SD.CourseAPIbase}/api/UserCourse/WatchCourse/{id}"
+                Url = $"{SD.UserCourseAPIbase}/api/UserCourse/WatchCourse/{id}"
             });
         }
         public async Task<ResponseDto> MyLearning()
@@ -45,7 +45,7 @@ namespace Mango.Web.Service
             return await _baseService.SendAsync(new Requestmsg()
             {
                 ApiType = SD.ApiType.GET,
-                Url = $"{SD.CourseAPIbase}/api/UserCourse/MyLearning"
+                Url = $"{SD.UserCourseAPIbase}/api/UserCourse/MyLearning"
             });
         }
 
@@ -55,7 +55,7 @@ namespace Mango.Web.Service
             {
                 ApiType = SD.ApiType.DELETE,
                 Data = id,
-                Url = $"{SD.CourseAPIbase}/api/UserCourse/RemoveCourse/{id}"
+                Url = $"{SD.UserCourseAPIbase}/api/UserCourse/RemoveCourse/{id}"
             });
         }
 
@@ -64,7 +64,7 @@ namespace Mango.Web.Service
             return _baseService.SendAsync(new Requestmsg()
             {
                 ApiType = SD.ApiType.GET,
-                Url = $"{SD.CourseAPIbase}/api/UserCourse/SearchList?categoryId={categoryId}&name={name}"
+                Url = $"{SD.UserCourseAPIbase}/api/UserCourse/SearchList?categoryId={categoryId}&name={name}"
             });
         }
     }

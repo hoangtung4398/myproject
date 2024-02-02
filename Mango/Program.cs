@@ -14,6 +14,7 @@ builder.Services.AddHttpContextAccessor();
 SD.CouponAPIbase = builder.Configuration["ServiceUrls:CouponAPI"];
 SD.AuthAPIbase = builder.Configuration["ServiceUrls:AuthAPI"];
 SD.CourseAPIbase = builder.Configuration["ServiceUrls:CourseAPI"];
+SD.UserCourseAPIbase = builder.Configuration["ServiceUrls:UserCourse"];
 builder.Services.AddHttpClient();
 builder.Services.Configure<StorageLecture>(builder.Configuration.GetSection("AzureOption:LectureAzureStorageConnectionS"));
 builder.Services.AddScoped<ICourseService, CourseService>();
