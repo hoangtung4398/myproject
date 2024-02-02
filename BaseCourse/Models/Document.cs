@@ -11,6 +11,7 @@ namespace BaseCourse.Models
         public string Name { get; set; }
         public string Url { get; set; }
         public string NameAzure { get; set; }
+        public int CreatedBy { get; set; }
         
     }
 }
