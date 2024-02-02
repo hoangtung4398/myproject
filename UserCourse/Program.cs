@@ -6,6 +6,7 @@ using BaseCourse.Models;
 using Microsoft.EntityFrameworkCore;
 using AuthAPI.Repositorys.IRepository;
 using AuthAPI.Repositorys;
+using UserCourseAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,11 +28,10 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-	app.UseSwagger();
-	app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseMiddleware<GetTokenMiddleware2>();
 
 app.UseHttpsRedirection();
 
