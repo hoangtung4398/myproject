@@ -1,5 +1,13 @@
 ﻿@model BaseCourse.Dto.RegisterationRequest
+<style>
+    .field-validation-error {
+        color: red
+    }
 
+    .validation-summary-errors {
+        color: red
+    }
+</style>
 
 <div class="container">
     <div class="row align-items-center justify-content-md-center">
@@ -14,8 +22,9 @@
                         </div>
                         <div class="form-alert-input">
                             <input asp-for ="Name" type="text" placeholder="UserName" />
-                            
+                            <td>@Html.ValidationMessageFor(m => m.Name, "", new { @class = "error" })</td>
                         </div>
+                        
                     </div>
                     <div class="form-element ">
                         <div class="form-alert">
@@ -23,6 +32,7 @@
                         </div>
                         <div class="form-alert-input">
                             <input asp-for=Email type="email" placeholder="Email" />
+                            <td>@Html.ValidationMessageFor(m => m.Email, "", new { @class = "error" })</td>
                             <div class="form-alert-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                      width="24"
@@ -45,6 +55,7 @@
                         <label  for="password" class="w-100" style="text-align: left;">password</label>
                         <div class="form-alert-input">
                             <input asp-for=Password type="password" placeholder="Type here..."/>
+                            <td>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "error" })</td>
                             <div class="form-alert-icon" onclick="showPassword('password',this)">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                      width="24"

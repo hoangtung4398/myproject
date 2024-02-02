@@ -1,4 +1,12 @@
-﻿
+﻿<style>
+    .field-validation-error {
+        color: red
+    }
+
+    .validation-summary-errors {
+        color: red
+    }
+</style>
 @model BaseCourse.Dto.LoginRequest
 @{
     ViewData["Title"] = "Login";
@@ -17,6 +25,7 @@
                             </div>
                             <div class="form-alert-input">
                                 <input asp-for = "Email" type="email" placeholder="Email" id="name" />
+                            <td>@Html.ValidationMessageFor(m => m.Email, "", new { @class = "error" })</td>
                                 @* <div class="form-alert-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                          width="24"
@@ -41,6 +50,7 @@
 
                             <div class="form-alert-input">
                                 <input asp-for= "Password" type="password" placeholder="Type here..." id="confirm-password" />
+                                <td>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "error" })</td>
                                 <div class="form-alert-icon" onclick="showPassword('confirm-password',this);">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                          width="24"
