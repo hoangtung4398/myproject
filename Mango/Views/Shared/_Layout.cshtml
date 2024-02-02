@@ -46,11 +46,22 @@
                                 </a>
                             </li>
                         }
-                        <li class="nav-item">
-                            <a class="nav-link" asp-action="MyLearning" asp-controller="CourseUsers">
-                                My Learning
-                            </a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="MyLearning" asp-controller="CourseUsers">
+                                    Learning
+                                </a>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="ListAllDocument" asp-controller="Document">
+                                    Document
+                                </a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link" href="contact.html">Contact</a>
                         </li>

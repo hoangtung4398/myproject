@@ -29,7 +29,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-action="Index" asp-controller="Course">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -43,16 +43,21 @@
             <div class="sidebar-heading">
                 Course
             </div>
-
-           
-
-
-
             <!-- Nav Item - Tables -->
             <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" asp-action="Index" asp-controller="Course" >
                     <i class="fas fa-fw fa-table"></i>
                     <span>Course</span>
+                </a>
+            </li>
+            <div class="sidebar-heading">
+                Document
+            </div>
+            <!-- Nav Item - Tables -->
+            <li class="nav-item active">
+                <a class="nav-link" asp-action="ListDocument" asp-controller="Document">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Document</span>
                 </a>
             </li>
 

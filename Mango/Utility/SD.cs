@@ -6,6 +6,7 @@
         public static string AuthAPIbase { get; set; }
         public static string CourseAPIbase { get; set; }
         public static string UserCourseAPIbase { get; set; }
+        public static string DocumentAPIbase { get; set; }
         public const string RoleAdmin = "ADMIN";
         public const string RoleCustomer = "CUSTOMER";
         public const string TokenCookie = "JWTToken";

@@ -23,37 +23,37 @@ namespace CourseAPI.Services
             throw new NotImplementedException();
         }
 
-        public async Task<ResponseDto> UploadLectureAsync(IFormFile file,int type)
+        public async Task<ResponseDto> UploadLectureAsync(IFormFile file, int type)
         {
             BlobServiceClient blobServiceClient = new BlobServiceClient(_lecture.ConnectionString);
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_lecture.ContainerName);
             var extension = Path.GetExtension(file.FileName).ToLower();
-           
-                var fileName = Guid.NewGuid().ToString() + extension;
-				var blobClient = containerClient.GetBlobClient(fileName);
-                var blobHttpHeader = new BlobHttpHeaders();
-                if (type == 0)
-                {
-                    blobHttpHeader = new BlobHttpHeaders { ContentType = $"video/{extension.Substring(1)}" };
-                }
-                else if (type == 1)
-                {
-                    
-                }
-                else if(type == 2)
-                {
-                    blobHttpHeader = new BlobHttpHeaders { ContentType = $"image/{extension.Substring(1)}" };
-                }
-				await blobClient.UploadAsync(file.OpenReadStream(), new BlobUploadOptions { HttpHeaders = blobHttpHeader });
-                var lecture = new ResultUpload
-                {
-                    Name = fileName,
-                    Url = blobClient.Uri.AbsoluteUri
-                };
 
-                return new ResponseDto { Success = true, Result = lecture, Message = "" };
-            
-            
+            var fileName = Guid.NewGuid().ToString() + extension;
+            var blobClient = containerClient.GetBlobClient(fileName);
+            var blobHttpHeader = new BlobHttpHeaders();
+            if (type == 0)
+            {
+                blobHttpHeader = new BlobHttpHeaders { ContentType = $"video/{extension.Substring(1)}" };
+            }
+            else if (type == 1)
+            {
+                blobHttpHeader = new BlobHttpHeaders { ContentType = $"application/{extension.Substring(1)}" };
+            }
+            else if (type == 2)
+            {
+                blobHttpHeader = new BlobHttpHeaders { ContentType = $"image/{extension.Substring(1)}" };
+            }
+            await blobClient.UploadAsync(file.OpenReadStream(), new BlobUploadOptions { HttpHeaders = blobHttpHeader });
+            var lecture = new ResultUpload
+            {
+                Name = fileName,
+                Url = blobClient.Uri.AbsoluteUri
+            };
+
+            return new ResponseDto { Success = true, Result = lecture, Message = "" };
+
+
         }
     }
 }
