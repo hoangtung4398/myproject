@@ -55,7 +55,7 @@ namespace Mango.Web.Controllers
 		public async Task<IActionResult> Register(RegisterationRequest registerationRequest)
 		{
 			ResponseDto response = await _authService.RegisterAsync(registerationRequest);
-			if (response != null && response.Success)
+			if (response != null && response.Success) 
 			{
 				
 				return RedirectToAction(nameof(Login));
