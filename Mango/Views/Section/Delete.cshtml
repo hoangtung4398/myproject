@@ -22,29 +22,9 @@
 
     <form asp-action="Delete">
         <input name="CourseId" value="@Model.CourseId" hidden />
-        @* <input type="submit" value="Delete" class="btn btn-danger" /> *@
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Delete
-        </button>
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Do you want to delete this section?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" value="Delete" class="btn btn-danger" />
-                    </div>
-                </div>
-            </div>
-        </div>||
         <a asp-action="Index">Back to List</a>
     </form>
 </div>
