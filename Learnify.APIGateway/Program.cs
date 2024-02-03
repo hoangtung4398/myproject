@@ -1,4 +1,3 @@
-using Learnify.APIGateway.Extensions;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
